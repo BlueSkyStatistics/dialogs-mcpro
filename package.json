@@ -1,0 +1,28 @@
+{
+    "name": "@BlueSkyStatistics/dialogs/mayo",
+    "productName": "Mayo dialogs",
+    "description": "Mayo dialogs description",
+    "keywords": [],
+    "main": "nav.js",
+    "version": "1.0.7",
+    "author": "Mayo",
+    "scripts": {},
+    "dependencies": {
+        "squirrelly": "7.9.2"
+    },
+    "devDependencies": {
+        "asar": "^3.1.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BlueSkyStatistics/mayoDialogs.git"
+    },
+    "license": "AGLPL",
+    "bugs": {
+        "url": "https://github.com/BlueSkyStatistics/mayDialogs/issues"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "homepage": "https://www.blueskystatistics.com"
+}
