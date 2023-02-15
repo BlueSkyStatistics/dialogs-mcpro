@@ -49,9 +49,9 @@ optionally adjusted for a set of additional variables.  If a strata variable is 
 <br/><br/>
 <b>Dependent Variable:</b> Dependent variable for each linear regression model.  The variable class must be a numeric type.
 <br/><br/>
-<b>Independent Variables:</b> Independent variables to include in the models.  The variable classes can be a numeric type, factor, or ordered factor.
+<b>Independent Variables:</b> Independent variables to include in the models.  The variable classes can be a numeric type, character, factor, or ordered factor.
 <br/><br/>
-<b>Adjustment Variables (Sets 1-5):</b> Optional variables to be included in a model with the independent variables.  The variable classes can be a numeric type, factor, or ordered factor.
+<b>Adjustment Variables (Sets 1-5):</b> Optional variables to be included in a model with the independent variables.  The variable classes can be a numeric type, character, factor, or ordered factor.
 Specifying more than one set of adjustor variables will provide separate models with each set of adjustor variables.
 <br/><br/>
 <b>Strata:</b> Optional stratification variable. Separate models will be fit for the subset defined by each of the stratification variable values.  The variable class can be character, numeric, factor, or ordered factor.
@@ -181,7 +181,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 				label: localization.en.indvarslabel,
 				no: "indvars",
 				required: true,
-				filter:"Numeric|Ordinal|Nominal|Scale",
+				filter:"String|Numeric|Ordinal|Nominal|Scale",
 				extraction: "NoPrefix|UsePlus",
 				})
 			},
@@ -190,7 +190,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 				label: localization.en.adjvars1label,
 				no: "adjvars1",
 				required: false,
-				filter:"Numeric|Ordinal|Nominal|Scale",
+				filter:"String|Numeric|Ordinal|Nominal|Scale",
 				extraction: "NoPrefix|UsePlus",
 				wrapped: ", 'Set 1' = ~ %val%"
 				})
@@ -200,7 +200,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 				label: localization.en.adjvars2label,
 				no: "adjvars2",
 				required: false,
-				filter:"Numeric|Ordinal|Nominal|Scale",
+				filter:"String|Numeric|Ordinal|Nominal|Scale",
 				extraction: "NoPrefix|UsePlus",
 				wrapped: ", 'Set 2' = ~ %val%"
 				})
@@ -210,7 +210,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 				label: localization.en.adjvars3label,
 				no: "adjvars3",
 				required: false,
-				filter:"Numeric|Ordinal|Nominal|Scale",
+				filter:"String|Numeric|Ordinal|Nominal|Scale",
 				extraction: "NoPrefix|UsePlus",
 				wrapped: ", 'Set 3' = ~ %val%"
 				})
@@ -220,7 +220,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 				label: localization.en.adjvars4label,
 				no: "adjvars4",
 				required: false,
-				filter:"Numeric|Ordinal|Nominal|Scale",
+				filter:"String|Numeric|Ordinal|Nominal|Scale",
 				extraction: "NoPrefix|UsePlus",
 				wrapped: ", 'Set 4' = ~ %val%"
 				})
@@ -230,7 +230,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 				label: localization.en.adjvars5label,
 				no: "adjvars5",
 				required: false,
-				filter:"Numeric|Ordinal|Nominal|Scale",
+				filter:"String|Numeric|Ordinal|Nominal|Scale",
 				extraction: "NoPrefix|UsePlus",
 				wrapped: ", 'Set 5' = ~ %val%"
 				})
@@ -555,7 +555,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			bottom: [optionspanel.el.content],
             nav: {
                 name: localization.en.navigation,
-                icon: "icon-linearregressionmultiple",
+                icon: "icon-linear_regression_multiple_models",
 				positionInNav: 9,
                 modal: config.id
             }
