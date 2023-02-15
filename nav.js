@@ -133,7 +133,21 @@ const nav = [
         "buttons": [
                     "./ForestPlot"
         ]
-    }
+    },
+	{
+		"name": "Agreement",
+		"tab": "agreement",
+		"buttons": [
+			{
+				"name": "Method",
+				"icon": "icon-layout",
+				"children": [
+					"./ccc",
+					"./cccMultiple"
+				]
+			}, 
+		]
+	}
 ]
 
 module.exports.nav = nav
