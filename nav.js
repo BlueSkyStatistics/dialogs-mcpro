@@ -105,6 +105,7 @@ const nav = [
 				"name": "Method",
 				"icon": "icon-layout",
 				"children": [
+					"./CatAgree",
 					"./ccc",
 					"./cccMultiple"
 				]
