@@ -1,11 +1,11 @@
 {
-    "name": "@BlueSkyStatistics/dialogs/mayo",
-    "productName": "Mayo dialogs",
-    "description": "Mayo dialogs description",
+    "name": "@BlueSkyStatistics/dialogs/mc",
+    "productName": "Pro Module-1",
+    "description": "Pro Module-1 dialogs",
     "keywords": [],
     "main": "nav.js",
-    "version": "1.0.1",
-    "author": "Mayo",
+    "version": "1.0.2",
+    "author": "MC",
     "scripts": {},
     "dependencies": {
         "squirrelly": "7.9.2"
@@ -19,7 +19,7 @@
     },
     "license": "AGLPL",
     "bugs": {
-        "url": "https://github.com/BlueSkyStatistics/mayDialogs/issues"
+        "url": "https://github.com/BlueSkyStatistics/mayoDialogs/issues"
     },
     "publishConfig": {
         "registry": "https://npm.pkg.github.com"
