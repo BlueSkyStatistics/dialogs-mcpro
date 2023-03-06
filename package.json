@@ -1,10 +1,10 @@
 {
-    "name": "@BlueSkyStatistics/dialogs/mc",
-    "productName": "Pro Module-1",
-    "description": "Pro Module-1 dialogs",
+    "name": "@BlueSkyStatistics/dialogs/HealthCarePro",
+    "productName": "HealthCarePro",
+    "description": "HealthCare (Pro) dialogs",
     "keywords": [],
     "main": "nav.js",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "author": "MC",
     "scripts": {},
     "dependencies": {
