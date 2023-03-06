@@ -20,10 +20,10 @@ jobs:
         with:
           node-version: 16
       - run: npm i asar
-      - run: ./node_modules/.bin/asar pack . mayoDialogs.asar
+      - run: ./node_modules/.bin/asar pack . healthCarePro.asar
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.event.inputs.release_version }}
-          files: ./mayoDialogs.asar
+          files: ./healthCarePro.asar
           generate_release_notes: true
