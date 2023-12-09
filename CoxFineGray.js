@@ -79,7 +79,7 @@ vars.table <- data.frame(Event.Var="{{selected.eventvar | safe}}", Event.Code="{
 BSkyFormat(vars.table, singleTableOutputHeader="Specified Variables")
 
 # creating finegray (start, stop) dataset with the selected event
-fgdat <- finegray(Surv({{selected.timevar | safe}},factor({{selected.eventvar | safe}})) ~ ., data={{dataset.name}}, etype="{{selected.eventcode | safe}}" {{selected.weightvar | safe}}, na.action=na.exclude)
+fgdat <- finegray(Surv({{selected.timevar | safe}},factor({{selected.eventvar | safe}})) ~ ., data={{dataset.name}}, etype="{{selected.eventcode | safe}}" {{selected.weightvar | safe}})
 
 # model fit
 {{selected.modelname | safe}} <- coxph(Surv(fgstart, fgstop, fgstatus) ~ {{selected.modelterms | safe}}{{selected.stratavarslist | safe}}, data=fgdat, weights=fgwt, ties="{{selected.tiemethod | safe}}", na.action=na.exclude)
