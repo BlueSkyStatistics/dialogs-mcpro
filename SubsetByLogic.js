@@ -128,7 +128,6 @@ if (exists('BSkyTempObjForSubset')) rm(BSkyTempObjForSubset)
             subsetexpression: {
                 el: new computeBuilder(config, {
                     no: "subsetexpression",
-                    required:true,
                     label: localization.en.subsetexpression,
                 })
             },			
