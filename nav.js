@@ -4,6 +4,14 @@ const nav = [
         "tab": "Datasets",
         "buttons": [
             {
+                "name": "Matching",
+                "icon": "icon-paired",
+                "children": [
+                    "./SubjectMatching",
+                    "./RiskSetMatching"
+                ]
+            },            
+            {
                 "name": "Merge",
                 "icon": "icon-merge_right",
                 "children": [
@@ -23,7 +31,7 @@ const nav = [
                 "children": [
                     "./SubsetByLogic"
                 ]
-            },        
+            }      
         ]
     },
     {
@@ -68,6 +76,7 @@ const nav = [
                     "./fillvaluesdownup"
                 ]
             },
+            "./Separate"
         ]
     },
     {
