@@ -109,7 +109,7 @@ detach(package:quantreg)
 detach(package:SparseM)
 `,
 		    pre_start_r: JSON.stringify({
-            modelselector: "BSkyGetAvailableModels(c(\"lm\", \"glm\", \"coxph\", \"rq\"))",
+            modelselector: "BSkyGetAvailableModels(c(\"lm\", \"glm\", \"coxph\", \"rq\"), returnClassTrain = FALSE)",
             })
         }
         var objects = {
