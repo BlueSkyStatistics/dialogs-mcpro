@@ -7,14 +7,13 @@ var localization = {
 		plotvarslabel: "Variables to Plot (none specified plots all variables)",
 		varlabelslabel: "Variable Labels (specify as varname='label' separated by commas, e.g. age='Age in years', bmi='Body Mass Index'); can use \\n for line breaks within a label",
 		notelabel: "NOTE: Changing labels requires a model re-fit, so large data could take time",
-		
+		     label3: "NOTE: MODELS BUILT USING MODEL TUNING (TRAIN) ARE NOT SUPPORTED",
 		estimateoptlabel: "Estimate Options",
 		estimatelabellabel: "Label",
 		exponentiatelabel: "Force Parameter Estimate Exponentiation",
 		linecolorlabel: "Line Color",
 		pointshapelabel: "Point Shape",
 		pointsizelabel: "Point Size (0-10 mm)",
-		
 		styleoptlabel: "Style Options",
 		factorseplinelabel: "Factor Names on Separate Lines",
 		plotbandslabel: "Plot Bands",
@@ -109,7 +108,7 @@ detach(package:quantreg)
 detach(package:SparseM)
 `,
 		    pre_start_r: JSON.stringify({
-            modelselector: "BSkyGetAvailableModels(c(\"lm\", \"glm\", \"coxph\", \"rq\"))",
+            modelselector: "BSkyGetAvailableModels(c(\"lm\", \"glm\", \"coxph\", \"rq\"), returnClassTrain = FALSE)",
             })
         }
         var objects = {
@@ -118,6 +117,7 @@ detach(package:SparseM)
                     action: "move"
                 })
             },
+            label3: { el: new labelVar(config, { label: localization.en.label3, h: 6 }) },
             modelselector: {
                 el: new comboBox(config, {
                     no: 'modelselector',
@@ -279,6 +279,7 @@ detach(package:SparseM)
 
        
         const content = {
+            head: [objects.label3.el.content],
             left: [objects.content_var.el.content],
             right: [
 				objects.modelselector.el.content, objects.plotvars.el.content, objects.varlabels.el.content, objects.notelabel.el.content,

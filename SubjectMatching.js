@@ -17,8 +17,8 @@ var localization = {
             body: `
             Performs nearest neighbor subject matching where a set of cases is matched to 1 or more controls.  This is appropriate for case/control studies and matched cohort studies.
 			<br/><br/>
-			Variables for which values have to match exactly and values matching within numerical calipers are supported.  The mahalanobis distance metric is used to order subjects.
-			Matching is done without replacement (each subject can only be matched once) and the closest controls among the potential controls, ordered by mahalanobis distance, will be selected for each case.
+			Variables for which values have to match exactly and values matching within numerical calipers are supported.
+			Matching is done without replacement (each subject can only be matched once) and the controls among the potential controls, will be selected according to the data order for each case.
 			<br/><br/>
 			The output dataset containing the matched data will contain the variables involved in the matching and an optional subject ID variable (if specified).  Two additional variables
 			will be included: 1) subclass: a variable identifying the matched set, and 2) weights: a matching case weight variable that can be used in subsequent analysis, if desired.
@@ -71,7 +71,7 @@ prematch_data <- dplyr::select({{dataset.name}}, {{selected.groupvar | safe}}, {
 
 postmatch <- matchit({{selected.groupvar | safe}} ~ {{selected.formulapart | safe}},
 	data=prematch_data, method="nearest", distance="mahalanobis",
-	m.order="closest", replace=FALSE,
+	 replace=FALSE,
 	{{selected.exactpart | safe}} {{selected.calvarnumpart | safe}} std.caliper=FALSE, ratio={{selected.ratio | safe}})
 						 
 {{selected.newdatasetname | safe}} <- match.data(postmatch)

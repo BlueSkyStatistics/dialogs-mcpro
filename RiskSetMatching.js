@@ -136,7 +136,7 @@ prematch_data <- dplyr::select({{dataset.name}}, {{selected.groupvar | safe}}, {
 {{selected.newdatasetname | safe}}$ID <- {{selected.idstr | safe}}[{{selected.newdatasetname | safe}}$row]
 {{/if}}
 
-{{selected.newdatasetname | safe}} <- select({{selected.newdatasetname | safe}}, -row)
+{{selected.newdatasetname | safe}} <- dplyr::select({{selected.newdatasetname | safe}}, -row)
 BSkyLoadRefresh("{{selected.newdatasetname | safe}}")
 
 # number of observations, controls, and cases in matched data
