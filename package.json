@@ -4,7 +4,7 @@
     "description": "Professional dialogs",
     "keywords": [],
     "main": "nav.js",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "author": "MC",
     "scripts": {},
     "dependencies": {
@@ -15,11 +15,11 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/BlueSkyStatistics/mayoDialogs.git"
+        "url": "git+https://github.com/BlueSkyStatistics/dialogs-mcpro.git"
     },
     "license": "AGLPL",
     "bugs": {
-        "url": "https://github.com/BlueSkyStatistics/mayoDialogs/issues"
+        "url": "https://github.com/BlueSkyStatistics/dialogs-mcpro/issues"
     },
     "publishConfig": {
         "registry": "https://npm.pkg.github.com"
