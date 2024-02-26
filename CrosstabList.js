@@ -55,7 +55,7 @@ class CrosstabList extends baseModal {
         var config = {
             id: "CrosstabList",
             label: localization.en.title,
-			splitProcessing: false,
+			splitProcessing: true,
             modalType: "two",
             RCode: `
 library(arsenal)
