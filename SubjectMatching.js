@@ -18,10 +18,9 @@ var localization = {
             Performs nearest neighbor subject matching where a set of cases is matched to 1 or more controls.  This is appropriate for case/control studies and matched cohort studies.
 			<br/><br/>
 			Variables for which values have to match exactly and values matching within numerical calipers are supported.
-			Matching is done without replacement (each subject can only be matched once) and the controls among the potential controls, will be selected according to the data order for each case.
+			Matching is done without replacement (each subject can only be matched once) and the controls among the potential controls will be selected according to the data order for each case.
 			<br/><br/>
-			The output dataset containing the matched data will contain the variables involved in the matching and an optional subject ID variable (if specified).  Two additional variables
-			will be included: 1) subclass: a variable identifying the matched set, and 2) weights: a matching case weight variable that can be used in subsequent analysis, if desired.
+			The output dataset will contain the original data and two additional variables: 1) subclass: a variable identifying the matched set, and 2) weights: a matching case weight variable that can be used in subsequent analysis, if desired.
 			<br/><br/>
 			<b>Dataset name to store matched data:</b>
 			<br/>Name of output dataset containing the matched subject sets.
@@ -45,13 +44,10 @@ var localization = {
 			For example, if age (in years) was specified with a caliper of 5, that means the controls must be within +/- 5 years of their matched case.
 			Each caliper variable must have a caliper value specified. If there are no caliper variables, this field must be empty.
 			<br/><br/>
-			<b>Subject ID variable:</b>
-			<br/>Specify an optional variable that uniquely identifies each subject.  This will be included in the output matched datset.  This is useful if the resultant matched sets will be used for further data collection.
-			<br/><br/>
 			<b>Number of controls per case:</b>
 			<br/>This is the maximum number of controls that will be matched to each case.  Some matched sets may have less than this value if suitable matches cannot be identified.
             <br/><br/>
-            <b>Required R packages:</b> dplyr, MatchIt
+            <b>Required R packages:</b> dplyr, tidyr, MatchIt
 `}
     }
 }
@@ -64,14 +60,14 @@ class SubjectMatching extends baseModal {
             modalType: "two",
             RCode: `
 library(dplyr)
+library(tidyr)
 library(MatchIt)
 
-prematch_data <- dplyr::select({{dataset.name}}, {{selected.groupvar | safe}}, {{selected.idvar | safe}} {{selected.bothstr | safe}}) %>%
-	na.omit()
+prematch_data <- drop_na({{dataset.name}}, {{selected.groupvar | safe}}, {{selected.bothstr | safe}})
 
 postmatch <- matchit({{selected.groupvar | safe}} ~ {{selected.formulapart | safe}},
 	data=prematch_data, method="nearest", distance="mahalanobis",
-	 replace=FALSE,
+	replace=FALSE,
 	{{selected.exactpart | safe}} {{selected.calvarnumpart | safe}} std.caliper=FALSE, ratio={{selected.ratio | safe}})
 						 
 {{selected.newdatasetname | safe}} <- match.data(postmatch)
@@ -108,6 +104,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
 					allow_spaces: false,
 					value: "matched_data",
 					required: true,
+					overwrite: "dataset",
 					width:"w-75",
 					style: "mb-3"
 				})
@@ -155,17 +152,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
 					allow_spaces: true,
 					width: "w-100"
 				})
-			},
-            idvar: {
-                el: new dstVariable(config, {
-                    label: localization.en.idvarlabel,
-                    no: "idvar",
-                    filter: "Numeric|Nominal|Ordinal|String|Scale",
-                    extraction: "NoPrefix|UseComma",
-					wrapped: '%val%,',
-                    required: false
-                })
-            },			
+			},		
 			ratio: {
 				el: new inputSpinner(config, {
 					no: 'ratio',
@@ -187,7 +174,6 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
                 objects.exactvars.el.content, 
                 objects.calipervars.el.content,
                 objects.calipers.el.content,
-				objects.idvar.el.content,
 				objects.ratio.el.content
             ],
             nav: {
