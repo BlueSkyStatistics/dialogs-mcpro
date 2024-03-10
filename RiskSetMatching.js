@@ -8,18 +8,17 @@ var localization = {
 		timevarlabel: "Time variable",
 		calipervarslabel: "Variables for matching (numeric)",
         caliperslabel: "Specify calipers in order of matching variables separated by commas, e.g. 5, 2; specify 0 for exact matches",
-		idvarlabel: "Subject ID variable",
         ratiolabel: "Number of controls per case",
 		repeatcontrolslabel: "Allow controls to be matched more than once",
 		supercontrolslabel: "Don't allow cases to be matched to other cases", 
         help: {
             title: "Risk Set Matching",
             body: `
-            Performs risk set subject matching within a cohort.  Those with the outcome event (cases) are matched from among those who have not had the event (controls) and are in the risk set at the event time of the case.  This is a nested case/control design.  Baseline variables known at cohort entry are also used to match caess and controls.
+            Performs risk set subject matching within a cohort.  Those with the outcome event (cases) are matched to those who have not had the event (controls) and are in the risk set at the event time of the case.  This is a nested case/control design.  Baseline variables known at cohort entry are also used to match cases and controls.
 			<br/><br/>
-			Baseline variables for which values have to match exactly and values matching within numerical calipers are supported.
+			Baseline variables for which values have to match exactly and values matching within numerical calipers are supported. Controls are randomly selected from among all eligible controls for each case.
 			<br/><br/>
-			The output dataset containing the matched data will contain the baseline variables involved in the matching, the event indicator ("failed"), a variable identifying the matched set ("match.num"), and an optional subject ID variable (if specified, called "ID").
+			The output dataset containing the matched data will contain the original variables, the event indicator ("failed"), and a variable identifying the matched set ("match.num").
 			<br/><br/>
 			Observations with any missing values for variables involved in the matching process are removed prior to matching.
 			<br/><br/>
@@ -40,9 +39,6 @@ var localization = {
 			For example, if age (in years) was specified with a caliper of 5, that means the controls must be within +/- 5 years of their matched case.
 			Each matching variable must have a caliper value specified.
 			<br/><br/>
-			<b>Subject ID variable:</b>
-			<br/>Specify an optional variable that uniquely identifies each subject.  This will be included in the output matched datset.  This is useful if the resultant matched sets will be used for further data collection.
-			<br/><br/>
 			<b>Number of controls per case:</b>
 			<br/>This is the maximum number of controls that will be matched to each case.  Some matched sets may have less than this value if suitable matches cannot be identified.
             <br/><br/>
@@ -52,7 +48,7 @@ var localization = {
 			<b>Don't allow cases to be matched to other cases:</b>
 			<br/>Specify whether to allow cases to be considered as controls before the case event time.  We recommend not selecting this option to avoid bias.  Not selecting this option means a case is in the control risk set pool, and eligible to be matched to another case, up until their event time.
             <br/><br/>
-            <b>Required R packages:</b> dplyr
+            <b>Required R packages:</b> dplyr, tidyr
 `}
     }
 }
@@ -65,6 +61,7 @@ class RiskSetMatching extends baseModal {
             modalType: "two",
             RCode: `
 library(dplyr)
+library(tidyr)
 
 find.matches <- function(event, time.to.event, X, caliper = c(0, 5, 5), M=2, repeat.controls=F, super.controls=F){
   
@@ -119,8 +116,7 @@ find.matches <- function(event, time.to.event, X, caliper = c(0, 5, 5), M=2, rep
 }
 
 
-prematch_data <- dplyr::select({{dataset.name}}, {{selected.groupvar | safe}}, {{selected.timevar | safe}}, {{selected.calipervars | safe}}{{selected.idvar | safe}}) %>%
-	na.omit()
+prematch_data <- drop_na({{dataset.name}}, {{selected.groupvar | safe}}, {{selected.timevar | safe}}, {{selected.calipervars | safe}})
 
 {{selected.newdatasetname | safe}} <- find.matches(event = {{selected.eventstr | safe}},
              time.to.event = {{selected.timestr | safe}},
@@ -129,12 +125,10 @@ prematch_data <- dplyr::select({{dataset.name}}, {{selected.groupvar | safe}}, {
              M = {{selected.ratio | safe }},
              repeat.controls = {{selected.repeatcontrols | safe}},
              super.controls = {{selected.supercontrols | safe}})
-			 
-{{if (options.selected.idvar!="")}}
-# need to add ID values if user specifies an ID variable
 
-{{selected.newdatasetname | safe}}$ID <- {{selected.idstr | safe}}[{{selected.newdatasetname | safe}}$row]
-{{/if}}
+# adding original variables to matched data
+prematch_data1 <- prematch_data[c({{selected.newdatasetname | safe}}$row), c(names({{dataset.name}})[!(names({{dataset.name}}) %in% names({{selected.newdatasetname | safe}}))])]
+{{selected.newdatasetname | safe}} <- bind_cols(prematch_data1, {{selected.newdatasetname | safe}}) 
 
 {{selected.newdatasetname | safe}} <- dplyr::select({{selected.newdatasetname | safe}}, -row)
 BSkyLoadRefresh("{{selected.newdatasetname | safe}}")
@@ -147,6 +141,11 @@ num_cases <- table({{selected.newdatasetname | safe}}$failed)[2]
 num_obs_df <- data.frame(Number.Obs=num_obs, N.Controls=num_controls, N.Cases=num_cases)
 rownames(num_obs_df) <- NULL
 BSkyFormat(num_obs_df, singleTableOutputHeader="Matched Data Number of Observations, Controls, and Cases")
+
+# set sizes in matched data
+set_sizes <- as.data.frame(table(table({{selected.newdatasetname | safe}}$match.num)))
+names(set_sizes)[1] <- "Set.Size"
+BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies") 
 `
         }
         var objects = {
@@ -164,6 +163,7 @@ BSkyFormat(num_obs_df, singleTableOutputHeader="Matched Data Number of Observati
 					allow_spaces: false,
 					value: "matched_data",
 					required: true,
+					overwrite: "dataset",
 					width:"w-75",
 					style: "mb-3"
 				})
@@ -205,17 +205,7 @@ BSkyFormat(num_obs_df, singleTableOutputHeader="Matched Data Number of Observati
 					required: true,
 					width: "w-100"
 				})
-			},
-            idvar: {
-                el: new dstVariable(config, {
-                    label: localization.en.idvarlabel,
-                    no: "idvar",
-                    filter: "Numeric|Nominal|Ordinal|String|Scale",
-                    extraction: "NoPrefix|UseComma",
-					wrapped: ', %val%',
-                    required: false
-                })
-            },			
+			},			
 			ratio: {
 				el: new inputSpinner(config, {
 					no: 'ratio',
@@ -252,7 +242,6 @@ BSkyFormat(num_obs_df, singleTableOutputHeader="Matched Data Number of Observati
                 objects.newdatasetname.el.content, objects.groupvar.el.content, objects.timevar.el.content,
                 objects.calipervars.el.content,
                 objects.calipers.el.content,
-				objects.idvar.el.content,
 				objects.ratio.el.content,
 				objects.repeatcontrols.el.content,
 				objects.supercontrols.el.content
@@ -281,12 +270,9 @@ BSkyFormat(num_obs_df, singleTableOutputHeader="Matched Data Number of Observati
 		let eventstr="prematch_data$" + code_vars.selected.groupvar;		
 		let timestr="prematch_data$" + code_vars.selected.timevar;
 		
-		let idstr="prematch_data$" + code_vars.selected.idvar.slice(2);
-
 		//create new variables under code_vars
 		code_vars.selected.eventstr = eventstr
 		code_vars.selected.timestr = timestr
-		code_vars.selected.idstr = idstr
 		
 		//final piece of code
             const cmd = instance.dialog.renderR(code_vars);

@@ -1,2 +1,2 @@
-# mayoDialogs
-Mayo's private dialogs 
+# mcDialogs
+MC private dialogs 
