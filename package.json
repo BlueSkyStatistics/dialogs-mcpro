@@ -18,7 +18,7 @@
         "type": "git",
         "url": "git+https://github.com/BlueSkyStatistics/dialogs-mcpro.git"
     },
-    "license": "AGLPL",
+    "license": "AGPL",
     "bugs": {
         "url": "https://github.com/BlueSkyStatistics/dialogs-mcpro/issues"
     },
