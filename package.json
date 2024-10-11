@@ -4,7 +4,7 @@
     "description": "Professional dialogs",
     "keywords": [],
     "main": "nav.js",
-    "version": "1.0.8",
+    "version": "1.0.9",
 	"minBSkyVersion":"8.93",
     "author": "MC",
     "scripts": {},
