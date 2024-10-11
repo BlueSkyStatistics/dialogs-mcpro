@@ -1,62 +1,14 @@
 
-var localization = {
-    en: {
-        title: "Subject Matching",
-        navigation: "Subject Matching",
-		newdatasetnamelabel: "Dataset name to store matched data",
-        groupvarlabel: "Case/control variable (control=lower value, case=higher value)",
-		notelabel: "Note: You must specify at least one variable for exact or caliper variables",
-        exactvarslabel: "Variables for exact matching",		
-		calipervarslabel: "Variables for caliper matching",
-        caliperslabel: "Specify calipers in order of caliper variables separated by commas, e.g. 5, 2",
-		idvarlabel: "Subject ID variable",
-        ratiolabel: "Number of controls per case",
-        help: {
-            title: "Subject Matching",
-            r_help: "help(matchit, package = 'MatchIt')",
-            body: `
-            Performs nearest neighbor subject matching where a set of cases is matched to 1 or more controls.  This is appropriate for case/control studies and matched cohort studies.
-			<br/><br/>
-			Variables for which values have to match exactly and values matching within numerical calipers are supported.
-			Matching is done without replacement (each subject can only be matched once) and the controls among the potential controls will be selected according to the data order for each case.
-			<br/><br/>
-			The output dataset will contain the original data and two additional variables: 1) subclass: a variable identifying the matched set, and 2) weights: a matching case weight variable that can be used in subsequent analysis, if desired.
-			<br/><br/>
-			<b>Dataset name to store matched data:</b>
-			<br/>Name of output dataset containing the matched subject sets.
-			<br/><br/>
-			<b>Case/control variable (control=lower value, case=higher value):</b>
-			<br/>Name of variable indicating cases and controls.  Can be numeric, factor, or character.  
-			If a numeric variable, this must be coded as 0=control, 1=case.  If a factor variable, the lower ordered level will be the controls and the higher ordered level will be the cases.  
-			If a character variable, the lower ordered value (by alphabetic order) will be the controls, and the higher ordered value (by alphabetic order) will be the cases.
-			So to be safer we recommend coding as 0=control, 1=case.
-			</br><br/>
-			<b>Variables for exact matching:</b>
-			<br/>Specify the variables for which you want the case/control sets to be exactly matched.  
-			This means the cases and controls in a matched set have exactly the same values for these variables. These can be character, date, numeric, factor, or ordinal variables.
-			<br/><br/>
-			<b>Variables for caliper matching:</b>
-			<br/>Specify the variables for which you want the case/control sets to be matched on numerical caliper values.  The controls will be within a specified caliper width for each of these variables.
-			These can be numeric or date variables.  Each caliper variable must have a caliper value specified.
-			<br/><br/>
-			<b>Specify calipers in order of caliper variables separated by commas:</b>
-			<br/>Specify the numeric caliper values for each of the caliper variables, in order of the caliper variables.  
-			For example, if age (in years) was specified with a caliper of 5, that means the controls must be within +/- 5 years of their matched case.
-			Each caliper variable must have a caliper value specified. If there are no caliper variables, this field must be empty.
-			<br/><br/>
-			<b>Number of controls per case:</b>
-			<br/>This is the maximum number of controls that will be matched to each case.  Some matched sets may have less than this value if suitable matches cannot be identified.
-            <br/><br/>
-            <b>Required R packages:</b> dplyr, tidyr, MatchIt
-`}
-    }
-}
+
 
 class SubjectMatching extends baseModal {
+    static dialogId = 'SubjectMatching'
+    static t = baseModal.makeT(SubjectMatching.dialogId)
+
     constructor() {
         var config = {
-            id: "SubjectMatching",
-            label: localization.en.title,
+            id: SubjectMatching.dialogId,
+            label: SubjectMatching.t('title'),
             modalType: "two",
             RCode: `
 library(dplyr)
@@ -98,7 +50,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
 			newdatasetname: {
 				el: new input(config, {
 					no: 'newdatasetname',
-					label: localization.en.newdatasetnamelabel,
+					label: SubjectMatching.t('newdatasetnamelabel'),
 					extraction: "TextAsIs",
 					type: "character",
 					allow_spaces: false,
@@ -111,7 +63,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
 			},			
             groupvar: {
                 el: new dstVariable(config, {
-                    label: localization.en.groupvarlabel,
+                    label: SubjectMatching.t('groupvarlabel'),
                     no: "groupvar",
                     filter: "Numeric|Nominal|String|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -120,14 +72,14 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
             },
 			notelabel: {
 				el: new labelVar(config, {
-					label: localization.en.notelabel, 
+					label: SubjectMatching.t('notelabel'), 
 					style: "mt-3 ml-5 mb-3", 
 					h:5
 				})
 			},
 			exactvars: {
 				el: new dstVariableList(config,{
-					label: localization.en.exactvarslabel,
+					label: SubjectMatching.t('exactvarslabel'),
 					no: "exactvars",
 					required: false,
 					filter:"String|Date|Numeric|Ordinal|Nominal|Scale",
@@ -136,7 +88,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
 			},
 			calipervars: {
 				el: new dstVariableList(config,{
-					label: localization.en.calipervarslabel,
+					label: SubjectMatching.t('calipervarslabel'),
 					no: "calipervars",
 					required: false,
 					filter:"Numeric|Date|Scale",
@@ -146,7 +98,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
 			calipers: {
 				el: new input(config, {
 					no: 'calipers',
-					label: localization.en.caliperslabel,
+					label: SubjectMatching.t('caliperslabel'),
 					extraction: "TextAsIs",
 					style: "ml-5 mb-3",
 					allow_spaces: true,
@@ -156,7 +108,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
 			ratio: {
 				el: new inputSpinner(config, {
 					no: 'ratio',
-					label: localization.en.ratiolabel,
+					label: SubjectMatching.t('ratiolabel'),
 					min: 1,
 					max: 100,
 					step: 1,
@@ -177,13 +129,19 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
 				objects.ratio.el.content
             ],
             nav: {
-                name: localization.en.navigation,
+                name: SubjectMatching.t('navigation'),
                 icon: "icon-paired",
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: SubjectMatching.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: SubjectMatching.t('help.body')
+        }
+;
     }
 	
 		prepareExecution(instance) {
@@ -262,4 +220,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
 	
 	
 }
-module.exports.item = new SubjectMatching().render()
+
+module.exports = {
+    render: () => new SubjectMatching().render()
+}

@@ -1,127 +1,5 @@
 
-var localization = {
-    en: {
-        title: "Logistic Regression, multiple models",
-        navigation: "Logistic Regression, multiple models",
-        depvarlabel: "Dependent Variable",
-		indvarslabel: "Independent Variables",
-		adjvars1label: "Adjustment Variables, Set 1",
-		adjvars2label: "Adjustment Variables, Set 2",
-		adjvars3label: "Adjustment Variables, Set 3",
-		adjvars4label: "Adjustment Variables, Set 4",
-		adjvars5label: "Adjustment Variables, Set 5",		
-		stratavarlabel: "Strata",
-		wgtvarlabel: "Weights",
-		digitslabel: "Digits After Decimal",
-		contdigitslabel: "Continuous Values",
-		pvaluedigitslabel: "P-Values",
-		ordigitslabel: "Odds Ratios",
-		parestorlabel: "Parameter Estimates and Odds Ratios",
-		parestchkboxlabel: "Parameter Estimates",
-		stderrorschkboxlabel: "Standard Errors",
-		confintchkboxlabel: "Parameter Wald Confidence Intervals",
-		likeconfintchkboxlabel: "Parameter Profile Likelihood Confidence Intervals",
-		orchkboxlabel: "Odds Ratios",
-		orconfintchkboxlabel: "Odds Ratios Wald Confidence Intervals",
-		likeorconfintchkboxlabel: "Odds Ratios Profile Likelihood Confidence Intervals",
-		cilevellabel: "Confidence Interval Level",
-		interceptchkboxlabel: "Intercepts",
-		adjvarschkboxlabel: "Adjustment Variables",
-		adjnameschkboxlabel: "Adjustment Names",
-		samplesizelabel: "Sample Size",
-		nmissifanychkboxlabel: "Number Missing, if any",
-		nmissalwayschkboxlabel: "Number Missing, always",
-		fitstatisticslabel: "Fit Statistics",
-		concchkboxlabel: "Concordance (AUC)",
-		aicchkboxlabel: "Akaike Information Criterion (AIC)",
-		bicchkboxlabel: "Bayesian Information Criterion (BIC)",
-		loglikchkboxlabel: "Log-Likelihood",
-		nulldevchkboxlabel: "Null Deviance",
-		devchkboxlabel: "Deviance",
-		nulldfchkboxlabel: "Null Model Degrees of Freedom",
-		resdfchkboxlabel: "Residual Degrees of Freedom",
-		pvalueslabel: "P-Values",
-		parestpvaluechkboxlabel: "Parameter Estimates (Wald Test)",
-		lrtpvaluechkboxlabel: "Likelihood Ratio Tests (not adjustors)",
-		teststatisticslabel: "Test Statistics",
-		zstatchkboxlabel: "Parameter z-statistics (Wald Test)",
-        help: {
-            title: "Logistic Regression, multiple models",
-            r_help: "help(modelsum, package ='arsenal')",
-            body: `
-This creates a table containing results from logistic regression models for a given dependent variable.  Separate logistic regression models will be fit for each independent variable, 
-optionally adjusted for a set of additional variables.  If a strata variable is specified, separate models will be fit for each of the stratification variable values.  As an example,
- if no adjustor or stratification variables are specified, then the table will include all univariate models for the list of independent variables.  Various statistics from each model can be output.
-<br/><br/>
-<b>Dependent Variable:</b> Dependent variable for each logistic regression model.  The variable class must be a numeric type or factor.
-<br/><br/>
-<b>Independent Variables:</b> Independent variables to include in the models.  The variable classes can be a numeric type, character, factor, or ordered factor.
-<br/><br/>
-<b>Adjustment Variables (Sets 1-5):</b> Optional variables to be included in a model with the independent variables.  The variable classes can be a numeric type, character, factor, or ordered factor.
-Specifying more than one set of adjustor variables will provide separate models with each set of adjustor variables.
-<br/><br/>
-<b>Strata:</b> Optional stratification variable. Separate models will be fit for the subset defined by each of the stratification variable values.  The variable class can be character, numeric, factor, or ordered factor.
-<br/><br/>
-<b>Weights:</b> Optional case-weights to be used in the models.  Specifying a weights variable will fit weighted regression models.
-<br/><br/>
-<b>Digits After Decimal</b><br/>
-<ul>
-<li><b>Continuous Values:</b>  The number of decimal places to show for all continuous values in the table (default=4)</li>
-<li><b>P-Values:</b>  The number of decimal places to show for all p-values in the table (default=4)</li>
-<li><b>Odds Ratios:</b>  The number of decimal places to show for all odds ratios in the table (default=4)</li>
-</ul>
-<br/>
-<b>Options:</b>
-<br/><br/>
-<b>Parameter Estimates and Odds Ratios</b><br/>
-<ul>
-<li><b>Parameter Estimates:</b>  Show parameter estimates (coefficients) from each model.</li>
-<li><b>Standard Errors:</b>  Show standard errors of the parameter estimates.</li>
-<li><b>Confidence Interval Level:</b>  Level for the parameter estimate and odds ratio confidence intervals (default=0.95).</li>
-<li><b>Parameter Wald Confidence Intervals:</b>  Show Wald-based confidence intervals for the parameter estimates.</li>
-<li><b>Parameter Profile Likelihood Confidence Intervals:</b>  Show profile likelihood-based confidence intervals for the parameter estimates.</li>
-<li><b>Odds Ratios:</b>  Show odds ratios for each parameter estimate (exp(coefficient)).</li>
-<li><b>Odds Ratios Wald Confidence Intervals:</b>  Show Wald-based confidence intervals for the odds ratios.</li>
-<li><b>Odds Ratios Profile Likelihood Confidence Intervals:</b>  Show profile likelihood-based confidence intervals for the odds ratios.</li>
-<li><b>Intercepts:</b>  Show the intercepts from each model.</li>
-<li><b>Adjustment Variables:</b>  Show model output for the adjustment variables.</li>
-<li><b>Adjustment Names:</b>  Show a column delineating model types (unadjusted and different adjustment variable sets).  Mostly useful when you don't want to show model output for the adjustor variables.</li>
-</ul>
-<br/>
-<b>Sample Size</b><br/>
-<ul>
-<li><b>Sample Size:</b>  Show the sample size used from each model.</li>
-<li><b>Number Missing, if any:</b>  Show the number of observations not used in each model (missing values), only if there are some not used.</li>
-<li><b>Number Missing, always:</b>  Show the number of observations not used in each model (missing values), regardless of whether there are some observations not used.</li>
-</ul>
-<br/>
-<b>Fit Statistics</b><br/>
-<ul>
-<li><b>Concordance (AUC):</b>  Show the model concordance statistic.  This is equivalent to the area under the curve (AUC) from a Receiver Operating Characteristic (ROC) curve.</li>
-<li><b>Akaike Information Criterion (AIC):</b>  Show the model Akaike Information Criterion</li>
-<li><b>Bayesian Information Criterion (BIC):</b>  Show the model Bayesian Information Criterion</li>
-<li><b>Log-Likelihood:</b>  Show the model log-likelihood value</li>
-<li><b>Null Deviance:</b>  Show the model null deviance value</li>
-<li><b>Deviance:</b>  Show the model deviance value</li>
-<li><b>Null Model Degrees of Freedom:</b>  Show the degrees of freedom from a model with no predictors in it.</li>
-<li><b>Residual Degrees of Freedom:</b>  Show the residual degrees of freedom (total degrees of freedom minus the number of parameters fit).</li>
-</ul>
-<br/>
-<b>P-Values</b><br/>
-<ul>
-<li><b>Parameter Estimates (Wald Test):</b>  Show the p-values from the individual parameter Wald tests</li>
-<li><b>Likelihood Ratio Tests (not adjustors):</b>  Show the p-values for each independent variable based on a likelihood ratio test.  This compares a model with the independent variable to a model without the independent variable, including any adjustor variables in both models.</li>
-</ul>
-<br/>
-<b>Test Statistics</b><br/>
-<ul>
-<li><b>Parameter z-statistics (Wald Test):</b>  Show the z-statistics from the individual parameter Wald tests</li>
-</ul>
-<br/>
-<b>Required R Packages:</b> arsenal, dplyr
-			`}
-    }
-}
+
 
 
 
@@ -132,10 +10,13 @@ Specifying more than one set of adjustor variables will provide separate models 
 
 
 class LogisticRegMultiple extends baseModal {
+    static dialogId = 'LogisticRegMultiple'
+    static t = baseModal.makeT(LogisticRegMultiple.dialogId)
+
     constructor() {
         var config = {
-            id: "LogisticRegMultiple",
-            label: localization.en.title,
+            id: LogisticRegMultiple.dialogId,
+            label: LogisticRegMultiple.t('title'),
 			splitProcessing: true,
             modalType: "two",
             RCode: `
@@ -180,7 +61,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
             content_var: { el: new srcVariableList(config, {action: "copy", scroll: true}) },
 			depvar: {
 				el: new dstVariable(config, {
-				label: localization.en.depvarlabel,
+				label: LogisticRegMultiple.t('depvarlabel'),
 				no: "depvar",
 				filter: "Numeric|Nominal|Scale",
 				extraction: "NoPrefix|UseComma",
@@ -189,7 +70,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},						
 			indvars: {
 				el: new dstVariableList(config,{
-				label: localization.en.indvarslabel,
+				label: LogisticRegMultiple.t('indvarslabel'),
 				no: "indvars",
 				required: true,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -198,7 +79,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars1: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars1label,
+				label: LogisticRegMultiple.t('adjvars1label'),
 				no: "adjvars1",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -208,7 +89,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars2: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars2label,
+				label: LogisticRegMultiple.t('adjvars2label'),
 				no: "adjvars2",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -218,7 +99,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars3: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars3label,
+				label: LogisticRegMultiple.t('adjvars3label'),
 				no: "adjvars3",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -228,7 +109,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars4: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars4label,
+				label: LogisticRegMultiple.t('adjvars4label'),
 				no: "adjvars4",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -238,7 +119,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars5: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars5label,
+				label: LogisticRegMultiple.t('adjvars5label'),
 				no: "adjvars5",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -248,7 +129,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			stratavar: {
 				el: new dstVariable(config, {
-				label: localization.en.stratavarlabel,
+				label: LogisticRegMultiple.t('stratavarlabel'),
 				no: "stratavar",
 				filter: "String|Numeric|Ordinal|Nominal|Scale",
 				extraction: "NoPrefix|UseComma",
@@ -258,7 +139,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			wgtvar: {
 				el: new dstVariable(config, {
-				label: localization.en.wgtvarlabel,
+				label: LogisticRegMultiple.t('wgtvarlabel'),
 				no: "wgtvar",
 				filter: "Numeric|Scale",
 				extraction: "NoPrefix|UseComma",
@@ -268,7 +149,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			digitslabel: {
 				el: new labelVar(config, {
-				label: localization.en.digitslabel, 
+				label: LogisticRegMultiple.t('digitslabel'), 
 				h:5,
 				style: "mt-4"
 				})
@@ -276,7 +157,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			contdigits: {
 				el: new inputSpinner(config, {
 				  no: 'contdigits',
-				  label: localization.en.contdigitslabel,
+				  label: LogisticRegMultiple.t('contdigitslabel'),
 				  min: 0,
 				  max: 1000,
 				  step: 1,
@@ -288,7 +169,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			pvaluedigits: {
 				el: new inputSpinner(config, {
 				  no: 'pvaluedigits',
-				  label: localization.en.pvaluedigitslabel,
+				  label: LogisticRegMultiple.t('pvaluedigitslabel'),
 				  min: 1,
 				  max: 1000,
 				  step: 1,
@@ -300,7 +181,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			ordigits: {
 				el: new inputSpinner(config, {
 				  no: 'ordigits',
-				  label: localization.en.ordigitslabel,
+				  label: LogisticRegMultiple.t('ordigitslabel'),
 				  min: 1,
 				  max: 1000,
 				  step: 1,
@@ -311,13 +192,13 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			parestorlabel: {
 				el: new labelVar(config, {
-				label: localization.en.parestorlabel, 
+				label: LogisticRegMultiple.t('parestorlabel'), 
 				h:5
 				})
 			},
 			parestimatechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.parestchkboxlabel,
+				label: LogisticRegMultiple.t('parestchkboxlabel'),
 				no: "parestimatechkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -328,7 +209,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			stderrorschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.stderrorschkboxlabel,
+				label: LogisticRegMultiple.t('stderrorschkboxlabel'),
 				no: "stderrorschkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -339,7 +220,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			confintchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.confintchkboxlabel,
+				label: LogisticRegMultiple.t('confintchkboxlabel'),
 				no: "confintchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -349,7 +230,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			likeconfintchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.likeconfintchkboxlabel,
+				label: LogisticRegMultiple.t('likeconfintchkboxlabel'),
 				no: "likeconfintchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -359,7 +240,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			orchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.orchkboxlabel,
+				label: LogisticRegMultiple.t('orchkboxlabel'),
 				no: "orchkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -370,7 +251,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			orconfintchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.orconfintchkboxlabel,
+				label: LogisticRegMultiple.t('orconfintchkboxlabel'),
 				no: "orconfintchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -380,7 +261,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			likeorconfintchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.likeorconfintchkboxlabel,
+				label: LogisticRegMultiple.t('likeorconfintchkboxlabel'),
 				no: "likeorconfintchkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -392,7 +273,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			cilevel: {
 				el: new inputSpinner(config, {
 				  no: 'cilevel',
-				  label: localization.en.cilevellabel,
+				  label: LogisticRegMultiple.t('cilevellabel'),
 				  min: 0,
 				  max: 100,
 				  step: .001,
@@ -402,7 +283,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			interceptchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.interceptchkboxlabel,
+				label: LogisticRegMultiple.t('interceptchkboxlabel'),
 				no: "interceptchkbox",
 				state: "checked",
 				extraction: "Boolean"
@@ -410,7 +291,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvarschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.adjvarschkboxlabel,
+				label: LogisticRegMultiple.t('adjvarschkboxlabel'),
 				no: "adjvarschkbox",
 				state: "checked",
 				extraction: "Boolean"
@@ -418,21 +299,21 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjnameschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.adjnameschkboxlabel,
+				label: LogisticRegMultiple.t('adjnameschkboxlabel'),
 				no: "adjnameschkbox",
 				extraction: "Boolean"
 				})
 			},			
 			samplesizelabel: {
 				el: new labelVar(config, {
-				label: localization.en.samplesizelabel, 
+				label: LogisticRegMultiple.t('samplesizelabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			nchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.samplesizelabel,
+				label: LogisticRegMultiple.t('samplesizelabel'),
 				no: "nchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -442,7 +323,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			nmissifanychkbox: {
 				el: new checkbox(config, {
-				label: localization.en.nmissifanychkboxlabel,
+				label: LogisticRegMultiple.t('nmissifanychkboxlabel'),
 				no: "nmissifanychkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -453,7 +334,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			nmissalwayschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.nmissalwayschkboxlabel,
+				label: LogisticRegMultiple.t('nmissalwayschkboxlabel'),
 				no: "nmissalwayschkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -463,14 +344,14 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			fitstatisticslabel: {
 				el: new labelVar(config, {
-				label: localization.en.fitstatisticslabel, 
+				label: LogisticRegMultiple.t('fitstatisticslabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			concchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.concchkboxlabel,
+				label: LogisticRegMultiple.t('concchkboxlabel'),
 				no: "concchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -480,7 +361,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			aicchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.aicchkboxlabel,
+				label: LogisticRegMultiple.t('aicchkboxlabel'),
 				no: "aicchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -490,7 +371,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			bicchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.bicchkboxlabel,
+				label: LogisticRegMultiple.t('bicchkboxlabel'),
 				no: "bicchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -500,7 +381,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			loglikchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.loglikchkboxlabel,
+				label: LogisticRegMultiple.t('loglikchkboxlabel'),
 				no: "loglikchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -510,7 +391,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			nulldevchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.nulldevchkboxlabel,
+				label: LogisticRegMultiple.t('nulldevchkboxlabel'),
 				no: "nulldevchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -520,7 +401,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			devchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.devchkboxlabel,
+				label: LogisticRegMultiple.t('devchkboxlabel'),
 				no: "devchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -530,7 +411,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			nulldfchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.nulldfchkboxlabel,
+				label: LogisticRegMultiple.t('nulldfchkboxlabel'),
 				no: "nulldfchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -540,7 +421,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			resdfchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.resdfchkboxlabel,
+				label: LogisticRegMultiple.t('resdfchkboxlabel'),
 				no: "resdfchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -550,14 +431,14 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			pvalueslabel: {
 				el: new labelVar(config, {
-				label: localization.en.pvalueslabel, 
+				label: LogisticRegMultiple.t('pvalueslabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			parestpvaluechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.parestpvaluechkboxlabel,
+				label: LogisticRegMultiple.t('parestpvaluechkboxlabel'),
 				no: "parestpvaluechkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -568,7 +449,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},		
 			lrtpvaluechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.lrtpvaluechkboxlabel,
+				label: LogisticRegMultiple.t('lrtpvaluechkboxlabel'),
 				no: "lrtpvaluechkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -578,14 +459,14 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			teststatisticslabel: {
 				el: new labelVar(config, {
-				label: localization.en.teststatisticslabel, 
+				label: LogisticRegMultiple.t('teststatisticslabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			zstatchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.zstatchkboxlabel,
+				label: LogisticRegMultiple.t('zstatchkboxlabel'),
 				no: "zstatchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -620,14 +501,20 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 					objects.contdigits.el.content, objects.pvaluedigits.el.content, objects.ordigits.el.content],
 			bottom: [optionspanel.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: LogisticRegMultiple.t('navigation'),
                 icon: "icon-logistic_multiple",
 				positionInNav: 13,
                 modal: config.id
             }
         };
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: LogisticRegMultiple.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: LogisticRegMultiple.t('help.body')
+        }
+;
     }	
 
 
@@ -715,4 +602,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 
 	
 }
-module.exports.item = new LogisticRegMultiple().render()
+
+module.exports = {
+    render: () => new LogisticRegMultiple().render()
+}

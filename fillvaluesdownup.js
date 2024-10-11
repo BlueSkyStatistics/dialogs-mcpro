@@ -1,29 +1,5 @@
 
-var localization = {
-    en: {
-        title: "Fill Values Downward or Upward",
-        navigation: "Fill Values Downward or Upward",
-        fillinvars: "Variables to Fill In Values",
-        groupbyvars: "Variables to Group By",
-        directionlabel: "Direction",
-		downward: "Downward",
-		upward: "Upward",
-        help: {
-            title: "Fill Values Downward or Upward",
-            r_help: "help(fill, package ='tidyr')",
-            body: `
-This dialog fills in missing values in dataset columns by using the previous entry in each column.  This can be useful in cases where values are not repeated, but recorded each time they change.  Typically, this means the dataset is sorted in a meaningful way.  The variables where values are filled in will be overwritten.
-<br/><br/>
-<b>Variables to Fill In Values:</b> Specify variables for which missing values will be filled in
-<br/><br/>
-<b>Variables to Group By:</b> Specify variables that group rows together.  Missing values will be filled in within groups defined by these variables.  For example, grouping by a subject identifier would fill in values within subjects.
-<br/><br/>
-<b>Direction:</b> Specify the direction for which the values will be filled in.
-<br/><br/>
-<b>R Packages Required:</b> tidyverse
-			`}
-    }
-}
+
 
 
 
@@ -34,10 +10,13 @@ This dialog fills in missing values in dataset columns by using the previous ent
 
 
 class FillValuesDownwardUpward extends baseModal {
+    static dialogId = 'FillValuesDownwardUpward'
+    static t = baseModal.makeT(FillValuesDownwardUpward.dialogId)
+
     constructor() {
         var config = {
-            id: "FillValuesDownwardUpward",
-            label: localization.en.title,
+            id: FillValuesDownwardUpward.dialogId,
+            label: FillValuesDownwardUpward.t('title'),
 			splitProcessing: false,
             modalType: "two",
             RCode: `
@@ -54,7 +33,7 @@ BSkyLoadRefreshDataframe("{{dataset.name}}")
 			content_var: { el: new srcVariableList(config, {action: "move"}) },
             fillinvars: {
                 el: new dstVariableList(config, {
-                    label: localization.en.fillinvars,
+                    label: FillValuesDownwardUpward.t('fillinvars'),
                     no: "fillinvars",
                     filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -63,17 +42,17 @@ BSkyLoadRefreshDataframe("{{dataset.name}}")
             },
             groupbyvars: {
                 el: new dstVariableList(config, {
-                    label: localization.en.groupbyvars,
+                    label: FillValuesDownwardUpward.t('groupbyvars'),
                     no: "groupbyvars",
                     required: false,
                     filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
                     extraction: "NoPrefix|UseComma",
                 }), r: ['{{ var | safe}}']
             },
-			directionlabel: { el: new labelVar(config, { label: localization.en.directionlabel, style: "mt-3",h: 5 }) },
+			directionlabel: { el: new labelVar(config, { label: FillValuesDownwardUpward.t('directionlabel'), style: "mt-3",h: 5 }) },
 			downward: {
 				el: new radioButton(config, {
-				label: localization.en.downward,
+				label: FillValuesDownwardUpward.t('downward'),
 				no: "directiongrp",
 				increment: "downward",
 				value: "down",
@@ -83,7 +62,7 @@ BSkyLoadRefreshDataframe("{{dataset.name}}")
 			}, 
 			upward: {
 				el: new radioButton(config, {
-				label: localization.en.upward,
+				label: FillValuesDownwardUpward.t('upward'),
 				no: "directiongrp",
 				increment: "upward",
 				value: "up",
@@ -97,14 +76,23 @@ BSkyLoadRefreshDataframe("{{dataset.name}}")
             left: [objects.content_var.el.content],
             right: [objects.fillinvars.el.content, objects.groupbyvars.el.content, objects.directionlabel.el.content, objects.downward.el.content, objects.upward.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: FillValuesDownwardUpward.t('navigation'),
                 icon: "icon-fill",
 				positionInNav: 1,
                 modal: config.id
             }
         };
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: FillValuesDownwardUpward.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: FillValuesDownwardUpward.t('help.body')
+        }
+;
     }
 }
-module.exports.item = new FillValuesDownwardUpward().render()
+
+module.exports = {
+    render: () => new FillValuesDownwardUpward().render()
+}

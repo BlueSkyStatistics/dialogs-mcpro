@@ -1,101 +1,14 @@
 
-var localization = {
-    en: {
-        title: "Cox, binary time-dependent covariates",
-        navigation: "Cox, binary time-dependent covariates",
-        modelname:"Enter model name",
-        timevar: "Time to event or censor",
-        eventvar: "Events (1 = event 1, 0 = censor)",
-        modelterms:"Model expression builder for independent variables",
-		switchtimeslabel: "Exposure time variables for time-dependent covariates",
-		tdprefixlabel: "Prefix for time-dependent covariates",
-		subjectidlabel: "Subject identifier",
-        weightvar: "Weights (optional)",
-        tiemethod: "Tied Time Method",
-        forestplotbox : "Forest Plot",
-        diagnosticsbox: "Model Diagnostics",
-        martscalebox:"Null Model Martingale Residual Axis Minimum Value (-Inf to 1):",
-        devbox:"Analysis of Deviance (Type II)",
-        devtype:"Test Statistic",
-		startstopboxlabel: "Show (start, stop) time dataset",
-		startstopnamelabel: "Dataset name",
-        help: {
-            title: "Cox, binary time-dependent covariates",
-            r_help: "help(coxph, package = 'survival')",
-            body: `
-Fits a Cox proportional hazards model for time-to-event data with censored observations that includes one or more binary time-dependent "exposure" covariates.  This type of 
-covariate is one where the occurrence of a "yes" can happen after the start of follow-up and once that "yes" occurs it stays a "yes" for the follow-up duration.  An example 
-would be rejection of a graft post-transplant (i.e. before the rejection occurs, the patient has not been "exposed"; after rejection occurs, the patient has been "exposed").  
-Treating such a covariate as being known at the start of follow-up is a form of looking into the future and leads to biased estimates (also known as "immortal time bias").
-<br/><br/>
-Model fitting statistics, parameter estimates, and hazard ratios are provided.  Options available include the tied time method, forest plots, model diagnostics, and the ability 
-to view the underlying counting process data set that gets created.  A table describing the counting process data is provided as a check that this data is being created 
-appropriately.
-<br/><br/>  
-Counting process data summaries:
-<br/>
-<b>early:</b> time when the predictor changes before follow-up time starts<br/>
-<b>late:</b> time when the predictor changes after follow-up ends<br/>
-<b>within:</b> time when the predictor changes inside the follow-up period<br/>
-<b>leading:</b> time when the predictor changes at the beginning of follow-up<br/>
-<b>trailing:</b> time when the predictor changes at the end of follow-up<br/>
-<b>boundary:</b> time when the predictor changes either at the beginning or ending of follow-up
-<br/><br/>
-For more information about this table, see the time-dependent covariate vignette at <a href="https://cran.r-project.org/package=survival">https://cran.r-project.org/package=survival</a>.  
-<br/><br/>
-The model is fit using the coxph function in the survival package.
-<br/><br/>
-<b>Enter model name:</b> Name where the model results will be stored
-<br/><br/>
-<b>Time to event or censor:</b> Time to outcome event for those experiencing the event or time to last follow-up for those not experiencing the outcome event
-<br/><br/>
-<b>Events (1=event, 0=censor):</b> Numerical event indicator; 1=event, 0=censor
-<br/><br/>
-<b>Formula Builder:</b> Construct terms to include in the model.  Factors, strings, and logical variables will be dummy coded.  The provided buttons allow you to specify main 
-effects, full factorial effects (main effects and all interactions with the involved variables), polynomials, specific interactions, and delete terms from the list.
-<br/><br/>
-<b>Exposure time variables for time-dependent covariates:</b> Numeric variables storing the time when the subject was first "exposed".  This must be on the same time scale as 
-the Time variable. Missing values should be used for subjects who were never exposed.  Each variable specified here will create a separate time-dependent covariate.  A specified 
-time assumes that a subject is not exposed prior to this time and exposed after this time (i.e. when the predictor change from "no" to "yes").  Specifying only positive values means 
-that subjects are not exposed for some time after follow-up starts.  Specifying some positive and negative times indicates that some subjects were exposed after and some before 
-follow-up time starts, respectively. If you know that a subject was exposed prior to the follow-up start time, but you don't know exactly when, then you can use any negative time 
-and the model will correctly treat that subject as being exposed for their entire follow-up time. If subjects are exposed after follow-up, then they are correctly treated as not
-being exposed for their entire follow-up time.
-<br/><br/>
-<b>Prefix for time-dependent covariates:</b> Desired prefix to be used for every time-dependent covariate specified in the <b>Exposure time variables</b> field.  The name of
-each time-dependent covariate will start with this prefix.
-<br/><br/>
-<b>Subject identifier:</b> The variable storing the subject identifier.  This is required for purposes of creating the underlying counting process data set.
-<br/><br/>
-<b>Weights:</b> Numeric variable for observation weights. Useful in situations where each record should not be counted as one observation. 
-<br/><br/>
-<b>Options:</b>
-<br/><br/>
-<b>Tied Time Method:</b> Method of breaking tied observed times.  Efron is usually the better choice when there aren't many tied times.  The exact method can be beneficial if 
-there are many tied times, as in discrete time situations, but can take a little longer for the model to be fit.
-<br/><br/>
-<b>Forest Plot:</b> will create a forest plot of hazard ratios and confidence intervals
-<br/><br/>
-<b>Show (start, stop) Data Set:</b> Will show the underlying counting process data set used in the computations. This breaks each subject's follow-up time into parts, depending 
-on when the time-dependent covariate should change values.
-<br/><br/>
-<b>Model Diagnostics:</b> If selected, proportional hazards tests and plots will be provided, in addition to assessments of functional form for each covariate in the model.  
-The null model Martingale residual axis minimum value option might need to be changed so that all residuals appear in the plot. To get functional form assessments, you must 
-specify only numeric predictors and have no missing data. See Variables > Missing Values > Remove NAs.
-<br/><br/>
-<b>Analysis of Deviance (Type II):</b> Global test of each predictor in the model.  Multi-degree of freedom tests will be provided for effects with more than 2 levels.  
-Wald and Likelihood ratio tests can be obtained, with likelihood ratio tests having better small sample properties.           
-<br/><br/>
-<b>Required packages:</b> survival, broom, survminer, car
-`}
-    }
-}
+
 
 class CoxTimeDependent extends baseModal {
+    static dialogId = 'CoxTimeDependent'
+    static t = baseModal.makeT(CoxTimeDependent.dialogId)
+
     constructor() {
         var config = {
-            id: "CoxTimeDependent",
-            label: localization.en.title,
+            id: CoxTimeDependent.dialogId,
+            label: CoxTimeDependent.t('title'),
             modalType: "two",
             RCode: `
 library(survival)
@@ -153,7 +66,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             modelname: {
                 el: new input(config, {
                     no: 'modelname',
-                    label: localization.en.modelname,
+                    label: CoxTimeDependent.t('modelname'),
                     placeholder: "CoxRegModel1",
                     required: true,
                     type: "character",
@@ -163,7 +76,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             },            
             timevar: {
                 el: new dstVariable(config, {
-                    label: localization.en.timevar,
+                    label: CoxTimeDependent.t('timevar'),
                     no: "timevar",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -172,7 +85,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             },
             eventvar: {
                 el: new dstVariable(config, {
-                    label: localization.en.eventvar,
+                    label: CoxTimeDependent.t('eventvar'),
                     no: "eventvar",
                     filter: "Numeric|Scale",
                     required: true,
@@ -182,13 +95,13 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             modelterms: {
                 el: new formulaBuilder(config, {
                     no: "modelterms",
-                    label: localization.en.modelterms,
+                    label: CoxTimeDependent.t('modelterms'),
 					required: false
                 })
             },
 			switchtimes: {
 				el: new dstVariableList(config,{
-				label: localization.en.switchtimeslabel,
+				label: CoxTimeDependent.t('switchtimeslabel'),
 				no: "switchtimes",
 				required: true,
 				filter:"Numeric|Scale",
@@ -198,7 +111,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             tdprefix: {
                 el: new input(config, {
                     no: 'tdprefix',
-                    label: localization.en.tdprefixlabel,
+                    label: CoxTimeDependent.t('tdprefixlabel'),
 					style: "ml-5 mb-3",
 					width: "w-50",
                     placeholder: "tdbin_",
@@ -210,7 +123,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             }, 
             subjectid: {
                 el: new dstVariable(config, {
-                    label: localization.en.subjectidlabel,
+                    label: CoxTimeDependent.t('subjectidlabel'),
                     no: "subjectid",
                     filter: "String|Numeric|Ordinal|Nominal|Scale",
                     required: true,
@@ -219,7 +132,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             },  			
             weightvar: {
                 el: new dstVariable(config, {
-                    label: localization.en.weightvar,
+                    label: CoxTimeDependent.t('weightvar'),
                     no: "weightvar",
                     filter: "Numeric|Scale",
                     required: false,
@@ -230,7 +143,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             tiemethod: {
                 el: new comboBox(config, {
                     no: 'tiemethod',
-                    label: localization.en.tiemethod,
+                    label: CoxTimeDependent.t('tiemethod'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: ["efron", "breslow", "exact"],
@@ -239,7 +152,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             }, 
             forestplotbox: {
                 el: new checkbox(config, {
-                    label: localization.en.forestplotbox,
+                    label: CoxTimeDependent.t('forestplotbox'),
                     no: "forestplotbox",
                     extraction: "Boolean",
                     newline: true,
@@ -248,7 +161,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             },
             diagnosticsbox: {
                 el: new checkbox(config, {
-                    label: localization.en.diagnosticsbox,
+                    label: CoxTimeDependent.t('diagnosticsbox'),
                     no: "diagnosticsbox",
                     extraction: "Boolean",
                     newline: true,
@@ -258,7 +171,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             martscalebox: {
                 el: new input(config, {
                     no: 'martscalebox',
-                    label: localization.en.martscalebox,
+                    label: CoxTimeDependent.t('martscalebox'),
                     placeholder: "-1",
                     ml: 4,
 					width: "w-25",
@@ -270,7 +183,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             }, 
             devbox: {
                 el: new checkbox(config, {
-                    label: localization.en.devbox,
+                    label: CoxTimeDependent.t('devbox'),
                     no: "devbox",
                     extraction: "Boolean",
                     newline: true,
@@ -280,7 +193,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             devtype: {
                 el: new comboBox(config, {
                     no: 'devtype',
-                    label: localization.en.devtype,
+                    label: CoxTimeDependent.t('devtype'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: ["Wald", "LR"],
@@ -290,7 +203,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             },             
             startstopbox: {
                 el: new checkbox(config, {
-                    label: localization.en.startstopboxlabel,
+                    label: CoxTimeDependent.t('startstopboxlabel'),
                     no: "startstopbox",
                     extraction: "Boolean",
                     style:"mt-3"
@@ -299,7 +212,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             startstopname: {
                 el: new input(config, {
                     no: 'startstopname',
-                    label: localization.en.startstopnamelabel,
+                    label: CoxTimeDependent.t('startstopnamelabel'),
 					style: "ml-4",
 					width: "w-50",
                     placeholder: "sdata",
@@ -312,7 +225,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
         var options = {
             el: new optionsVar(config, {
                 no: "options",
-                name: localization.en.options,
+                name: CoxTimeDependent.t('options'),
                 content: [
                     objects.tiemethod.el,
                     objects.forestplotbox.el, 
@@ -336,14 +249,20 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             ],
             bottom: [options.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: CoxTimeDependent.t('navigation'),
                 icon: "icon-cox-timedependent",
 				positionInNav: 2,
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: CoxTimeDependent.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: CoxTimeDependent.t('help.body')
+        }
+;
     }
 	
 	
@@ -383,4 +302,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
 	
 	
 }
-module.exports.item = new CoxTimeDependent().render()
+
+module.exports = {
+    render: () => new CoxTimeDependent().render()
+}

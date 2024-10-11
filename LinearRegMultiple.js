@@ -1,116 +1,5 @@
 
-var localization = {
-    en: {
-        title: "Linear Regression, multiple models",
-        navigation: "Linear Regression, multiple models",
-        depvarlabel: "Dependent Variable",
-		indvarslabel: "Independent Variables",
-		adjvars1label: "Adjustment Variables, Set 1",
-		adjvars2label: "Adjustment Variables, Set 2",
-		adjvars3label: "Adjustment Variables, Set 3",
-		adjvars4label: "Adjustment Variables, Set 4",
-		adjvars5label: "Adjustment Variables, Set 5",		
-		stratavarlabel: "Strata",
-		wgtvarlabel: "Weights",
-		digitslabel: "Digits After Decimal",
-		contdigitslabel: "Continuous Values",
-		pvaluedigitslabel: "P-Values",
-		parestlabel: "Parameter Estimates",
-		stderrorschkboxlabel: "Standard Errors",
-		confintchkboxlabel: "Confidence Intervals",
-		cilevellabel: "Confidence Interval Level",
-		interceptchkboxlabel: "Intercepts",
-		adjvarschkboxlabel: "Adjustment Variables",
-		standardizedchkboxlabel: "Standardized Estimates",
-		adjnameschkboxlabel: "Adjustment Names",
-		samplesizelabel: "Sample Size",
-		nmissifanychkboxlabel: "Number Missing, if any",
-		nmissalwayschkboxlabel: "Number Missing, always",
-		fitstatisticslabel: "Fit Statistics",
-		rsqchkboxlabel: "R-Squared",
-		adjrsqchkboxlabel: "Adjusted R-Squared",
-		aicchkboxlabel: "Akaike Information Criterion (AIC)",
-		bicchkboxlabel: "Bayesian Information Criterion (BIC)",
-		loglikchkboxlabel: "Log-Likelihood",
-		pvalueslabel: "P-Values",
-		parestpvaluechkboxlabel: "Parameter t-statistics",
-		ftestpvaluechkboxlabel: "Model F-Test",
-		lrtpvaluechkboxlabel: "Likelihood Ratio Tests (not adjustors)",
-		teststatisticslabel: "Test Statistics",
-		tstatchkboxlabel: "Parameter t-statistics",
-		fstatchkboxlabel: "Model F-Test",
-        help: {
-            title: "Linear Regression, multiple models",
-            r_help: "help(modelsum, package ='arsenal')",
-            body: `
-This creates a table containing results from linear regression models for a given dependent variable.  Separate linear regression models will be fit for each independent variable, 
-optionally adjusted for a set of additional variables.  If a strata variable is specified, separate models will be fit for each of the stratification variable values.  As an example,
- if no adjustor or stratification variables are specified, then the table will include all univariate models for the list of independent variables.  Various statistics from each model can be output.
-<br/><br/>
-<b>Dependent Variable:</b> Dependent variable for each linear regression model.  The variable class must be a numeric type.
-<br/><br/>
-<b>Independent Variables:</b> Independent variables to include in the models.  The variable classes can be a numeric type, character, factor, or ordered factor.
-<br/><br/>
-<b>Adjustment Variables (Sets 1-5):</b> Optional variables to be included in a model with the independent variables.  The variable classes can be a numeric type, character, factor, or ordered factor.
-Specifying more than one set of adjustor variables will provide separate models with each set of adjustor variables.
-<br/><br/>
-<b>Strata:</b> Optional stratification variable. Separate models will be fit for the subset defined by each of the stratification variable values.  The variable class can be character, numeric, factor, or ordered factor.
-<br/><br/>
-<b>Weights:</b> Optional case-weights to be used in the models.  Specifying a weights variable will fit weighted regression models.
-<br/><br/>
-<b>Digits After Decimal</b><br/>
-<ul>
-<li><b>Continuous Values:</b>  The number of decimal places to show for all continuous values in the table (default=4)</li>
-<li><b>P-Values:</b>  The number of decimal places to show for all p-values in the table (default=4)</li>
-</ul>
-<br/>
-<b>Options:</b>
-<br/><br/>
-<b>Parameter Estimates</b><br/>
-<ul>
-<li><b>Parameter Estimates:</b>  Show parameter estimates (coefficients) from each model.</li>
-<li><b>Standard Errors:</b>  Show standard errors of the parameter estimates.</li>
-<li><b>Confidence Interval Level:</b>  Level for the parameter estimate confidence intervals (default=0.95).</li>
-<li><b>Intercepts:</b>  Show the y-intercepts from each model.</li>
-<li><b>Adjustment Variables:</b>  Show model output for the adjustment variables.</li>
-<li><b>Standardized Estimates:</b>  Show standardized parameter estimates from each model.  These are the parameter estimates corresponding to a standardized version of all continuous variables ((value - mean) / standard deviation).</li>
-<li><b>Confidence Intervals:</b>  Show confidence intervals for the parameter estimates.</li>
-<li><b>Adjustment Names:</b>  Show a column delineating model types (unadjusted and different adjustment variable sets).  Mostly useful when you don't want to show model output for the adjustor variables.</li>
-</ul>
-<br/>
-<b>Sample Size</b><br/>
-<ul>
-<li><b>Sample Size:</b>  Show the sample size used from each model.</li>
-<li><b>Number Missing, if any:</b>  Show the number of observations not used in each model (missing values), only if there are some not used.</li>
-<li><b>Number Missing, always:</b>  Show the number of observations not used in each model (missing values), regardless of whether there are some observations not used.</li>
-</ul>
-<br/>
-<b>Fit Statistics</b><br/>
-<ul>
-<li><b>R-Squared:</b>  Show the model R-Squared value</li>
-<li><b>Adjusted R-Squared:</b>  Show the model adjusted R-Squared value</li>
-<li><b>Akaike Information Criterion (AIC):</b>  Show the model Akaike Information Criterion</li>
-<li><b>Bayesian Information Criterion (BIC):</b>  Show the model Bayesian Information Criterion</li>
-<li><b>Log-Likelihood:</b>  Show the model log-likelihood value</li>
-</ul>
-<br/>
-<b>P-Values</b><br/>
-<ul>
-<li><b>Parameter t-statistics:</b>  Show the p-values from the individual parameter t-tests</li>
-<li><b>Model F-test:</b>  Show the p-value from the overall model F-test</li>
-<li><b>Likelihood Ratio Tests (not adjustors):</b>  Show the p-values for each independent variable based on a likelihood ratio test.  This compares a model with the independent variable to a model without the independent variable, including any adjustor variables in both models.</li>
-</ul>
-<br/>
-<b>Test Statistics</b><br/>
-<ul>
-<li><b>Parameter t-statistics:</b>  Show the t-statistics from the individual parameter t-tests</li>
-<li><b>Model F-Test:</b>  Show the F statistic from the overall model F-test</li>
-</ul>
-<br/>
-<b>Required R Packages:</b> arsenal, dplyr
-			`}
-    }
-}
+
 
 
 
@@ -121,10 +10,13 @@ Specifying more than one set of adjustor variables will provide separate models 
 
 
 class LinearRegMultiple extends baseModal {
+    static dialogId = 'LinearRegMultiple'
+    static t = baseModal.makeT(LinearRegMultiple.dialogId)
+
     constructor() {
         var config = {
-            id: "LinearRegMultiple",
-            label: localization.en.title,
+            id: LinearRegMultiple.dialogId,
+            label: LinearRegMultiple.t('title'),
 			splitProcessing: true,
             modalType: "two",
             RCode: `
@@ -169,7 +61,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
             content_var: { el: new srcVariableList(config, {action: "copy", scroll: true}) },
 			depvar: {
 				el: new dstVariable(config, {
-				label: localization.en.depvarlabel,
+				label: LinearRegMultiple.t('depvarlabel'),
 				no: "depvar",
 				filter: "Numeric|Scale",
 				extraction: "NoPrefix|UseComma",
@@ -178,7 +70,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},						
 			indvars: {
 				el: new dstVariableList(config,{
-				label: localization.en.indvarslabel,
+				label: LinearRegMultiple.t('indvarslabel'),
 				no: "indvars",
 				required: true,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -187,7 +79,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars1: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars1label,
+				label: LinearRegMultiple.t('adjvars1label'),
 				no: "adjvars1",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -197,7 +89,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars2: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars2label,
+				label: LinearRegMultiple.t('adjvars2label'),
 				no: "adjvars2",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -207,7 +99,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars3: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars3label,
+				label: LinearRegMultiple.t('adjvars3label'),
 				no: "adjvars3",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -217,7 +109,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars4: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars4label,
+				label: LinearRegMultiple.t('adjvars4label'),
 				no: "adjvars4",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -227,7 +119,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars5: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars5label,
+				label: LinearRegMultiple.t('adjvars5label'),
 				no: "adjvars5",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -237,7 +129,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			stratavar: {
 				el: new dstVariable(config, {
-				label: localization.en.stratavarlabel,
+				label: LinearRegMultiple.t('stratavarlabel'),
 				no: "stratavar",
 				filter: "String|Numeric|Ordinal|Nominal|Scale",
 				extraction: "NoPrefix|UseComma",
@@ -247,7 +139,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			wgtvar: {
 				el: new dstVariable(config, {
-				label: localization.en.wgtvarlabel,
+				label: LinearRegMultiple.t('wgtvarlabel'),
 				no: "wgtvar",
 				filter: "Numeric|Scale",
 				extraction: "NoPrefix|UseComma",
@@ -257,7 +149,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			digitslabel: {
 				el: new labelVar(config, {
-				label: localization.en.digitslabel, 
+				label: LinearRegMultiple.t('digitslabel'), 
 				h:5,
 				style: "mt-4"
 				})
@@ -265,7 +157,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			contdigits: {
 				el: new inputSpinner(config, {
 				  no: 'contdigits',
-				  label: localization.en.contdigitslabel,
+				  label: LinearRegMultiple.t('contdigitslabel'),
 				  min: 0,
 				  max: 1000,
 				  step: 1,
@@ -277,7 +169,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			pvaluedigits: {
 				el: new inputSpinner(config, {
 				  no: 'pvaluedigits',
-				  label: localization.en.pvaluedigitslabel,
+				  label: LinearRegMultiple.t('pvaluedigitslabel'),
 				  min: 1,
 				  max: 1000,
 				  step: 1,
@@ -288,13 +180,13 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			parestlabel: {
 				el: new labelVar(config, {
-				label: localization.en.parestlabel, 
+				label: LinearRegMultiple.t('parestlabel'), 
 				h:5
 				})
 			},
 			parestimatechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.parestlabel,
+				label: LinearRegMultiple.t('parestlabel'),
 				no: "parestimatechkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -305,7 +197,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			stderrorschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.stderrorschkboxlabel,
+				label: LinearRegMultiple.t('stderrorschkboxlabel'),
 				no: "stderrorschkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -316,7 +208,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			confintchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.confintchkboxlabel,
+				label: LinearRegMultiple.t('confintchkboxlabel'),
 				no: "confintchkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -328,7 +220,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			cilevel: {
 				el: new inputSpinner(config, {
 				  no: 'cilevel',
-				  label: localization.en.cilevellabel,
+				  label: LinearRegMultiple.t('cilevellabel'),
 				  min: 0,
 				  max: 100,
 				  step: .001,
@@ -338,7 +230,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			interceptchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.interceptchkboxlabel,
+				label: LinearRegMultiple.t('interceptchkboxlabel'),
 				no: "interceptchkbox",
 				state: "checked",
 				extraction: "Boolean"
@@ -346,7 +238,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvarschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.adjvarschkboxlabel,
+				label: LinearRegMultiple.t('adjvarschkboxlabel'),
 				no: "adjvarschkbox",
 				state: "checked",
 				extraction: "Boolean"
@@ -354,7 +246,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			standardizedchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.standardizedchkboxlabel,
+				label: LinearRegMultiple.t('standardizedchkboxlabel'),
 				no: "standardizedchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -364,21 +256,21 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjnameschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.adjnameschkboxlabel,
+				label: LinearRegMultiple.t('adjnameschkboxlabel'),
 				no: "adjnameschkbox",
 				extraction: "Boolean"
 				})
 			},			
 			samplesizelabel: {
 				el: new labelVar(config, {
-				label: localization.en.samplesizelabel, 
+				label: LinearRegMultiple.t('samplesizelabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			nchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.samplesizelabel,
+				label: LinearRegMultiple.t('samplesizelabel'),
 				no: "nchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -388,7 +280,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			nmissifanychkbox: {
 				el: new checkbox(config, {
-				label: localization.en.nmissifanychkboxlabel,
+				label: LinearRegMultiple.t('nmissifanychkboxlabel'),
 				no: "nmissifanychkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -399,7 +291,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			nmissalwayschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.nmissalwayschkboxlabel,
+				label: LinearRegMultiple.t('nmissalwayschkboxlabel'),
 				no: "nmissalwayschkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -409,14 +301,14 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			fitstatisticslabel: {
 				el: new labelVar(config, {
-				label: localization.en.fitstatisticslabel, 
+				label: LinearRegMultiple.t('fitstatisticslabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			rsqchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.rsqchkboxlabel,
+				label: LinearRegMultiple.t('rsqchkboxlabel'),
 				no: "rsqchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -426,7 +318,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjrsqchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.adjrsqchkboxlabel,
+				label: LinearRegMultiple.t('adjrsqchkboxlabel'),
 				no: "adjrsqchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -436,7 +328,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			aicchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.aicchkboxlabel,
+				label: LinearRegMultiple.t('aicchkboxlabel'),
 				no: "aicchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -446,7 +338,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			bicchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.bicchkboxlabel,
+				label: LinearRegMultiple.t('bicchkboxlabel'),
 				no: "bicchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -456,7 +348,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			loglikchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.loglikchkboxlabel,
+				label: LinearRegMultiple.t('loglikchkboxlabel'),
 				no: "loglikchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -466,14 +358,14 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			pvalueslabel: {
 				el: new labelVar(config, {
-				label: localization.en.pvalueslabel, 
+				label: LinearRegMultiple.t('pvalueslabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			parestpvaluechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.parestpvaluechkboxlabel,
+				label: LinearRegMultiple.t('parestpvaluechkboxlabel'),
 				no: "parestpvaluechkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -484,7 +376,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			ftestpvaluechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.ftestpvaluechkboxlabel,
+				label: LinearRegMultiple.t('ftestpvaluechkboxlabel'),
 				no: "ftestpvaluechkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -494,7 +386,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			lrtpvaluechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.lrtpvaluechkboxlabel,
+				label: LinearRegMultiple.t('lrtpvaluechkboxlabel'),
 				no: "lrtpvaluechkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -504,14 +396,14 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			teststatisticslabel: {
 				el: new labelVar(config, {
-				label: localization.en.teststatisticslabel, 
+				label: LinearRegMultiple.t('teststatisticslabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			tstatchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.tstatchkboxlabel,
+				label: LinearRegMultiple.t('tstatchkboxlabel'),
 				no: "tstatchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -521,7 +413,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			fstatchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.fstatchkboxlabel,
+				label: LinearRegMultiple.t('fstatchkboxlabel'),
 				no: "fstatchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -554,14 +446,20 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 					objects.contdigits.el.content, objects.pvaluedigits.el.content],
 			bottom: [optionspanel.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: LinearRegMultiple.t('navigation'),
                 icon: "icon-linear_regression_multiple_models",
 				positionInNav: 9,
                 modal: config.id
             }
         };
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: LinearRegMultiple.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: LinearRegMultiple.t('help.body')
+        }
+;
     }	
 
 
@@ -649,4 +547,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 
 	
 }
-module.exports.item = new LinearRegMultiple().render()
+
+module.exports = {
+    render: () => new LinearRegMultiple().render()
+}

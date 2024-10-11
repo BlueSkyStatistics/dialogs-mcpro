@@ -1,38 +1,5 @@
 
-var localization = {
-    en: {
-        title: "Concordance Correlation Coefficient, multiple raters",
-        navigation: "Concordance Correlation Coefficient, multiple raters",
-		ratervars: "Rater Variables, at least 2",
-        cilevel: "Confidence Level:",
-		bootsamp: "Number of bootstrap samples",
-		plotoptionslabel: "Plot Options",
-		plotchkbox: "Scatterplots for all rater pairs",
-		plottitle: "Title",
-		varlabels: "Variable Labels (if used, must specify labels for all variables, in order, as 'label 1', 'label 2', etc.)",
-		plottheme: "Plot Theme",
-        help: {
-            title: "Concordance Correlation Coefficient, multiple raters",
-            r_help: "help(epi.occc,package=epiR)",
-            body: `
-The concordance correlation coefficient (CCC) measures agreement between observers that measure the same subjects on the same scale for continuous data.  The CCC can range between 
--1 and 1, with 1 being perfect agreement and 0 being no agreement.  Negative values indicate negative agreement, but is rare in practice.  The overall CCC and pairwise CCC's 
-(all pairs of raters) are computed with bootstrap percentile and adjusted bootstrap percentile confidence intervals.  Any observation with a missing value for the specified rater 
-variables is removed from the analysis.
-<br/><br/>
-<b>Rater Variables:</b> Variables containing the values provided by the observers; must be numeric
-<br/>
-<b>Confidence Interval Level:</b> Desired confidence interval level for the CCC
-<br/>
-<b>Number of bootstrap samples:</b>  The desired number of bootstrap samples to draw from the original data to compute the confidence intervals.  At least 1000 is recommended, 
-if practically feasible.
-<br/>
-<b>Scatterplots for all rater pairs:</b>  Option to create scatterplots for all pairs of raters in a matrix format.   
-<br/><br/>
-<b>Required R packages:</b> epiR, boot, GGally, ggthemes
-                `}
-    }
-}
+
 
 
 
@@ -43,10 +10,13 @@ if practically feasible.
 
 
 class cccmult extends baseModal {
+    static dialogId = 'cccmult'
+    static t = baseModal.makeT(cccmult.dialogId)
+
     constructor() {
         var config = {
-            id: "cccmult",
-            label: localization.en.title,
+            id: cccmult.dialogId,
+            label: cccmult.t('title'),
             modalType: "two",
             RCode: `
 library(epiR)
@@ -142,7 +112,7 @@ detach("package:GGally")
             content_var: { el: new srcVariableList(config, {action: "move"}) },
 			ratervars: {
 				el: new dstVariableList(config,{
-				label: localization.en.ratervars,
+				label: cccmult.t('ratervars'),
 				no: "ratervars",
 				required: true,
 				filter:"Numeric|Scale",
@@ -153,7 +123,7 @@ detach("package:GGally")
             cilevel: {
                 el: new advancedSlider(config, {
                     no: "cilevel",
-                    label: localization.en.cilevel,
+                    label: cccmult.t('cilevel'),
 					style: "mt-4",
                     min: 0,
                     max: 1,
@@ -165,7 +135,7 @@ detach("package:GGally")
 			bootsamp: {
 				el: new inputSpinner(config, {
 					no: 'bootsamp',
-					label: localization.en.bootsamp,
+					label: cccmult.t('bootsamp'),
 					min: 400,
 					max: 100000,
 					step: 200,
@@ -175,7 +145,7 @@ detach("package:GGally")
 			},			
 			plotchkbox: {
 				el: new checkbox(config, {
-					label: localization.en.plotchkbox,
+					label: cccmult.t('plotchkbox'),
 					no: "plotchkbox",
 					extraction: "Boolean"
 				})
@@ -183,7 +153,7 @@ detach("package:GGally")
 			plottitle: {
 				el: new input(config, {
 				no: 'plottitle',
-				label: localization.en.plottitle,
+				label: cccmult.t('plottitle'),
 				style: "ml-3",
 				allow_spaces: true,
 				placeholder: "Rater pairs with perfect agreement line",
@@ -196,7 +166,7 @@ detach("package:GGally")
 			varlabels: {
 				el: new input(config, {
 				no: 'varlabels',
-				label: localization.en.varlabels,
+				label: cccmult.t('varlabels'),
 				style: "ml-3",
 				allow_spaces: true,
 				extraction: "TextAsIs",
@@ -208,7 +178,7 @@ detach("package:GGally")
             plottheme: {
                 el: new comboBox(config, {
                     no: 'plottheme',
-                    label: localization.en.plottheme,
+                    label: cccmult.t('plottheme'),
 					style: "ml-3",
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
@@ -228,7 +198,7 @@ detach("package:GGally")
 		var plotoptions = {
 			el: new optionsVar(config, {
 			no: "plotoptions",
-			name: localization.en.plotoptionslabel,
+			name: cccmult.t('plotoptionslabel'),
 			content: [
 				objects.plotchkbox.el, objects.plottitle.el, objects.varlabels.el, objects.plottheme.el
 				]
@@ -240,15 +210,24 @@ detach("package:GGally")
             right: [objects.ratervars.el.content, objects.cilevel.el.content, objects.bootsamp.el.content],
 			bottom: [plotoptions.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: cccmult.t('navigation'),
                 icon: "icon-icon-ccc-multiple",
 				positionInNav: 3,
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: cccmult.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: cccmult.t('help.body')
+        }
+;
     }
 	
 }
-module.exports.item = new cccmult().render()
+
+module.exports = {
+    render: () => new cccmult().render()
+}

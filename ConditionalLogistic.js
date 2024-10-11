@@ -1,43 +1,14 @@
 
-var localization = {
-    en: {
-        title: "Logistic, Conditional",
-        navigation: "Logistic, Conditional",
-        modelname:"Enter model name",
-        outcomevarlabel: "Dependent Variable (numeric; 1 = event, 0 = no event)",
-		stratavarlabel: "Strata",
-		methodgrplabel: "Estimation Method",
-		exactlabel: "Exact",
-		efronlabel: "Efron",
-		breslowlabel: "Breslow",
-        help: {
-            title: "Logistic, Conditional",
-            r_help: "help(clogit, package = 'survival')",
-            body: `
-This fits a conditional logistic regression model, which is similar to standard logistic regression, but incorporates a stratification variable.  Common applications of this 
-model are in matched case-control, matched cohort, and nested case-control studies.  The output includes the number of strata used in the analysis, outcome frequency patterns 
-within strata, various model summary statistics, parameter estimates, and odds ratios.
-<br/><br/>
-<b>Dependent Variable:</b> This is the variable indicating the event for each subject, with 1 signifying an event, and 0 signifying a non-event.  This variable must be numeric.
-<br/><br/>
-<b>Formula Builder:</b> Specify the desired model terms.
-<br/><br/>
-<b>Strata:</b> Specify the stratification variable.  Can be numeric, character, or a nominal/ordinal factor.
-<br/><br/>
-<b>Estimation Method:</b> Specify the model estimation method.  The "Exact" method is the default.  As long as there are not too many ways to select events within strata, this 
-should be the option chosen. The estimation may take some time or lead to errors if many combinations can result within some strata, say 100 events out of 500 subjects.  The Efron 
-and Breslow approximations are adequate in these cases, with Efron being preferred.  See the references in the R help for details.
-<br/><br/>
-<b>Required R Packages:</b> survival, broom, arsenal, dplyr
-		`}
-    }
-}
+
 
 class ConditionalLogistic extends baseModal {
+    static dialogId = 'ConditionalLogistic'
+    static t = baseModal.makeT(ConditionalLogistic.dialogId)
+
     constructor() {
         var config = {
-            id: "ConditionalLogistic",
-            label: localization.en.title,
+            id: ConditionalLogistic.dialogId,
+            label: ConditionalLogistic.t('title'),
             modalType: "two",
             RCode: `
 library(survival)
@@ -91,7 +62,7 @@ BSkyFormat(clogit_or, singleTableOutputHeader="Odds Ratios (OR) and 95% Confiden
             modelname: {
                 el: new input(config, {
                     no: 'modelname',
-                    label: localization.en.modelname,
+                    label: ConditionalLogistic.t('modelname'),
 					style: "mb-3",
                     placeholder: "CondLogisticModel1",
                     required: true,
@@ -102,7 +73,7 @@ BSkyFormat(clogit_or, singleTableOutputHeader="Odds Ratios (OR) and 95% Confiden
             },
             outcomevar: {
                 el: new dstVariable(config, {
-                    label: localization.en.outcomevarlabel,
+                    label: ConditionalLogistic.t('outcomevarlabel'),
                     no: "outcomevar",
                     filter: "Numeric|Scale",
                     required: true,
@@ -117,7 +88,7 @@ BSkyFormat(clogit_or, singleTableOutputHeader="Odds Ratios (OR) and 95% Confiden
             }, 
             stratavar: {
                 el: new dstVariable(config, {
-                    label: localization.en.stratavarlabel,
+                    label: ConditionalLogistic.t('stratavarlabel'),
                     no: "stratavar",
                     filter: "String|Numeric|Ordinal|Nominal|Scale",
                     required: true,
@@ -126,14 +97,14 @@ BSkyFormat(clogit_or, singleTableOutputHeader="Odds Ratios (OR) and 95% Confiden
             },
 			methodgrplabel: {
 				el: new labelVar(config, {
-				label: localization.en.methodgrplabel, 
+				label: ConditionalLogistic.t('methodgrplabel'), 
 				style: "mt-3", 
 				h:5
 				})
 			},			
 			exact: {
 				el: new radioButton(config, {
-				label: localization.en.exactlabel,
+				label: ConditionalLogistic.t('exactlabel'),
 				no: "methodgrp",
 				style: "ml-3",
 				increment: "exact",
@@ -144,7 +115,7 @@ BSkyFormat(clogit_or, singleTableOutputHeader="Odds Ratios (OR) and 95% Confiden
 			},
  			efron: {
 				el: new radioButton(config, {
-				label: localization.en.efronlabel,
+				label: ConditionalLogistic.t('efronlabel'),
 				no: "methodgrp",
 				style: "ml-3",
 				increment: "efron",
@@ -155,7 +126,7 @@ BSkyFormat(clogit_or, singleTableOutputHeader="Odds Ratios (OR) and 95% Confiden
 			},           
  			breslow: {
 				el: new radioButton(config, {
-				label: localization.en.breslowlabel,
+				label: ConditionalLogistic.t('breslowlabel'),
 				no: "methodgrp",
 				style: "ml-3",
 				increment: "breslow",
@@ -174,14 +145,23 @@ BSkyFormat(clogit_or, singleTableOutputHeader="Odds Ratios (OR) and 95% Confiden
 				objects.methodgrplabel.el.content, objects.exact.el.content, objects.efron.el.content, objects.breslow.el.content
             ],
             nav: {
-                name: localization.en.navigation,
+                name: ConditionalLogistic.t('navigation'),
                 icon: "icon-logisticconditional",
 				positionInNav: 12,
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: ConditionalLogistic.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: ConditionalLogistic.t('help.body')
+        }
+;
     }
 }
-module.exports.item = new ConditionalLogistic().render()
+
+module.exports = {
+    render: () => new ConditionalLogistic().render()
+}

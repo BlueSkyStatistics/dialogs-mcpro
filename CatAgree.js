@@ -1,63 +1,13 @@
-var localization = {
-    en: {
-        title: "Categorical Agreement",
-        navigation: "Categorical Agreement",
-        ratervars: "Rater Variables:",
-        cilevel: "Confidence Level:",
-        options: "Advanced",
-        categLabels: "Optionally specify all possible ratings separated by , e.g. 1,2,3,4,5 or \"low\",\"medium\",\"high\" ",
-        weightschkbox: "Show category weights",
-        weights: "Select category weights",
-        N: "Finite population size (if any)",
-        help: {
-            title: "Categorical Agreement",
-            r_help: "help(fleiss.kappa.raw, package=irrCAC)",
-            body: `
-<b>Description</b></br>
-Computes percent agreement, Conger's/Cohen's kappa, Fleiss' kappa, Gwet's AC1/AC2, Krippendorff's alpha, and the Brennan-Prediger coefficient among multiple raters (2, 3, +) when the input data represent the raw ratings reported for each subject and each rater.  Unweighted and weighted versions of these statistics are available, with different category weighting methods.</br>
-Missing values are incorported into the chance agreement calculations per Gwet (2014).</br>
-We also provide the option to display the weightings of the rating categories.</br>
-For more information, see: </br></br>Gwet, K.L. (2014, ISBN:978-0970806284). “Handbook of Inter-Rater Reliability,” 4th Edition. Advanced Analytics, LLC
-</br></br>Klein, D. (2018) doi:https://doi.org/10.1177/1536867X1801800408. “Implementing a general framework for assessing interrater agreement in Stata,” The Stata Journal Volume 18, Number 4, pp. 871-901.</br></br> 
-<b>Usage</b>
-<br/>
-<br/>
-<ul>
-<li>
-<b>Rater Variables:</b>  Variables corresponding to each rater where each column represents one rater and each row one subject. They can be numeric, factor, ordinal, or character variables.</br>
-</li>
-<li>
-<b>Confidence Level:</b>  The confidence level associated with the confidence interval. Its default value is 0.95.</br>
-</li>
-<li>
-<b>Show category weights:</b> shows the numerical weights for the rater categories according to the selected weights.  The selected weighting should correspond to the desired closeness between the categories.
-</li>
-<li>
-<b>Select category weights:</b> A mandatory parameter that is either a string variable or a matrix. The string describes one of the predefined weights and must take one of the values ("unweighted","quadratic", "ordinal", "linear", "radical", "ratio", "circular", "bipolar"). </br>
-If this parameter is a matrix then it must be a square matrix qxq where q is the number of posssible categories where a subject can be classified. If some of the q possible categories are not used, then it is strongly advised to specify the complete list of possible categories. Otherwise, the program may not work.</br>
-NOTE: Specifying a matrix is NOT supported in the syntax. You need to paste the code and edit to specify a matrix.</br>
-</li>
-<li>
-<b>Finite population size (if any):</b> Optional parameter representing the population size (if any). It may be used to perform a finite population correction to the variance. Its default value is infinity.
-</li>
-<li>
-<b>Optionally specify all possible ratings:</b> Optional list used in the case when no rater uses a possible category. If nothing is specified, it's assumed that the oberved categories are the entire category set.
-</li>
-</ul>
-<b>R Package</b></br>
-irrCAC</br>
-<b>Help</b></br>
-This dialog uses the pa.coeff.raw, conger.kappa.raw, fleiss.kappa.raw, gwet.ac1.raw, krippen.alpha.raw, and bp.coeff.raw functions.
-For detailed help, see the irrCAC package help at triple dot menu > Help > R Package Help.
-`}
-    }
-}
+
 
 class CatAgree extends baseModal {
+    static dialogId = 'CatAgree'
+    static t = baseModal.makeT(CatAgree.dialogId)
+
     constructor() {
         var config = {
-            id: "CatAgree",
-            label: localization.en.title,
+            id: CatAgree.dialogId,
+            label: CatAgree.t('title'),
             modalType: "two",
             RCode: `
 require(irrCAC)
@@ -110,7 +60,7 @@ BSkyFormat(allcoefs.est, singleTableOutputHeader = "Categorical Agreement Statis
             content_var: { el: new srcVariableList(config, { action: "move" }) },
             ratervars: {
                 el: new dstVariableList(config, {
-                    label: localization.en.ratervars,
+                    label: CatAgree.t('ratervars'),
                     no: "ratervars",
                     filter: "Numeric|String|Ordinal|Nominal|Scale",
                     extraction: "NoPrefix|UseComma|Enclosed",
@@ -120,7 +70,7 @@ BSkyFormat(allcoefs.est, singleTableOutputHeader = "Categorical Agreement Statis
             cilevel: {
                 el: new advancedSlider(config, {
                     no: "cilevel",
-                    label: localization.en.cilevel,
+                    label: CatAgree.t('cilevel'),
                     min: 0,
                     max: 1,
                     step: 0.05,
@@ -130,7 +80,7 @@ BSkyFormat(allcoefs.est, singleTableOutputHeader = "Categorical Agreement Statis
             },
             weightschkbox: {
                 el: new checkbox(config, {
-                    label: localization.en.weightschkbox,
+                    label: CatAgree.t('weightschkbox'),
                     no: "weightschkbox",
 					style: "mb-4",
                     bs_type: "valuebox",
@@ -142,7 +92,7 @@ BSkyFormat(allcoefs.est, singleTableOutputHeader = "Categorical Agreement Statis
             weights: {
                 el: new comboBox(config, {
                     no: 'weights',
-                    label: localization.en.weights,
+                    label: CatAgree.t('weights'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: ["unweighted", "quadratic", "ordinal", "linear", "radical", "ratio", "circular", "bipolar"],
@@ -152,7 +102,7 @@ BSkyFormat(allcoefs.est, singleTableOutputHeader = "Categorical Agreement Statis
             N: {
                 el: new input(config, {
                     no: 'N',
-                    label: localization.en.N,
+                    label: CatAgree.t('N'),
                     placeholder: "",
                     allow_spaces: true,
                     extraction: "TextAsIs",
@@ -163,7 +113,7 @@ BSkyFormat(allcoefs.est, singleTableOutputHeader = "Categorical Agreement Statis
             categLabels: {
                 el: new input(config, {
                     no: 'categLabels',
-                    label: localization.en.categLabels,
+                    label: CatAgree.t('categLabels'),
                     placeholder: "",
                     allow_spaces: true,
                     extraction: "TextAsIs",
@@ -175,7 +125,7 @@ BSkyFormat(allcoefs.est, singleTableOutputHeader = "Categorical Agreement Statis
         var opts = {
             el: new optionsVar(config, {
                 no: "fk_options",
-                name: localization.en.options,
+                name: CatAgree.t('options'),
                 content: [
                     objects.N.el,
                     objects.categLabels.el
@@ -187,14 +137,23 @@ BSkyFormat(allcoefs.est, singleTableOutputHeader = "Categorical Agreement Statis
             right: [objects.ratervars.el.content, objects.cilevel.el.content, objects.weights.el.content, objects.weightschkbox.el.content],
             bottom: [opts.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: CatAgree.t('navigation'),
                 icon: "icon-shapes",
 				positionInNav: 1,
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: CatAgree.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: CatAgree.t('help.body')
+        }
+;
     }
 }
-module.exports.item = new CatAgree().render()
+
+module.exports = {
+    render: () => new CatAgree().render()
+}

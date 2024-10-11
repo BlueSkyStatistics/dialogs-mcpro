@@ -1,63 +1,14 @@
 
-var localization = {
-    en: {
-        title: "Risk Set Matching",
-        navigation: "Risk Set Matching",
-		newdatasetnamelabel: "Dataset name to store matched data",
-        groupvarlabel: "Event variable (1=event, 0=censor)",
-		timevarlabel: "Time variable",
-		calipervarslabel: "Variables for matching (numeric)",
-        caliperslabel: "Specify calipers in order of matching variables separated by commas, e.g. 5, 2; specify 0 for exact matches",
-        ratiolabel: "Number of controls per case",
-		repeatcontrolslabel: "Allow controls to be matched more than once",
-		supercontrolslabel: "Don't allow cases to be matched to other cases", 
-        help: {
-            title: "Risk Set Matching",
-            body: `
-            Performs risk set subject matching within a cohort.  Those with the outcome event (cases) are matched to those who have not had the event (controls) and are in the risk set at the event time of the case.  This is a nested case/control design.  Baseline variables known at cohort entry are also used to match cases and controls.
-			<br/><br/>
-			Baseline variables for which values have to match exactly and values matching within numerical calipers are supported. Controls are randomly selected from among all eligible controls for each case.
-			<br/><br/>
-			The output dataset containing the matched data will contain the original variables, the event indicator ("failed"), and a variable identifying the matched set ("match.num").
-			<br/><br/>
-			Observations with any missing values for variables involved in the matching process are removed prior to matching.
-			<br/><br/>
-			A brief introduction to nested case/control designs can be found in:
-			Essebag V , et al. The nested case-control study in cardiology. Am Heart J 2003;146:581–90.
-			<br/><br/>
-			<b>Dataset name to store matched data:</b>
-			<br/>Name of output dataset containing the matched subject sets.
-			<br/><br/>
-			<b>Event variable (1=event, 0=censor):</b>
-			<br/>Name of variable indicating those with events.  Must be numeric with 1=event and 0=censor.
-			</br><br/>
-			<b>Variables for matching:</b>
-			<br/>Specify the baseline variables for which you want the case/control sets to be matched.  These must be numeric.
-			<br/><br/>
-			<b>Specify calipers in order of matching variables separated by commas:</b>
-			<br/>Specify the numeric caliper values for each of the variables, in order of the variables. Exact matches should use a caliper of 0. 
-			For example, if age (in years) was specified with a caliper of 5, that means the controls must be within +/- 5 years of their matched case.
-			Each matching variable must have a caliper value specified.
-			<br/><br/>
-			<b>Number of controls per case:</b>
-			<br/>This is the maximum number of controls that will be matched to each case.  Some matched sets may have less than this value if suitable matches cannot be identified.
-            <br/><br/>
-			<b>Allow controls to be matched more than once:</b>
-			<br/>Specify whether or not you want controls to potentially be matched to more than one case.  We recommend this option to be selected to avoid bias.
-            <br/><br/>
-			<b>Don't allow cases to be matched to other cases:</b>
-			<br/>Specify whether to allow cases to be considered as controls before the case event time.  We recommend not selecting this option to avoid bias.  Not selecting this option means a case is in the control risk set pool, and eligible to be matched to another case, up until their event time.
-            <br/><br/>
-            <b>Required R packages:</b> dplyr, tidyr
-`}
-    }
-}
+
 
 class RiskSetMatching extends baseModal {
+    static dialogId = 'RiskSetMatching'
+    static t = baseModal.makeT(RiskSetMatching.dialogId)
+
     constructor() {
         var config = {
-            id: "RiskSetMatching",
-            label: localization.en.title,
+            id: RiskSetMatching.dialogId,
+            label: RiskSetMatching.t('title'),
             modalType: "two",
             RCode: `
 library(dplyr)
@@ -157,7 +108,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
 			newdatasetname: {
 				el: new input(config, {
 					no: 'newdatasetname',
-					label: localization.en.newdatasetnamelabel,
+					label: RiskSetMatching.t('newdatasetnamelabel'),
 					extraction: "TextAsIs",
 					type: "character",
 					allow_spaces: false,
@@ -170,7 +121,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
 			},			
             groupvar: {
                 el: new dstVariable(config, {
-                    label: localization.en.groupvarlabel,
+                    label: RiskSetMatching.t('groupvarlabel'),
                     no: "groupvar",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -179,7 +130,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
             },
             timevar: {
                 el: new dstVariable(config, {
-                    label: localization.en.timevarlabel,
+                    label: RiskSetMatching.t('timevarlabel'),
                     no: "timevar",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -188,7 +139,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
             },			
 			calipervars: {
 				el: new dstVariableList(config,{
-					label: localization.en.calipervarslabel,
+					label: RiskSetMatching.t('calipervarslabel'),
 					no: "calipervars",
 					required: true,
 					filter:"Numeric|Date|Scale",
@@ -198,7 +149,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
 			calipers: {
 				el: new input(config, {
 					no: 'calipers',
-					label: localization.en.caliperslabel,
+					label: RiskSetMatching.t('caliperslabel'),
 					extraction: "TextAsIs",
 					style: "ml-5 mb-3",
 					allow_spaces: true,
@@ -209,7 +160,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
 			ratio: {
 				el: new inputSpinner(config, {
 					no: 'ratio',
-					label: localization.en.ratiolabel,
+					label: RiskSetMatching.t('ratiolabel'),
 					min: 1,
 					max: 100,
 					step: 1,
@@ -220,7 +171,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
 			},
 			repeatcontrols: {
 				el: new checkbox(config, {
-				label: localization.en.repeatcontrolslabel,
+				label: RiskSetMatching.t('repeatcontrolslabel'),
 				no: "repeatcontrols",
 				state: "checked",
 				extraction: "Boolean"
@@ -228,7 +179,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
 			},
 			supercontrols: {
 				el: new checkbox(config, {
-				label: localization.en.supercontrolslabel,
+				label: RiskSetMatching.t('supercontrolslabel'),
 				no: "supercontrols",
 				state: "",
 				extraction: "Boolean"
@@ -247,13 +198,19 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
 				objects.supercontrols.el.content
             ],
             nav: {
-                name: localization.en.navigation,
+                name: RiskSetMatching.t('navigation'),
                 icon: "icon-paired",
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: RiskSetMatching.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: RiskSetMatching.t('help.body')
+        }
+;
     }
 	
 		prepareExecution(instance) {
@@ -281,4 +238,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
 	}	
 	
 }
-module.exports.item = new RiskSetMatching().render()
+
+module.exports = {
+    render: () => new RiskSetMatching().render()
+}

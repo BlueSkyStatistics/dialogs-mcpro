@@ -1,36 +1,14 @@
 
-var localization = {
-    en: {
-        title: "Separate Variable",
-        navigation: "Separate",
-		sepvarlabel: "Variable to separate",
-		delimiterlabel: "Characters used to separate",
-        help: {
-            title: "Separate Variable",
-			r_help: "help(separate_wider_delim, package = 'tidyr')",
-            body: `
-            This separates a variable's values into parts (one variable for each part) based on characters that define the separate parts.
-			<br/><br/>
-			For example, if the character used to separate is a comma (,) , it will separate the values into parts around the commas.  
-			<br/><br/>
-			The number of variables added to the dataset will be the maximum number of parts that any observation was separated into.  The names of the new variables will be the variable name being separated, plus a numbered suffix that corresponds to each part.  The variables will contain missing values if an observation cannot be separated into the maximum number of variables.  If the characters used to separate cannot be found in the value, then the original value will be returned (i.e. there is only one part).
-			<br/><br/>
-			<b>Variable to separate:</b>
-			<br/>Specify the variable you want to separate into parts.  This can be a character, numeric, factor, ordinal factor, or a date variable.  A non-character variable will be coerced to a character variable for the purposes of separating, but the original variable will be left as-is.
-			<br/><br/>
-			<b>Characters used to separate:</b>
-			<br/>Specify the character pattern that is the separator of the parts.  This can be one or more characters.
-			<br/><br/>
-            <b>Required R packages:</b> tidyr, dplyr
-`}
-    }
-}
+
 
 class Separate extends baseModal {
+    static dialogId = 'Separate'
+    static t = baseModal.makeT(Separate.dialogId)
+
     constructor() {
         var config = {
-            id: "Separate",
-            label: localization.en.title,
+            id: Separate.dialogId,
+            label: Separate.t('title'),
             modalType: "two",
             RCode: `
 library(tidyr)
@@ -61,7 +39,7 @@ BSkyLoadRefresh("{{dataset.name}}")
             },		
             sepvar: {
                 el: new dstVariable(config, {
-                    label: localization.en.sepvarlabel,
+                    label: Separate.t('sepvarlabel'),
                     no: "sepvar",
                     filter: "Numeric|Nominal|Ordinal|String|Scale|Date",
                     extraction: "NoPrefix|UseComma",
@@ -71,7 +49,7 @@ BSkyLoadRefresh("{{dataset.name}}")
 			delimiter: {
 				el: new input(config, {
 					no: 'delimiter',
-					label: localization.en.delimiterlabel,
+					label: Separate.t('delimiterlabel'),
 					value: ",",
 					extraction: "TextAsIs",
 					style: "ml-5 mb-3",
@@ -88,16 +66,25 @@ BSkyLoadRefresh("{{dataset.name}}")
                 objects.sepvar.el.content, objects.delimiter.el.content
             ],
             nav: {
-                name: localization.en.navigation,
+                name: Separate.t('navigation'),
                 icon: "icon-wider",
 				positionInNav: 13,
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: Separate.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: Separate.t('help.body')
+        }
+;
     }
 	
 	
 }
-module.exports.item = new Separate().render()
+
+module.exports = {
+    render: () => new Separate().render()
+}

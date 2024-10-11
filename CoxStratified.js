@@ -1,68 +1,14 @@
 
-var localization = {
-    en: {
-        title: "Cox, Stratified",
-        navigation: "Cox, Stratified",
-        modelname:"Enter model name",
-        timevar: "Time to event or censor",
-        eventvar: "Events (1 = event 1, 0 = censor)",
-        modelterms:"Model expression builder for independent variables",
-		stratavarslabel: "Stratification Variables",
-        weightvar: "Weights (optional)",
-        tiemethod: "Tied Time Method",
-        diagnosticsbox: "Model Diagnostics",
-        help: {
-            title: "Cox, Stratified",
-            r_help: "help(coxph, package = 'survival')",
-            body: `
-            Fits a stratified Cox proportional hazards model for time-to-event data with censored observations. This is a Cox model that allows a separate baseline hazard 
-			function for each strata level.  Model fitting statistics, parameter estimates, and hazard ratios are provided.  Options available include the tied time method 
-			and model diagnostics.  The model is fit using the coxph function in the survival package. 
-            <br/>
-            <br/>
-            <b>Time to event or censor:</b> Time to event for those experiencing the event or time to last follow-up for those not experiencing the event
-            <br/><br/>
-            <b>Events (1=event, 0=censor):</b> Numerical event indicator; 1=event, 0=censor
-            <br/><br/>
-            <b>Formula Builder:</b> Construct terms to include in the model.  Factors, strings, and logical variables will be dummy coded.  The provided buttons allow you to 
-			specify main effects, full factorial effects (main effects and all interactions with the involved variables), polynomials, specific interactions, and delete terms 
-			from the list.  Interactions with stratification variables is allowed.
-            <br/><br/>
-			<b>Stratification Variables:</b> Specify one or more stratification variables.  These can be numeric, factor, ordered factor, or character variables.  The strata 
-			divide the subjects into separate groups whereby each group has a distinct baseline hazard function.  If multiple stratification variables are given, a separate 
-			baseline hazard function is used for every combination of stratification variable levels.
-			<br/><br/>
-            <b>Weights:</b> Numeric variable for observation weights. Useful in situations where each record should not be counted as one observation. 
-            <br/>
-            <br/>
-            <b>Required packages:</b> survival, broom, survminer
-            <br/>
-            <br/>
-            Click the R Help button to get detailed R help about the coxph function.
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <b>Options</b>
-            <br/>
-            <br/>
-            <b>Tied Time Method:</b>
-            <br/>
-            Method of breaking tied observed times.  Efron is usually the better choice when there aren't many tied times.  The exact method can be beneficial if there are many tied times, as in discrete time situations, but can take a little longer for the model to be fit. 
-            <br/>
-            <br/>
-            <b>Model Diagnostics:</b>
-            <br/>
-            If selected, proportional hazards tests and plots will be provided, in addition to a Martingale residual plot.
-`}
-    }
-}
+
 
 class CoxStratified extends baseModal {
+    static dialogId = 'CoxStratified'
+    static t = baseModal.makeT(CoxStratified.dialogId)
+
     constructor() {
         var config = {
-            id: "CoxStratified",
-            label: localization.en.title,
+            id: CoxStratified.dialogId,
+            label: CoxStratified.t('title'),
             modalType: "two",
             RCode: `
 require(survival)
@@ -97,7 +43,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             modelname: {
                 el: new input(config, {
                     no: 'modelname',
-                    label: localization.en.modelname,
+                    label: CoxStratified.t('modelname'),
                     placeholder: "StratifiedCoxModel1",
                     required: true,
                     type: "character",
@@ -107,7 +53,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             },            
             timevar: {
                 el: new dstVariable(config, {
-                    label: localization.en.timevar,
+                    label: CoxStratified.t('timevar'),
                     no: "timevar",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -116,7 +62,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             },
             eventvar: {
                 el: new dstVariable(config, {
-                    label: localization.en.eventvar,
+                    label: CoxStratified.t('eventvar'),
                     no: "eventvar",
                     filter: "Numeric|Scale",
                     required: true,
@@ -126,13 +72,13 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             modelterms: {
                 el: new formulaBuilder(config, {
                     no: "modelterms",
-                    label: localization.en.modelterms,
+                    label: CoxStratified.t('modelterms'),
 					required: true
                 })
             },
 			stratavars: {
 				el: new dstVariableList(config,{
-				label: localization.en.stratavarslabel,
+				label: CoxStratified.t('stratavarslabel'),
 				no: "stratavars",
 				required: true,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -141,7 +87,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
 			},			
             weightvar: {
                 el: new dstVariable(config, {
-                    label: localization.en.weightvar,
+                    label: CoxStratified.t('weightvar'),
                     no: "weightvar",
                     filter: "Numeric|Scale",
                     required: false,
@@ -152,7 +98,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             tiemethod: {
                 el: new comboBox(config, {
                     no: 'tiemethod',
-                    label: localization.en.tiemethod,
+                    label: CoxStratified.t('tiemethod'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: ["efron", "breslow", "exact"],
@@ -161,7 +107,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             }, 
             diagnosticsbox: {
                 el: new checkbox(config, {
-                    label: localization.en.diagnosticsbox,
+                    label: CoxStratified.t('diagnosticsbox'),
                     no: "diagnosticsbox",
                     extraction: "Boolean",
                     newline: true,
@@ -174,7 +120,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
         var options = {
             el: new optionsVar(config, {
                 no: "options",
-                name: localization.en.options,
+                name: CoxStratified.t('options'),
                 content: [
                     objects.tiemethod.el,
                     objects.diagnosticsbox.el
@@ -193,14 +139,20 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             ],
             bottom: [options.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: CoxStratified.t('navigation'),
                 icon: "icon-survival-stratified",
 				positionInNav: 5,
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: CoxStratified.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: CoxStratified.t('help.body')
+        }
+;
     }
 	
 	
@@ -237,4 +189,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
 	
 	
 }
-module.exports.item = new CoxStratified().render()
+
+module.exports = {
+    render: () => new CoxStratified().render()
+}

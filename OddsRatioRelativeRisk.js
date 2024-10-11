@@ -1,53 +1,5 @@
 
-var localization = {
-    en: {
-        title: "Odds Ratios / Relative Risks, M by 2 Table",
-        navigation: "Odds Ratios / Relative Risks, M by 2 Table",
-        outcomevarlabel: "Outcome Variable (Binary Factor)",
-        expvarlabel: "Exposure/Predictor Variable (Factor)",
-		statlabel: "Statistic",
-		orlabel: "Odds Ratios",
-		rrlabel: "Relative Risks",
-		oresttypelabel: "Odds Ratio Estimation Type",
-		orestwaldlabel: "Wald",
-		orestfisherlabel: "Fisher",
-		orestmidplabel: "Mid-p",
-		orestsmalllabel: "Small Sample Adjusted",
-		rresttypelabel: "Relative Risk Estimation Type",
-		rrestwaldlabel: "Wald",
-		rrestsmalllabel: "Small Sample Adjusted",
-		reversallabel: "Category Reversal",
-		revnonelabel: "No Reversal",
-		revexplabel: "Exposure",
-		revoutlabel: "Outcome",
-		revbothlabel: "Both",
-		cilevellabel: "Confidence Level (0-1)",
-        help: {
-            title: "Odds Ratios / Relative Risks, M by 2 Table",
-            r_help: "help(epitab, package ='epitools')",
-            body: `
-This is used to compare probabilities of having a "disease" for one group relative to another, in a ratio of odds (odds ratio) form or probability ratio (relative risk) form.  
-The odds of "disease" is defined as the probability of "disease" divided by the probability of "no disease". A contingency table of outcome frequencies in each group is provided.  
-In addition, a table of odds ratios or relative risks for each group relative to the reference group with confidence intervals and a Wald Chi-Square p-value is included.  Lastly, 
-a table of p-values is shown with mid-p exact, Fisher's exact, and Wald Chi-Square versions, comparing each group to the reference group. 
-<br/><br/>
-<b>Outcome Variable:</b> Binary "disease" (yes/no) variable of interest.  By default, the highest category in the sort order is defined as "disease yes".
-<br/><br/>
-<b>Exposure/Predictor Variable:</b> Groups to compare.  Can have more than 2 groups.
-<br/><br/>
-<b>Statistic:</b> Which statistic to compute
-<br/><br/>
-<b>Odds Ratio / Relative Risk Estimation Type:</b> Wald (unconditional maximum likelihood), Fisher (conditional maximum likelihood), Mid-p (median unbiased method), or Small Sample Adjusted
-<br/><br/>
-<b>Category Reversal:</b>  This controls whether or not to reverse the ordering of the exposure variable categories or the outcome variable categories.  Reversing the exposure 
-variable will change the reference group for the odds ratios.  Reversing the outcome variable will change the category that corresponds to "disease".
-<br/><br/>
-<b>Confidence Level:</b> level for the confidence intervals; default is 0.95
-<br/><br/>
-<b>Required R Packages:</b> epitools
-			`}
-    }
-}
+
 
 
 
@@ -58,10 +10,13 @@ variable will change the reference group for the odds ratios.  Reversing the out
 
 
 class OddsRatioRelativeRisk extends baseModal {
+    static dialogId = 'OddsRatioRelativeRisk'
+    static t = baseModal.makeT(OddsRatioRelativeRisk.dialogId)
+
     constructor() {
         var config = {
-            id: "OddsRatioRelativeRisk",
-            label: localization.en.title,
+            id: OddsRatioRelativeRisk.dialogId,
+            label: OddsRatioRelativeRisk.t('title'),
 			splitProcessing: true,
             modalType: "two",
             RCode: `
@@ -88,7 +43,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
             content_var: { el: new srcVariableList(config, {action: "move"}) },
 			outcomevar: {
 				el: new dstVariable(config, {
-				label: localization.en.outcomevarlabel,
+				label: OddsRatioRelativeRisk.t('outcomevarlabel'),
 				no: "outcomevar",
 				filter: "Numeric|Ordinal|Nominal",
 				extraction: "Prefix|UseComma",
@@ -97,7 +52,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},
 			expvar: {
 				el: new dstVariable(config, {
-				label: localization.en.expvarlabel,
+				label: OddsRatioRelativeRisk.t('expvarlabel'),
 				no: "expvar",
 				filter: "Numeric|Ordinal|Nominal",
 				extraction: "Prefix|UseComma",
@@ -106,14 +61,14 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},			
 			statlabel: {
 				el: new labelVar(config, {
-				label: localization.en.statlabel, 
+				label: OddsRatioRelativeRisk.t('statlabel'), 
 				style: "mt-4", 
 				h:5
 				})
 			},			
 			oropt: {
 				el: new radioButton(config, {
-				label: localization.en.orlabel,
+				label: OddsRatioRelativeRisk.t('orlabel'),
 				no: "stattypegrp",
 				increment: "or",
 				value: "OR",
@@ -123,7 +78,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},
 			rropt: {
 				el: new radioButton(config, {
-				label: localization.en.rrlabel,
+				label: OddsRatioRelativeRisk.t('rrlabel'),
 				no: "stattypegrp",
 				increment: "rr",
 				value: "RR",
@@ -133,14 +88,14 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			}, 			
 			oresttypelabel: {
 				el: new labelVar(config, {
-				label: localization.en.oresttypelabel, 
+				label: OddsRatioRelativeRisk.t('oresttypelabel'), 
 				style: "mt-4", 
 				h:5
 				})
 			},
 			orwaldopt: {
 				el: new radioButton(config, {
-				label: localization.en.orestwaldlabel,
+				label: OddsRatioRelativeRisk.t('orestwaldlabel'),
 				no: "ortypegrp",
 				increment: "wald",
 				value: "wald",
@@ -150,7 +105,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},
 			orfisheropt: {
 				el: new radioButton(config, {
-				label: localization.en.orestfisherlabel,
+				label: OddsRatioRelativeRisk.t('orestfisherlabel'),
 				no: "ortypegrp",
 				increment: "fisher",
 				value: "fisher",
@@ -160,7 +115,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},
 			ormidpopt: {
 				el: new radioButton(config, {
-				label: localization.en.orestmidplabel,
+				label: OddsRatioRelativeRisk.t('orestmidplabel'),
 				no: "ortypegrp",
 				increment: "midp",
 				value: "midp",
@@ -170,7 +125,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},
 			orsmallopt: {
 				el: new radioButton(config, {
-				label: localization.en.orestsmalllabel,
+				label: OddsRatioRelativeRisk.t('orestsmalllabel'),
 				no: "ortypegrp",
 				increment: "small",
 				value: "small",
@@ -180,14 +135,14 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},
 			rresttypelabel: {
 				el: new labelVar(config, {
-				label: localization.en.rresttypelabel, 
+				label: OddsRatioRelativeRisk.t('rresttypelabel'), 
 				style: "mt-4", 
 				h:5
 				})
 			},
 			rrwaldopt: {
 				el: new radioButton(config, {
-				label: localization.en.rrestwaldlabel,
+				label: OddsRatioRelativeRisk.t('rrestwaldlabel'),
 				no: "rrtypegrp",
 				increment: "wald",
 				value: "wald",
@@ -197,7 +152,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},
 			rrsmallopt: {
 				el: new radioButton(config, {
-				label: localization.en.rrestsmalllabel,
+				label: OddsRatioRelativeRisk.t('rrestsmalllabel'),
 				no: "rrtypegrp",
 				increment: "small",
 				value: "small",
@@ -207,14 +162,14 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},
 			reversallabel: {
 				el: new labelVar(config, {
-				label: localization.en.reversallabel, 
+				label: OddsRatioRelativeRisk.t('reversallabel'), 
 				style: "mt-4", 
 				h:5
 				})
 			},
 			revnoneopt: {
 				el: new radioButton(config, {
-				label: localization.en.revnonelabel,
+				label: OddsRatioRelativeRisk.t('revnonelabel'),
 				no: "revgrp",
 				increment: "neither",
 				value: "neither",
@@ -224,7 +179,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},
 			revexpopt: {
 				el: new radioButton(config, {
-				label: localization.en.revexplabel,
+				label: OddsRatioRelativeRisk.t('revexplabel'),
 				no: "revgrp",
 				increment: "rows",
 				value: "rows",
@@ -234,7 +189,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},
 			revoutopt: {
 				el: new radioButton(config, {
-				label: localization.en.revoutlabel,
+				label: OddsRatioRelativeRisk.t('revoutlabel'),
 				no: "revgrp",
 				increment: "columns",
 				value: "columns",
@@ -244,7 +199,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			},
 			revbothopt: {
 				el: new radioButton(config, {
-				label: localization.en.revbothlabel,
+				label: OddsRatioRelativeRisk.t('revbothlabel'),
 				no: "revgrp",
 				increment: "both",
 				value: "both",
@@ -255,7 +210,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 			cilevel: {
 				el: new input(config, {
 				no: 'cilevel',
-				label: localization.en.cilevellabel,
+				label: OddsRatioRelativeRisk.t('cilevellabel'),
 				style: "mt-3",
 				placeholder: "0.95",
 				value: "0.95",
@@ -275,13 +230,19 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 					objects.reversallabel.el.content, objects.revnoneopt.el.content, objects.revexpopt.el.content, objects.revoutopt.el.content, objects.revbothopt.el.content,
 					objects.cilevel.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: OddsRatioRelativeRisk.t('navigation'),
                 icon: "icon-or",
                 modal: config.id
             }
         };
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: OddsRatioRelativeRisk.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: OddsRatioRelativeRisk.t('help.body')
+        }
+;
     }
 	
 	prepareExecution(instance) {
@@ -310,4 +271,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
 	
 	
 }
-module.exports.item = new OddsRatioRelativeRisk().render()
+
+module.exports = {
+    render: () => new OddsRatioRelativeRisk().render()
+}

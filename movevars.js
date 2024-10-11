@@ -1,28 +1,4 @@
-var localization = {
-    en: {
-        title: "Move Variables",
-        navigation: "Move Variables",
-        varstomovelabel: "Variables to Move",
-        locationlabel: "Location",
-		firstlabel: "First",
-		lastlabel: "Last",
-		afterselectedlabel: "After Selected Variable",
-		aftervarlabel: "",
-        help: {
-            title: "Move Variables",
-            r_help: "help(relocate, package ='dplyr')",
-            body: `
-This will move variables to a specified location in the data set.
-<br/><br/>
-<b>Variables to Move:</b> Variables to move to a different location.  They will be placed in the order specified in this box.
-<br/><br/>
-<b>Location:</b> Location in the data set to move the variables. <b>First</b> places the variables at the beginning of the data set.  
-<b>Last</b> places the variables at the end of the data set.  <b>After Selected Variable</b> places the variables after this variable in the data set.
-<br/><br/>
-<b>Required R Packages:</b> dplyr
-			`}
-    }
-}
+
 
 
 
@@ -33,10 +9,13 @@ This will move variables to a specified location in the data set.
 
 
 class movevars extends baseModal {
+    static dialogId = 'movevars'
+    static t = baseModal.makeT(movevars.dialogId)
+
     constructor() {
         var config = {
-            id: "movevars",
-            label: localization.en.title,
+            id: movevars.dialogId,
+            label: movevars.t('title'),
 			splitProcessing: false,
             modalType: "two",
             RCode: `
@@ -59,17 +38,17 @@ BSkyLoadRefreshDataframe("{{dataset.name}}")
 			content_var: { el: new srcVariableList(config, {action: "move"}) },
             varstomove: {
                 el: new dstVariableList(config, {
-                    label: localization.en.varstomovelabel,
+                    label: movevars.t('varstomovelabel'),
                     no: "varstomove",
                     filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
                     extraction: "NoPrefix|UseComma",
                     required: true,
                 })
             },
-			locationlabel: { el: new labelVar(config, { label: localization.en.locationlabel, style: "mt-3",h: 5 }) },
+			locationlabel: { el: new labelVar(config, { label: movevars.t('locationlabel'), style: "mt-3",h: 5 }) },
 			first: {
 				el: new radioButton(config, {
-				label: localization.en.firstlabel,
+				label: movevars.t('firstlabel'),
 				no: "locationgrp",
 				increment: "first",
 				value: "A",
@@ -79,7 +58,7 @@ BSkyLoadRefreshDataframe("{{dataset.name}}")
 			}, 
 			last: {
 				el: new radioButton(config, {
-				label: localization.en.lastlabel,
+				label: movevars.t('lastlabel'),
 				no: "locationgrp",
 				increment: "last",
 				value: ", .after=last_col()",
@@ -89,7 +68,7 @@ BSkyLoadRefreshDataframe("{{dataset.name}}")
 			},
 			after: {
 				el: new radioButton(config, {
-				label: localization.en.afterselectedlabel,
+				label: movevars.t('afterselectedlabel'),
 				no: "locationgrp",
 				increment: "after",
 				value: "C",
@@ -99,7 +78,7 @@ BSkyLoadRefreshDataframe("{{dataset.name}}")
 			},
 			aftervar: {
 				el: new dstVariable(config, {
-				label: localization.en.aftervarlabel,
+				label: movevars.t('aftervarlabel'),
 				no: "aftervar",
 				filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
 				extraction: "NoPrefix|UseComma",
@@ -113,14 +92,23 @@ BSkyLoadRefreshDataframe("{{dataset.name}}")
             right: [objects.varstomove.el.content, objects.locationlabel.el.content, objects.first.el.content, objects.last.el.content, 
 					objects.after.el.content, objects.aftervar.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: movevars.t('navigation'),
                 icon: "icon-sort_horizontal",
 				positionInNav: 0,
                 modal: config.id
             }
         };
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: movevars.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: movevars.t('help.body')
+        }
+;
     }
 }
-module.exports.item = new movevars().render()
+
+module.exports = {
+    render: () => new movevars().render()
+}

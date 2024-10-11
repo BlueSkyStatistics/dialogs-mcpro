@@ -1,136 +1,5 @@
 
-var localization = {
-    en: {
-        title: "Cox Regression, multiple models",
-        navigation: "Cox Regression, multiple models",
-		timevarlabel: "Time",
-        eventvarlabel: "Event (1=event, 0=censor)",
-		indvarslabel: "Independent Variables",
-		adjvars1label: "Adjustment Variables, Set 1",
-		adjvars2label: "Adjustment Variables, Set 2",
-		adjvars3label: "Adjustment Variables, Set 3",
-		adjvars4label: "Adjustment Variables, Set 4",
-		adjvars5label: "Adjustment Variables, Set 5",		
-		stratavarlabel: "Strata",
-		wgtvarlabel: "Weights",
-		digitslabel: "Digits After Decimal",
-		contdigitslabel: "Continuous Values",
-		pvaluedigitslabel: "P-Values",
-		hrdigitslabel: "Hazard Ratios",
-		parestorlabel: "Parameter Estimates and Hazard Ratios",
-		parestchkboxlabel: "Parameter Estimates",
-		stderrorschkboxlabel: "Standard Errors",
-		confintchkboxlabel: "Parameter Wald Confidence Intervals",
-		hrchkboxlabel: "Hazard Ratios",
-		hrconfintchkboxlabel: "Hazard Ratios Wald Confidence Intervals",
-		cilevellabel: "Confidence Interval Level",
-		adjvarschkboxlabel: "Adjustment Variables",
-		adjnameschkboxlabel: "Adjustment Names",		
-		samplesizelabel: "Sample Size",
-		nmissifanychkboxlabel: "Number Missing, if any",
-		nmissalwayschkboxlabel: "Number Missing, always",
-		neventschkboxlabel: "Number of Events",
-		fitstatisticslabel: "Fit Statistics",
-		concchkboxlabel: "Concordance",
-		concstderrchkboxlabel: "Concordance Standard Error",
-		rsqchkboxlabel: "R-Squared",
-		rsqmaxchkboxlabel: "R-Squared Maximum",
-		aicchkboxlabel: "Akaike Information Criterion (AIC)",
-		bicchkboxlabel: "Bayesian Information Criterion (BIC)",
-		loglikchkboxlabel: "Log-Likelihood",
-		pvalueslabel: "P-Values",
-		parestpvaluechkboxlabel: "Parameter Estimates (Wald Test)",
-		lrtpvaluechkboxlabel: "Likelihood Ratio Tests (not adjustors)",
-		modscorepvaluechkboxlabel: "Model Score Test",
-		modlrtpvaluechkboxlabel: "Model Likelihood Ratio Test",
-		modwaldpvaluechkboxlabel: "Model Wald Test",
-		teststatisticslabel: "Test Statistics",
-		zstatchkboxlabel: "Parameter z-statistics (Wald Test)",
-		modscorestatchkboxlabel: "Model Score Test",
-		modlrtstatchkboxlabel: "Model Likelihood Ratio Test",
-		modwaldstatchkboxlabel: "Model Wald Test",
-        help: {
-            title: "Cox Regression, multiple models",
-            r_help: "help(modelsum, package ='arsenal')",
-            body: `
-This creates a table containing results from Cox regression models for provided time and event variables.  Separate Cox regression models will be fit for each independent variable, 
-optionally adjusted for a set of additional variables.  If a strata variable is specified, separate models will be fit for each of the stratification variable values.  As an example,
- if no adjustor or stratification variables are specified, then the table will include all univariate models for the list of independent variables.  Various statistics from each model can be output.
-<br/><br/>
-<b>Time:</b> Time variable for each Cox regression model.  The variable class must be a numeric type.
-<br/><br/>
-<b>Event (1=event, 0=censor):</b> Event variable for each Cox regression model.  A value of 1 indicates the event occurred and 0 indicates the event did not occur.  The variable class must be a numeric type.
-<br/><br/>
-<b>Independent Variables:</b> Independent variables to include in the models.  The variable classes can be a numeric type, character, factor, or ordered factor.
-<br/><br/>
-<b>Adjustment Variables (Sets 1-5):</b> Optional variables to be included in a model with the independent variables.  The variable classes can be a numeric type, character, factor, or ordered factor.
-Specifying more than one set of adjustor variables will provide separate models with each set of adjustor variables.
-<br/><br/>
-<b>Strata:</b> Optional stratification variable. Separate models will be fit for the subset defined by each of the stratification variable values.  The variable class can be character, numeric, factor, or ordered factor.
-<br/><br/>
-<b>Weights:</b> Optional case-weights to be used in the models.  Specifying a weights variable will fit weighted regression models.
-<br/><br/>
-<b>Digits After Decimal</b><br/>
-<ul>
-<li><b>Continuous Values:</b>  The number of decimal places to show for all continuous values in the table (default=4)</li>
-<li><b>P-Values:</b>  The number of decimal places to show for all p-values in the table (default=4)</li>
-<li><b>Hazard Ratios:</b>  The number of decimal places to show for all hazard ratios in the table (default=4)</li>
-</ul>
-<br/>
-<b>Options:</b>
-<br/><br/>
-<b>Parameter Estimates and Hazard Ratios</b><br/>
-<ul>
-<li><b>Parameter Estimates:</b>  Show parameter estimates (coefficients) from each model.</li>
-<li><b>Standard Errors:</b>  Show standard errors of the parameter estimates.</li>
-<li><b>Confidence Interval Level:</b>  Level for the parameter estimate and hazard ratio confidence intervals (default=0.95).</li>
-<li><b>Parameter Wald Confidence Intervals:</b>  Show Wald-based confidence intervals for the parameter estimates.</li>
-<li><b>Hazard Ratios:</b>  Show hazard ratios for each parameter estimate (exp(coefficient)).</li>
-<li><b>Hazard Ratios Wald Confidence Intervals:</b>  Show Wald-based confidence intervals for the hazard ratios.</li>
-<li><b>Adjustment Variables:</b>  Show model output for the adjustment variables.</li>
-<li><b>Adjustment Names:</b>  Show a column delineating model types (unadjusted and different adjustment variable sets).  Mostly useful when you don't want to show model output for the adjustor variables.</li>
-</ul>
-<br/>
-<b>Sample Size</b><br/>
-<ul>
-<li><b>Sample Size:</b>  Show the sample size used from each model.</li>
-<li><b>Number Missing, if any:</b>  Show the number of observations not used in each model (missing values), only if there are some not used.</li>
-<li><b>Number Missing, always:</b>  Show the number of observations not used in each model (missing values), regardless of whether there are some observations not used.</li>
-<li><b>Number of Events:</b>  Show the number of events from each model.</li>
-</ul>
-<br/>
-<b>Fit Statistics</b><br/>
-<ul>
-<li><b>Concordance:</b>  Show the model concordance statistic.</li>
-<li><b>Concordance Standard Error:</b>  Show the standard error of the model concordance statistic.</li>
-<li><b>R-Squared:</b>  Show a pseudo R-squared value from each model (Nagelkerke's R-squared)</li>
-<li><b>R-Squared Maximum:</b>  Show the maximum possible value for the pseudo R-squared value from each model (Nagelkerke's R-squared)</li>
-<li><b>Akaike Information Criterion (AIC):</b>  Show the model Akaike Information Criterion</li>
-<li><b>Bayesian Information Criterion (BIC):</b>  Show the model Bayesian Information Criterion</li>
-<li><b>Log-Likelihood:</b>  Show the model log-likelihood value</li>
-</ul>
-<br/>
-<b>P-Values</b><br/>
-<ul>
-<li><b>Parameter Estimates (Wald Test):</b>  Show the p-values from the individual parameter Wald tests</li>
-<li><b>Likelihood Ratio Tests (not adjustors):</b>  Show the p-values for each independent variable based on a likelihood ratio test.  This compares a model with the independent variable to a model without the independent variable, including any adjustor variables in both models.</li>
-<li><b>Model Score Test:</b>  Show the p-value from the overall model score test.</li>
-<li><b>Model Likelihood Ratio Test:</b>  Show the p-value from the overall model likelihood ratio test.</li>
-<li><b>Model Wald Test:</b>  Show the p-value from the overall model Wald test.</li>
-</ul>
-<br/>
-<b>Test Statistics</b><br/>
-<ul>
-<li><b>Parameter z-statistics (Wald Test):</b>  Show the z-statistics from the individual parameter Wald tests</li>
-<li><b>Model Score Test:</b>  Show the overall model score statistic.</li>
-<li><b>Model Likelihood Ratio Test:</b>  Show the overall model likelihood ratio test statistic.</li>
-<li><b>Model Wald Test:</b>  Show the overall model Wald test statistic.</li>
-</ul>
-<br/>
-<b>Required R Packages:</b> arsenal, survival, dplyr
-			`}
-    }
-}
+
 
 
 
@@ -141,10 +10,13 @@ Specifying more than one set of adjustor variables will provide separate models 
 
 
 class CoxRegMultiple extends baseModal {
+    static dialogId = 'CoxRegMultiple'
+    static t = baseModal.makeT(CoxRegMultiple.dialogId)
+
     constructor() {
         var config = {
-            id: "CoxRegMultiple",
-            label: localization.en.title,
+            id: CoxRegMultiple.dialogId,
+            label: CoxRegMultiple.t('title'),
 			splitProcessing: true,
             modalType: "two",
             RCode: `
@@ -190,7 +62,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
             content_var: { el: new srcVariableList(config, {action: "copy", scroll: true}) },
 			timevar: {
 				el: new dstVariable(config, {
-				label: localization.en.timevarlabel,
+				label: CoxRegMultiple.t('timevarlabel'),
 				no: "timevar",
 				filter: "Numeric|Scale",
 				extraction: "NoPrefix|UseComma",
@@ -199,7 +71,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			eventvar: {
 				el: new dstVariable(config, {
-				label: localization.en.eventvarlabel,
+				label: CoxRegMultiple.t('eventvarlabel'),
 				no: "eventvar",
 				filter: "Numeric|Scale",
 				extraction: "NoPrefix|UseComma",
@@ -208,7 +80,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},						
 			indvars: {
 				el: new dstVariableList(config,{
-				label: localization.en.indvarslabel,
+				label: CoxRegMultiple.t('indvarslabel'),
 				no: "indvars",
 				required: true,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -217,7 +89,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars1: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars1label,
+				label: CoxRegMultiple.t('adjvars1label'),
 				no: "adjvars1",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -227,7 +99,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars2: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars2label,
+				label: CoxRegMultiple.t('adjvars2label'),
 				no: "adjvars2",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -237,7 +109,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars3: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars3label,
+				label: CoxRegMultiple.t('adjvars3label'),
 				no: "adjvars3",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -247,7 +119,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars4: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars4label,
+				label: CoxRegMultiple.t('adjvars4label'),
 				no: "adjvars4",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -257,7 +129,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvars5: {
 				el: new dstVariableList(config,{
-				label: localization.en.adjvars5label,
+				label: CoxRegMultiple.t('adjvars5label'),
 				no: "adjvars5",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -267,7 +139,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			stratavar: {
 				el: new dstVariable(config, {
-				label: localization.en.stratavarlabel,
+				label: CoxRegMultiple.t('stratavarlabel'),
 				no: "stratavar",
 				filter: "String|Numeric|Ordinal|Nominal|Scale",
 				extraction: "NoPrefix|UseComma",
@@ -277,7 +149,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			wgtvar: {
 				el: new dstVariable(config, {
-				label: localization.en.wgtvarlabel,
+				label: CoxRegMultiple.t('wgtvarlabel'),
 				no: "wgtvar",
 				filter: "Numeric|Scale",
 				extraction: "NoPrefix|UseComma",
@@ -287,7 +159,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			digitslabel: {
 				el: new labelVar(config, {
-				label: localization.en.digitslabel, 
+				label: CoxRegMultiple.t('digitslabel'), 
 				h:5,
 				style: "mt-4"
 				})
@@ -295,7 +167,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			contdigits: {
 				el: new inputSpinner(config, {
 				  no: 'contdigits',
-				  label: localization.en.contdigitslabel,
+				  label: CoxRegMultiple.t('contdigitslabel'),
 				  min: 0,
 				  max: 1000,
 				  step: 1,
@@ -307,7 +179,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			pvaluedigits: {
 				el: new inputSpinner(config, {
 				  no: 'pvaluedigits',
-				  label: localization.en.pvaluedigitslabel,
+				  label: CoxRegMultiple.t('pvaluedigitslabel'),
 				  min: 1,
 				  max: 1000,
 				  step: 1,
@@ -319,7 +191,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			hrdigits: {
 				el: new inputSpinner(config, {
 				  no: 'hrdigits',
-				  label: localization.en.hrdigitslabel,
+				  label: CoxRegMultiple.t('hrdigitslabel'),
 				  min: 1,
 				  max: 1000,
 				  step: 1,
@@ -330,13 +202,13 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			parestorlabel: {
 				el: new labelVar(config, {
-				label: localization.en.parestorlabel, 
+				label: CoxRegMultiple.t('parestorlabel'), 
 				h:5
 				})
 			},
 			parestimatechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.parestchkboxlabel,
+				label: CoxRegMultiple.t('parestchkboxlabel'),
 				no: "parestimatechkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -347,7 +219,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			stderrorschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.stderrorschkboxlabel,
+				label: CoxRegMultiple.t('stderrorschkboxlabel'),
 				no: "stderrorschkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -358,7 +230,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			confintchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.confintchkboxlabel,
+				label: CoxRegMultiple.t('confintchkboxlabel'),
 				no: "confintchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -368,7 +240,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			hrchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.hrchkboxlabel,
+				label: CoxRegMultiple.t('hrchkboxlabel'),
 				no: "hrchkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -379,7 +251,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			hrconfintchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.hrconfintchkboxlabel,
+				label: CoxRegMultiple.t('hrconfintchkboxlabel'),
 				no: "hrconfintchkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -391,7 +263,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			cilevel: {
 				el: new inputSpinner(config, {
 				  no: 'cilevel',
-				  label: localization.en.cilevellabel,
+				  label: CoxRegMultiple.t('cilevellabel'),
 				  min: 0,
 				  max: 100,
 				  step: .001,
@@ -401,7 +273,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjvarschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.adjvarschkboxlabel,
+				label: CoxRegMultiple.t('adjvarschkboxlabel'),
 				no: "adjvarschkbox",
 				state: "checked",
 				extraction: "Boolean"
@@ -409,21 +281,21 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			adjnameschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.adjnameschkboxlabel,
+				label: CoxRegMultiple.t('adjnameschkboxlabel'),
 				no: "adjnameschkbox",
 				extraction: "Boolean"
 				})
 			},			
 			samplesizelabel: {
 				el: new labelVar(config, {
-				label: localization.en.samplesizelabel, 
+				label: CoxRegMultiple.t('samplesizelabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			nchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.samplesizelabel,
+				label: CoxRegMultiple.t('samplesizelabel'),
 				no: "nchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -433,7 +305,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			nmissifanychkbox: {
 				el: new checkbox(config, {
-				label: localization.en.nmissifanychkboxlabel,
+				label: CoxRegMultiple.t('nmissifanychkboxlabel'),
 				no: "nmissifanychkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -444,7 +316,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			nmissalwayschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.nmissalwayschkboxlabel,
+				label: CoxRegMultiple.t('nmissalwayschkboxlabel'),
 				no: "nmissalwayschkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -454,7 +326,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			neventschkbox: {
 				el: new checkbox(config, {
-				label: localization.en.neventschkboxlabel,
+				label: CoxRegMultiple.t('neventschkboxlabel'),
 				no: "neventschkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -465,14 +337,14 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			fitstatisticslabel: {
 				el: new labelVar(config, {
-				label: localization.en.fitstatisticslabel, 
+				label: CoxRegMultiple.t('fitstatisticslabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			concchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.concchkboxlabel,
+				label: CoxRegMultiple.t('concchkboxlabel'),
 				no: "concchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -482,7 +354,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			concstderrchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.concstderrchkboxlabel,
+				label: CoxRegMultiple.t('concstderrchkboxlabel'),
 				no: "concstderrchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -492,7 +364,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			rsqchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.rsqchkboxlabel,
+				label: CoxRegMultiple.t('rsqchkboxlabel'),
 				no: "rsqchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -502,7 +374,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			rsqmaxchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.rsqmaxchkboxlabel,
+				label: CoxRegMultiple.t('rsqmaxchkboxlabel'),
 				no: "rsqmaxchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -512,7 +384,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			aicchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.aicchkboxlabel,
+				label: CoxRegMultiple.t('aicchkboxlabel'),
 				no: "aicchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -522,7 +394,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			bicchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.bicchkboxlabel,
+				label: CoxRegMultiple.t('bicchkboxlabel'),
 				no: "bicchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -532,7 +404,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			loglikchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.loglikchkboxlabel,
+				label: CoxRegMultiple.t('loglikchkboxlabel'),
 				no: "loglikchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -542,14 +414,14 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			pvalueslabel: {
 				el: new labelVar(config, {
-				label: localization.en.pvalueslabel, 
+				label: CoxRegMultiple.t('pvalueslabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			parestpvaluechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.parestpvaluechkboxlabel,
+				label: CoxRegMultiple.t('parestpvaluechkboxlabel'),
 				no: "parestpvaluechkbox",
 				bs_type: "valuebox",
 				state: "checked",
@@ -560,7 +432,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},		
 			lrtpvaluechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.lrtpvaluechkboxlabel,
+				label: CoxRegMultiple.t('lrtpvaluechkboxlabel'),
 				no: "lrtpvaluechkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -570,7 +442,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			modscorepvaluechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.modscorepvaluechkboxlabel,
+				label: CoxRegMultiple.t('modscorepvaluechkboxlabel'),
 				no: "modscorepvaluechkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -580,7 +452,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			modlrtpvaluechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.modlrtpvaluechkboxlabel,
+				label: CoxRegMultiple.t('modlrtpvaluechkboxlabel'),
 				no: "modlrtpvaluechkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -590,7 +462,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},			
 			modwaldpvaluechkbox: {
 				el: new checkbox(config, {
-				label: localization.en.modwaldpvaluechkboxlabel,
+				label: CoxRegMultiple.t('modwaldpvaluechkboxlabel'),
 				no: "modwaldpvaluechkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -600,14 +472,14 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},		
 			teststatisticslabel: {
 				el: new labelVar(config, {
-				label: localization.en.teststatisticslabel, 
+				label: CoxRegMultiple.t('teststatisticslabel'), 
 				h:5,
 				style: "mt-4",
 				})
 			},
 			zstatchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.zstatchkboxlabel,
+				label: CoxRegMultiple.t('zstatchkboxlabel'),
 				no: "zstatchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -617,7 +489,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			modscorestatchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.modscorestatchkboxlabel,
+				label: CoxRegMultiple.t('modscorestatchkboxlabel'),
 				no: "modscorestatchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -627,7 +499,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			modlrtstatchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.modlrtstatchkboxlabel,
+				label: CoxRegMultiple.t('modlrtstatchkboxlabel'),
 				no: "modlrtstatchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -637,7 +509,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 			},
 			modwaldstatchkbox: {
 				el: new checkbox(config, {
-				label: localization.en.modwaldstatchkboxlabel,
+				label: CoxRegMultiple.t('modwaldstatchkboxlabel'),
 				no: "modwaldstatchkbox",
 				bs_type: "valuebox",
 				extraction: "TextAsIs",
@@ -673,14 +545,20 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 					objects.contdigits.el.content, objects.pvaluedigits.el.content, objects.hrdigits.el.content],
 			bottom: [optionspanel.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: CoxRegMultiple.t('navigation'),
                 icon: "icon-survival-multiplemodels",
 				positionInNav: 4,
                 modal: config.id
             }
         };
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: CoxRegMultiple.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: CoxRegMultiple.t('help.body')
+        }
+;
     }	
 
 
@@ -767,4 +645,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 
 	
 }
-module.exports.item = new CoxRegMultiple().render()
+
+module.exports = {
+    render: () => new CoxRegMultiple().render()
+}

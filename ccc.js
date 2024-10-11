@@ -1,40 +1,5 @@
 
-var localization = {
-    en: {
-        title: "Concordance Correlation Coefficient",
-        navigation: "Concordance Correlation Coefficient",
-        obs1var: "Observer 1:",
-        obs2var: "Observer 2:",
-        cilevel: "Confidence Level:",
-        label1: "Confidence Interval Method",
-        ztrans: "Z-transform",
-        asymp: "Asymptotic",
-		plotoptionslabel: "Plot Options",
-		plottitle: "Title",
-		xlabel: "X-axis Label",
-		ylabel: "Y-axis Label",
-		plottheme: "Plot Theme",
-        help: {
-            title: "Concordance Correlation Coefficient",
-            r_help: "help(epi.ccc,package=epiR)",
-            body: `
-The concordance correlation coefficient (CCC) measures agreement between two observers that measure the same subjects on the same scale for continuous data.  The CCC can range 
-between -1 and 1, with 1 being perfect agreement and 0 being no agreement.  Negative values indicate negative agreement, but is rare in practice.  A plot of the observer 1 variable 
-(x-axis) vs the observer 2 variable (y-axis) is also provided with a line of perfect agreement (y=x).
-<br/><br/>
-<b>Observer 1:</b> Variable containing the values provided by an observer; must be numeric
-<br/>
-<b>Observer 2:</b> Variable containing the values provided by a second observer; must be numeric
-<br/>
-<b>Confidence Level:</b> Desired confidence interval level for the CCC
-<br/>
-<b>Confidence Interval Method:</b>  Desired confidence interval method.  The z-transform method (or inverse hyperbolic tangent transformation) is usually a better choice because 
-it better approximates a normal distribution.   
-<br/><br/>
-<b>Required R packages:</b> epiR, ggplot2, ggthemes
-                `}
-    }
-}
+
 
 
 
@@ -45,10 +10,13 @@ it better approximates a normal distribution.
 
 
 class ccc extends baseModal {
+    static dialogId = 'ccc'
+    static t = baseModal.makeT(ccc.dialogId)
+
     constructor() {
         var config = {
-            id: "ccc",
-            label: localization.en.title,
+            id: ccc.dialogId,
+            label: ccc.t('title'),
             modalType: "two",
             RCode: `
 library(epiR)
@@ -82,7 +50,7 @@ ggplot(dat.comp, aes(x={{selected.obs1var | safe}}, y={{selected.obs2var | safe}
             content_var: { el: new srcVariableList(config, {action: "move"}) },
             obs1var: {
                 el: new dstVariable(config, {
-                    label: localization.en.obs1var,
+                    label: ccc.t('obs1var'),
                     no: "obs1var",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -91,7 +59,7 @@ ggplot(dat.comp, aes(x={{selected.obs1var | safe}}, y={{selected.obs2var | safe}
             },
             obs2var: {
                 el: new dstVariable(config, {
-                    label: localization.en.obs2var,
+                    label: ccc.t('obs2var'),
                     no: "obs2var",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -101,7 +69,7 @@ ggplot(dat.comp, aes(x={{selected.obs1var | safe}}, y={{selected.obs2var | safe}
             cilevel: {
                 el: new advancedSlider(config, {
                     no: "cilevel",
-                    label: localization.en.cilevel,
+                    label: ccc.t('cilevel'),
 					style: "mt-4",
                     min: 0,
                     max: 1,
@@ -110,13 +78,13 @@ ggplot(dat.comp, aes(x={{selected.obs1var | safe}}, y={{selected.obs2var | safe}
                     extraction: "NoPrefix|UseComma"
                 })
             },
-            label1: { el: new labelVar(config, { label: localization.en.label1, h: 5 }) },
-            ztrans: { el: new radioButton(config, { label: localization.en.ztrans, no: "cimethod", increment: "ztrans", value: "z-transform", state: "checked", extraction: "ValueAsIs" }) },
-            asymp: { el: new radioButton(config, { label: localization.en.asymp, no: "cimethod", increment: "asymp", value: "asymptotic", state: "", extraction: "ValueAsIs" }) },
+            label1: { el: new labelVar(config, { label: ccc.t('label1'), h: 5 }) },
+            ztrans: { el: new radioButton(config, { label: ccc.t('ztrans'), no: "cimethod", increment: "ztrans", value: "z-transform", state: "checked", extraction: "ValueAsIs" }) },
+            asymp: { el: new radioButton(config, { label: ccc.t('asymp'), no: "cimethod", increment: "asymp", value: "asymptotic", state: "", extraction: "ValueAsIs" }) },
 			plottitle: {
 				el: new input(config, {
 				no: 'plottitle',
-				label: localization.en.plottitle,
+				label: ccc.t('plottitle'),
 				allow_spaces: true,
 				placeholder: "Scatterplot with perfect agreement line",
 				extraction: "TextAsIs",
@@ -128,7 +96,7 @@ ggplot(dat.comp, aes(x={{selected.obs1var | safe}}, y={{selected.obs2var | safe}
 			xlabel: {
 				el: new input(config, {
 				no: 'xlabel',
-				label: localization.en.xlabel,
+				label: ccc.t('xlabel'),
 				allow_spaces: true,
 				placeholder: "Observer 1",
 				extraction: "TextAsIs",
@@ -140,7 +108,7 @@ ggplot(dat.comp, aes(x={{selected.obs1var | safe}}, y={{selected.obs2var | safe}
 			ylabel: {
 				el: new input(config, {
 				no: 'ylabel',
-				label: localization.en.ylabel,
+				label: ccc.t('ylabel'),
 				allow_spaces: true,
 				placeholder: "Observer 2",
 				extraction: "TextAsIs",
@@ -152,7 +120,7 @@ ggplot(dat.comp, aes(x={{selected.obs1var | safe}}, y={{selected.obs2var | safe}
             plottheme: {
                 el: new comboBox(config, {
                     no: 'plottheme',
-                    label: localization.en.plottheme,
+                    label: ccc.t('plottheme'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: ["theme_base()", "theme_bw()", "theme_calc()",
@@ -171,7 +139,7 @@ ggplot(dat.comp, aes(x={{selected.obs1var | safe}}, y={{selected.obs2var | safe}
 		var plotoptions = {
 			el: new optionsVar(config, {
 			no: "plotoptions",
-			name: localization.en.plotoptionslabel,
+			name: ccc.t('plotoptionslabel'),
 			content: [
 				objects.plottitle.el, objects.xlabel.el, objects.ylabel.el, objects.plottheme.el
 				]
@@ -183,14 +151,20 @@ ggplot(dat.comp, aes(x={{selected.obs1var | safe}}, y={{selected.obs2var | safe}
             right: [objects.obs1var.el.content, objects.obs2var.el.content, objects.cilevel.el.content, objects.label1.el.content, objects.ztrans.el.content, objects.asymp.el.content],
 			bottom: [plotoptions.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: ccc.t('navigation'),
                 icon: "icon-icon-ccc",
 				positionInNav: 2,
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: ccc.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: ccc.t('help.body')
+        }
+;
     }
 	
 	prepareExecution(instance) {
@@ -220,4 +194,7 @@ ggplot(dat.comp, aes(x={{selected.obs1var | safe}}, y={{selected.obs2var | safe}
 	
 	
 }
-module.exports.item = new ccc().render()
+
+module.exports = {
+    render: () => new ccc().render()
+}

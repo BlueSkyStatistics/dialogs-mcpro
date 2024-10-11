@@ -1,71 +1,14 @@
 
-var localization = {
-    en: {
-        title: "Cox, Fine-Gray",
-        navigation: "Cox, Fine-Gray",
-        modelname:"Enter model name",
-        timevar: "Time to event or censor",
-        eventvar: "Events (0 = censor, 1 = event 1, 2 = event 2, ...)",
-		eventcodelabel: "Event Code",
-        modelterms:"Model expression builder for independent variables",
-		stratavarslabel: "Stratification Variables (optional)",
-        weightvar: "Weights (optional)",
-        tiemethod: "Tied Time Method",
-        diagnosticsbox: "Model Diagnostics",
-		martminlabel: "Null Model Martingale Residual Axis Minimum Value (-Inf to 1)",
-		anovachkboxlabel: "Analysis of Deviance (Type II)",
-        help: {
-            title: "Cox, Fine-Gray",
-            r_help: "help(coxph, package = 'survival')",
-            body: `
-Fits a Fine-Gray Cox proportional hazards model for time-to-event data with censored observations when competing risks are present.  Fine-Gray models model the effect of 
-covariates on the cumulative incidence function.  An alternative is to model the effect of covariates on the cause-specific hazard, for which standard Cox regression models 
-can be used.  An introduction to the topic of competing risks can be found in "Introduction to the Analysis of Survival Data in the Presence of Competing Risks" by Peter Austin, 
-et. al., Circulation, 2016; 133:601-609. 
-<br/><br/>
-Model fitting statistics, parameter estimates, and hazard ratios are provided.  Options available include the tied time method and model diagnostics.  The model is fit using the 
-finegray and coxph functions in the survival package.
-<br/><br/>
-<b>Enter model name:</b> Specify the name of the model where the results will be stored.
-<br/><br/>
-<b>Time to event or censor:</b> Time to the first event for those experiencing an event or time to last follow-up for those not experiencing any event
-<br/><br/>
-<b>Events (0 = censor, 1 = event 1, 2 = event 2, ...):</b> Numerical event indicator; 0=censor, 1=event 1, 2=event 2, etc.
-<br/><br/>
-<b>Event Code:</b> Select the event of interest you want to model.  Can either be selected or typed in.
-<br/><br/>
-<b>Formula Builder:</b> Construct terms to include in the model.  Factors, strings, and logical variables will be dummy coded.  The provided buttons allow you to specify main 
-effects, full factorial effects (main effects and all interactions with the involved variables), polynomials, specific interactions, and delete terms from the list.  Interactions 
-with stratification variables is allowed.
-<br/><br/>
-<b>Stratification Variables:</b> Specify one or more stratification variables.  These can be numeric, factor, ordered factor, or character variables.  The strata divide the 
-subjects into separate groups whereby each group has a distinct baseline hazard function.  If multiple stratification variables are given, a separate baseline hazard function is 
-used for every combination of stratification variable levels.
-<br/><br/>
-<b>Weights:</b> Numeric variable for observation weights. Useful in situations where each record should not be counted as one observation. 
-<br/><br/>
-<b>Tied Time Method:</b> Method of breaking tied observed times.  Efron is usually the better choice when there aren't many tied times.
-<br/><br/>
-<b>Model Diagnostics:</b> If selected, an assessment of proportional hazards and functional form of covariates will be assessed, including relevant plots. 
-If there are stratification variables or non-numeric predictors, functional form plots will not be produced. 
-The <b>Null Model Martingale Residual Axis Minimum Value</b> might need to be changed in order to see all Martingale residuals.
-<br/><br/>
-<b>Analysis of Deviance (Type II):</b> If selected, whole variable tests (including multi-degree of freedom tests for multi-category covariates) will be provided.  Wald tests 
-are used.
-<br/><br/>
-<b>Required R packages:</b> survival, broom, survminer, car, dplyr
-<br/><br/>
-Click the R Help button to get detailed R help about the coxph function.  Go to Help-> R Function Help to get more information about the finegray function, which creates the 
-needed dataset.
-`}
-    }
-}
+
 
 class CoxFineGray extends baseModal {
+    static dialogId = 'CoxFineGray'
+    static t = baseModal.makeT(CoxFineGray.dialogId)
+
     constructor() {
         var config = {
-            id: "CoxFineGray",
-            label: localization.en.title,
+            id: CoxFineGray.dialogId,
+            label: CoxFineGray.t('title'),
             modalType: "two",
             RCode: `
 library(survival)
@@ -126,7 +69,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             modelname: {
                 el: new input(config, {
                     no: 'modelname',
-                    label: localization.en.modelname,
+                    label: CoxFineGray.t('modelname'),
                     placeholder: "FineGrayCoxRegModel1",
                     required: true,
                     type: "character",
@@ -136,7 +79,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             },            
             timevar: {
                 el: new dstVariable(config, {
-                    label: localization.en.timevar,
+                    label: CoxFineGray.t('timevar'),
                     no: "timevar",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -145,7 +88,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             },
             eventvar: {
                 el: new dstVariable(config, {
-                    label: localization.en.eventvar,
+                    label: CoxFineGray.t('eventvar'),
                     no: "eventvar",
                     filter: "Numeric|Scale",
                     required: true,
@@ -155,7 +98,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
 			eventcode: {
 				el: new inputSpinner(config, {
 				no: 'eventcode',
-				label: localization.en.eventcodelabel,
+				label: CoxFineGray.t('eventcodelabel'),
 				style: "ml-5 mt-3 mb-3",
 				min: 1,
 				max: 1000000,
@@ -167,13 +110,13 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             modelterms: {
                 el: new formulaBuilder(config, {
                     no: "modelterms",
-                    label: localization.en.modelterms,
+                    label: CoxFineGray.t('modelterms'),
 					required: true
                 })
             },
 			stratavars: {
 				el: new dstVariableList(config,{
-				label: localization.en.stratavarslabel,
+				label: CoxFineGray.t('stratavarslabel'),
 				no: "stratavars",
 				required: false,
 				filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -182,7 +125,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
 			},			
             weightvar: {
                 el: new dstVariable(config, {
-                    label: localization.en.weightvar,
+                    label: CoxFineGray.t('weightvar'),
                     no: "weightvar",
                     filter: "Numeric|Scale",
                     required: false,
@@ -193,7 +136,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             tiemethod: {
                 el: new comboBox(config, {
                     no: 'tiemethod',
-                    label: localization.en.tiemethod,
+                    label: CoxFineGray.t('tiemethod'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: ["efron", "breslow"],
@@ -202,7 +145,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             }, 
             diagnosticsbox: {
                 el: new checkbox(config, {
-                    label: localization.en.diagnosticsbox,
+                    label: CoxFineGray.t('diagnosticsbox'),
                     no: "diagnosticsbox",
                     extraction: "Boolean",
                     newline: true,
@@ -214,7 +157,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
 				no: 'martmin',
 				allow_spaces: true,
 				type: "numeric",
-				label: localization.en.martminlabel,
+				label: CoxFineGray.t('martminlabel'),
 				style: "ml-4",
 				width: "w-25",
 				placeholder: "-1",
@@ -224,7 +167,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
 			},
             anovachkbox: {
                 el: new checkbox(config, {
-                    label: localization.en.anovachkboxlabel,
+                    label: CoxFineGray.t('anovachkboxlabel'),
                     no: "anovachkbox",
                     extraction: "Boolean",
                     newline: true,
@@ -237,7 +180,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
         var options = {
             el: new optionsVar(config, {
                 no: "options",
-                name: localization.en.options,
+                name: CoxFineGray.t('options'),
                 content: [
                     objects.tiemethod.el,
                     objects.diagnosticsbox.el, objects.martmin.el, objects.anovachkbox.el
@@ -256,14 +199,20 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             ],
             bottom: [options.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: CoxFineGray.t('navigation'),
                 icon: "icon-cox-finegray",
 				positionInNav: 3,
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: CoxFineGray.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: CoxFineGray.t('help.body')
+        }
+;
     }
 	
 	
