@@ -214,7 +214,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
 		
 		//final piece of code
             const cmd = instance.dialog.renderR(code_vars);
-            res.push({ cmd: cmd, cgid: newCommandGroup() })
+            res.push({ cmd: temp, cgid: newCommandGroup(`${instance.config.id}`, `${instance.config.label}`), oriR: instance.config.RCode, code_vars: code_vars })
             return res;		
 	}	
 	
