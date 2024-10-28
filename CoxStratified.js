@@ -120,7 +120,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
         var options = {
             el: new optionsVar(config, {
                 no: "options",
-                name: CoxStratified.t('options'),
+                /*name: CoxStratified.t('options'),*/
                 content: [
                     objects.tiemethod.el,
                     objects.diagnosticsbox.el

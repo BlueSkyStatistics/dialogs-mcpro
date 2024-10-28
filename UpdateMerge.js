@@ -31,7 +31,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
             select12: {
                 el: new selectDataset(config, {
                     no: 'select12',
-                    label: UpdateMerge.t('selectAPackage'),
+                    /*label: UpdateMerge.t('selectAPackage'),*/
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: [],
