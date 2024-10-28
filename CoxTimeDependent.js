@@ -295,7 +295,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
 				
 		//final piece of code
             const cmd = instance.dialog.renderR(code_vars);
-            res.push({ cmd: cmd, cgid: newCommandGroup() })
+            res.push({ cmd: cmd, cgid: newCommandGroup(`${instance.config.id}`, `${instance.config.label}`), oriR: instance.config.RCode, code_vars: code_vars })
             return res;		
 	}		
 	
