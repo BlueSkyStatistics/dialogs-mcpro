@@ -174,7 +174,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
         var options = {
             el: new optionsVar(config, {
                 no: "options",
-                name: localization.en.options,
+                /*name: localization.en.options,*/
                 content: [
                     objects.tiemethod.el,
                     objects.diagnosticsbox.el
