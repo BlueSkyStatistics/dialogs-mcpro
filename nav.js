@@ -73,7 +73,7 @@ const nav = [
                 "name": "Missing Values",
                 "icon": "icon-na",
                 "children": [
-                    "./fillvaluesdownup"
+                    "./FillValuesDownwardUpward"
                 ]
             },
             "./Separate"
@@ -116,7 +116,7 @@ const nav = [
 				"children": [
 					"./CatAgree",
 					"./ccc",
-					"./cccMultiple"
+					"./cccmult"
 				]
 			}
 		]
