@@ -42,7 +42,8 @@ const nav = [
                 "name": "Survival",
                 "icon": "icon-survival",
                 "children": [
-                    "./CompetingRisksCompareGroups"
+                    "./CompetingRisksCompareGroups",
+					"./parametricSurvival"
 
                 ]
             }, 
@@ -61,7 +62,7 @@ const nav = [
                     "./ExploreDataset"
             
                 ]
-            },   
+            }, 
         ]
     },
     {
@@ -93,7 +94,8 @@ const nav = [
                     "./CoxStratified",
 					"./LinearRegMultiple",
                     "./ConditionalLogistic",
-                    "./LogisticRegMultiple"
+                    "./LogisticRegMultiple",
+					"./parametricSurvivalRegression"
                     
                 ]
             },
@@ -103,7 +105,14 @@ const nav = [
         "name": "Model Evaluation",
         "tab": "model_statistics",
         "buttons": [
-                    "./ForestPlot"
+				"./ForestPlot"
+				{
+					"name": "Predict",
+					"icon": "icon-y-hat",
+					"children": [
+						"./scoringParametricSurvival"
+					]
+				}
         ]
     },
 	{
