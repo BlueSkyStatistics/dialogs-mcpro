@@ -117,4 +117,8 @@ if (exists('BSkyTempObjForSubset')) rm(BSkyTempObjForSubset)
 ;
     }
 }
-module.exports.item = new SubsetByLogic().render()
+
+module.exports = {
+    render: () => new SubsetByLogic().render()
+}
+

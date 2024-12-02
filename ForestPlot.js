@@ -237,4 +237,8 @@ detach(package:SparseM)
 ;
     }
 }
-module.exports.item = new ForestPlot().render()
+
+module.exports = {
+    render: () => new ForestPlot().render()
+}
+

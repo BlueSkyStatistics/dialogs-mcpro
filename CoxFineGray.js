@@ -246,4 +246,8 @@ ggcoxdiagnostics({{selected.modelname | safe}})
 	
 	
 }
-module.exports.item = new CoxFineGray().render()
+
+module.exports = {
+    render: () => new CoxFineGray().render()
+}
+
