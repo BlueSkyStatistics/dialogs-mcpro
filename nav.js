@@ -1,10 +1,11 @@
-const nav = [
+let t = getT('menutoolbar')
+const nav = () => ([
     {
-        "name": "Datasets",
+        "name": t('professional_Datasets_Menu'),// {ns: 'menutoolbar'}),
         "tab": "Datasets",
         "buttons": [
             {
-                "name": "Matching",
+                "name": t('professional_Matching'),// {ns: 'menutoolbar'}),
                 "icon": "icon-paired",
                 "children": [
                     "./SubjectMatching",
@@ -12,21 +13,21 @@ const nav = [
                 ]
             },            
             {
-                "name": "Merge",
+                "name": t('professional_Merge'),// {ns: 'menutoolbar'}),
                 "icon": "icon-merge_right",
                 "children": [
                     "./UpdateMerge"
                 ]
             },
             {
-                "name": "Sort",
+                "name": t('professional_Sort'),// {ns: 'menutoolbar'}),
                 "icon": "icon-sort_vertical",            
                 "children":[
                     "./movevars"
                 ]
             },
             {
-                "name": "Subset",
+                "name": t('professional_Subset'),// {ns: 'menutoolbar'}),
                 "icon": "icon-funnel",
                 "children": [
                     "./SubsetByLogic"
@@ -35,11 +36,11 @@ const nav = [
         ]
     },
     {
-        "name": "Analysis",
+        "name": t('professional_Analysis_Menu'),// {ns: 'menutoolbar'}),
         "tab": "analysis",    
         "buttons":[
             {
-                "name": "Survival",
+                "name": t('professional_Survival'),// {ns: 'menutoolbar'}),
                 "icon": "icon-survival",
                 "children": [
                     "./CompetingRisksCompareGroups"
@@ -47,7 +48,7 @@ const nav = [
                 ]
             }, 
             {
-                "name": "Crosstab",
+                "name": t('analysis_Crosstab'),// {ns: 'menutoolbar'}),
                 "icon": "icon-crosstab",
                 "children": [
                     "./CrosstabList",
@@ -55,7 +56,7 @@ const nav = [
                 ]
             },  
             {
-                "name": "Summary",
+                "name": t('professional_Summary'),// {ns: 'menutoolbar'}),
                 "icon": "icon-sigma",
                 "children": [
                     "./ExploreDataset"
@@ -65,26 +66,26 @@ const nav = [
         ]
     },
     {
-        "name": "Variables",
+        "name": t('professional_Variables_Menu'),// {ns: 'menutoolbar'}),
         "tab": "Variables",
         "buttons": [
             "./DateOrderCheck",
             {
-                "name": "Missing Values",
+                "name": t('professional_Missing_Values'),// {ns: 'menutoolbar'}),
                 "icon": "icon-na",
                 "children": [
-                    "./fillvaluesdownup"
+                    "./FillValuesDownwardUpward"
                 ]
             },
             "./Separate"
         ]
     },
     {
-        "name": "Model Fitting",
+        "name": t('professional_Model_Fitting_Menu'),// {ns: 'menutoolbar'}),
         "tab": "model_fitting",
         "buttons": [
             {
-                "name": "Regression",
+                "name": t('professional_Regression'),// {ns: 'menutoolbar'}),
                 "icon": "icon-linear_regression_white_comp",
                 "children": [
                     "./CoxTimeDependent",
@@ -100,27 +101,30 @@ const nav = [
         ]
     },
     {
-        "name": "Model Evaluation",
+        "name": t('professional_Model_Evaluation_Menu'),// {ns: 'menutoolbar'}),
         "tab": "model_statistics",
         "buttons": [
                     "./ForestPlot"
         ]
     },
 	{
-		"name": "Agreement",
+		"name": t('professional_Agreement_Menu'),// {ns: 'menutoolbar'}),
 		"tab": "agreement",
 		"buttons": [
 			{
-				"name": "Method",
+				"name": t('professional_Method'),// {ns: 'menutoolbar'}),
 				"icon": "icon-layout",
 				"children": [
 					"./CatAgree",
 					"./ccc",
-					"./cccMultiple"
+					"./cccmult"
 				]
 			}
 		]
 	}	
-]
+])
 
-module.exports.nav = nav
+module.exports = {
+    nav: nav(),
+    render: () => nav()
+}
