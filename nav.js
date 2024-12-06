@@ -105,7 +105,7 @@ const nav = [
         "name": "Model Evaluation",
         "tab": "model_statistics",
         "buttons": [
-				"./ForestPlot"
+				"./ForestPlot",
 				{
 					"name": "Predict",
 					"icon": "icon-y-hat",
