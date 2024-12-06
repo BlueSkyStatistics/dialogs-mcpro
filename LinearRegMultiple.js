@@ -534,7 +534,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
 		var optionspanel = {
             el: new optionsVar(config, {
                 no: "optionspanel",
-                name: "Options",
+                //name: "Options",
                 content: [
                     objects.parestlabel.el, objects.parestimatechkbox.el, objects.stderrorschkbox.el, objects.confintchkbox.el, objects.interceptchkbox.el, objects.adjvarschkbox.el, 
 					objects.adjnameschkbox.el, objects.standardizedchkbox.el, objects.cilevel.el, 
