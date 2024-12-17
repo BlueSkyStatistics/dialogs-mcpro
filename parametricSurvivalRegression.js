@@ -824,7 +824,7 @@ colnames(bsky_covar_mean_df) = bsky_covar_names
                 })
             }, 
 			
-            printallest: {
+            /*printallest: {
                 el: new checkbox(config, {
                     label: localization.en.printallest,
                     no: "printallest",
@@ -839,7 +839,7 @@ colnames(bsky_covar_mean_df) = bsky_covar_names
                     extraction: "Boolean",
 					newline: true
                 })
-            },
+            },*/
             spectimes: { 
                 el: new input(config, {
                     no: 'spectimes',
