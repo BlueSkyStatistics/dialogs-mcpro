@@ -1342,7 +1342,7 @@ colnames(bsky_covar_mean_df) = bsky_covar_names
         
         this.help = {
             title: parametricSurvivalRegression.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: parametricSurvivalRegression.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: parametricSurvivalRegression.t('help.body')
         }
 ;

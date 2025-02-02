@@ -147,7 +147,7 @@ BSkyFormat(allcoefs.est, singleTableOutputHeader = "Categorical Agreement Statis
         
         this.help = {
             title: CatAgree.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: CatAgree.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: CatAgree.t('help.body')
         }
 ;

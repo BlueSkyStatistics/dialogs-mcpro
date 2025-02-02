@@ -207,7 +207,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
         
         this.help = {
             title: RiskSetMatching.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: RiskSetMatching.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: RiskSetMatching.t('help.body')
         }
 ;
@@ -233,7 +233,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Set Size Frequencies
 		
 		//final piece of code
             const cmd = instance.dialog.renderR(code_vars);
-            res.push({ cmd: cmd, cgid: newCommandGroup(`${instance.config.id}`, `${instance.config.label}`), oriR: instance.config.RCode, code_vars: code_vars })
+            res.push({ cmd: cmd, cgid: newCommandGroup() })
             return res;		
 	}	
 	

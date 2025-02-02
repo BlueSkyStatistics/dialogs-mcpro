@@ -155,7 +155,7 @@ BSkyFormat(clogit_or, singleTableOutputHeader="Odds Ratios (OR) and 95% Confiden
         
         this.help = {
             title: ConditionalLogistic.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: ConditionalLogistic.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: ConditionalLogistic.t('help.body')
         }
 ;

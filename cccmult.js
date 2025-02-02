@@ -220,7 +220,7 @@ detach("package:GGally")
         
         this.help = {
             title: cccmult.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: cccmult.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: cccmult.t('help.body')
         }
 ;

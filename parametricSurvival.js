@@ -1252,7 +1252,7 @@ bsky_CI_names = c(paste0("L",round(c({{selected.confidenceInterval | safe}})*100
         
         this.help = {
             title: parametricSurvival.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: parametricSurvival.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: parametricSurvival.t('help.body')
         }
 ;

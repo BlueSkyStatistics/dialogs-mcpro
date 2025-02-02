@@ -124,7 +124,7 @@ BSkyFormat(toplisttab$object[[1]], singleTableOutputHeader="{{selected.topnum | 
         
         this.help = {
             title: CrosstabList.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: CrosstabList.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: CrosstabList.t('help.body')
         }
 ;

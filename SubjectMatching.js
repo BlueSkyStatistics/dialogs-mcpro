@@ -138,7 +138,7 @@ BSkyFormat(set_sizes, singleTableOutputHeader="Matched Data Subclass Size Freque
         
         this.help = {
             title: SubjectMatching.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: SubjectMatching.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: SubjectMatching.t('help.body')
         }
 ;

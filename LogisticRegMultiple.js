@@ -511,7 +511,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
         
         this.help = {
             title: LogisticRegMultiple.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: LogisticRegMultiple.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: LogisticRegMultiple.t('help.body')
         }
 ;

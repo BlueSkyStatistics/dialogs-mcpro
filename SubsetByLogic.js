@@ -111,7 +111,7 @@ if (exists('BSkyTempObjForSubset')) rm(BSkyTempObjForSubset)
         
         this.help = {
             title: SubsetByLogic.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: SubsetByLogic.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: SubsetByLogic.t('help.body')
         }
 ;

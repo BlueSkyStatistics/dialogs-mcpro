@@ -231,7 +231,7 @@ detach(package:SparseM)
         
         this.help = {
             title: ForestPlot.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: ForestPlot.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: ForestPlot.t('help.body')
         }
 ;

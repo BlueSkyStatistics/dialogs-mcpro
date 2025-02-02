@@ -555,7 +555,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
         
         this.help = {
             title: CoxRegMultiple.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: CoxRegMultiple.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: CoxRegMultiple.t('help.body')
         }
 ;

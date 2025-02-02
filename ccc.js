@@ -161,7 +161,7 @@ ggplot(dat.comp, aes(x={{selected.obs1var | safe}}, y={{selected.obs2var | safe}
         
         this.help = {
             title: ccc.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: ccc.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: ccc.t('help.body')
         }
 ;

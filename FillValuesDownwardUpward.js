@@ -86,7 +86,7 @@ BSkyLoadRefreshDataframe("{{dataset.name}}")
         
         this.help = {
             title: FillValuesDownwardUpward.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: FillValuesDownwardUpward.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: FillValuesDownwardUpward.t('help.body')
         }
 ;

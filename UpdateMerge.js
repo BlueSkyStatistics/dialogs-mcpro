@@ -97,7 +97,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
         
         this.help = {
             title: UpdateMerge.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: UpdateMerge.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: UpdateMerge.t('help.body')
         }
 ;

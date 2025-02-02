@@ -174,7 +174,7 @@ BSkyLoadRefresh("{{selected.dateerrordataname | safe}}",load.dataframe={{selecte
         
         this.help = {
             title: DateOrderCheck.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: DateOrderCheck.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: DateOrderCheck.t('help.body')
         }
 ;

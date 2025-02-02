@@ -239,7 +239,7 @@ BSkyFormat(rr.result$p.value, singleTableOutputHeader="P-Values")
         
         this.help = {
             title: OddsRatioRelativeRisk.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: OddsRatioRelativeRisk.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: OddsRatioRelativeRisk.t('help.body')
         }
 ;

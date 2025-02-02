@@ -149,7 +149,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
         
         this.help = {
             title: CoxStratified.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: CoxStratified.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: CoxStratified.t('help.body')
         }
 ;
