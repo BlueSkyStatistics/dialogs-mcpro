@@ -25,7 +25,7 @@ require(dplyr)
 
 {{if(options.selected.rmstChk ==="TRUE")}}
 	# Define a function to compute the RMST from a flexsurvreg model
-	compute_rmst <- function(data, indices) {
+	compute_rmst <<- function(data, indices) {
 	# Sample data with replacement
 	boot_data = data[indices, ]
 	  

@@ -20,7 +20,7 @@ class RiskSetMatching extends baseModal {
 library(dplyr)
 library(tidyr)
 
-find.matches <- function(event, time.to.event, X, caliper = c(0, 5, 5), M=2, repeat.controls=F, super.controls=F){
+find.matches <<- function(event, time.to.event, X, caliper = c(0, 5, 5), M=2, repeat.controls=F, super.controls=F){
   
   # Note that this is a greedy algorithm.
   

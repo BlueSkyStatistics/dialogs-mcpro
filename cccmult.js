@@ -43,7 +43,7 @@ num.vars.dialog <- length({{selected.ratervars | safe}})
 # function used in the bootstrap iterations
 # returns either a vector of the overall CCC and all pairwise CCCs (if more than 2 raters), or just the overall CCC (if only 2 raters)
 
-occc <- function(data, indices=1:nrow(data), vars, num.vars)
+occc <<- function(data, indices=1:nrow(data), vars, num.vars)
 {
 occc.est <- epi.occc(dat=data[indices, vars], na.rm=TRUE, pairs=TRUE)
 if (num.vars>2) return(c(occc.est$occc,occc.est$pairs$ccc)) else return(occc.est$occc)
@@ -59,7 +59,7 @@ if (num.vars.dialog>2) {num.interval=choose(num.vars.dialog, 2)+1} else {num.int
 bootintervals <- lapply(seq(1,num.interval), boot.ci, boot.out=mysamples, conf={{selected.cilevel | safe}}, type=c("perc","bca"))
 
 # function to extract the confidence intervals from the interval object
-grab.elements <- function(x)
+grab.elements <<- function(x)
 {
 cbind(x[["percent"]][1, c(4,5), drop=FALSE], x[["bca"]][1, c(4,5), drop=FALSE])
 }
