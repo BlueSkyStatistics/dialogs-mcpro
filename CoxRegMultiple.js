@@ -29,7 +29,7 @@ coxreg.tab <- modelsum(Surv({{selected.timevar | safe}}, {{selected.eventvar | s
 coxreg.tab.final <- as.data.frame(summary(coxreg.tab, text=TRUE, term.name="term", adjustment.names={{selected.adjnameschkbox | safe}}))
 
 {{if (options.selected.parestpvaluechkbox=="'p.value'")}}
-# renaming p-value column so that modelsum p-value formatting is used instead of BlueSky's formatting
+# renaming p-value column so that modelsum p-value formatting is used instead of BioStat's formatting
 coxreg.tab.final <- rename(coxreg.tab.final, "p value"="p.value")
 {{/if}}
 

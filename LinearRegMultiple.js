@@ -28,7 +28,7 @@ linreg.tab <- modelsum({{selected.depvar | safe}} ~ {{selected.indvars | safe}},
 linreg.tab.final <- as.data.frame(summary(linreg.tab, text=TRUE, term.name="term", adjustment.names={{selected.adjnameschkbox | safe}}))
 
 {{if (options.selected.parestpvaluechkbox=="'p.value'")}}
-# renaming p-value column so that modelsum p-value formatting is used instead of BlueSky's formatting
+# renaming p-value column so that modelsum p-value formatting is used instead of BioStat's formatting
 linreg.tab.final <- rename(linreg.tab.final, "p value"="p.value")
 {{/if}}
 
