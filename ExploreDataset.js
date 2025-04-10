@@ -109,7 +109,8 @@ view(dfSummary({{selected.destdata | safe}}, max.distinct.values={{selected.maxd
         
         this.help = {
             title: ExploreDataset.t('help.title'),
-            r_help: ExploreDataset.t('help.r_help'),  //r_help: "help(data,package='utils')",
+            //r_help: "help(data,package='utils')",
+			r_help: ExploreDataset.t('help.r_help'),
             body: ExploreDataset.t('help.body')
         }
 ;
