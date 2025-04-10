@@ -26,7 +26,7 @@ A text version of the table is displayed by default, but a pretty html version c
 <br/><br/>  
 <b>Display Output in a Webpage:</b> Check if you want to display a pretty version of the table in the default web browser.  This version will have graphs included.
 <br/><br/>
-<b>Include Graphs in Output Window:</b> Check if you want to include text versions of the graphs in the BlueSky output window
+<b>Include Graphs in Output Window:</b> Check if you want to include text versions of the graphs in the application's output window
 <br/><br/>
 <b>Maximum Distinct Values:</b> The maximum number of values to display frequencies for.  If a variable has more distinct values than this number, the remaining frequencies will be reported 
 as a whole category, along with the number of additional distinct values.  For character variables, the most frequent values are displayed, so this also controls how many to show in 
