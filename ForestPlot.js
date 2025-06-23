@@ -298,7 +298,7 @@ detach(package:SparseM)
                 name: localization.en.navigation,
                 icon: "icon-tree",
 				positionInNav: 6,
-				onclick: `r_before_modal("${config.id}")`,
+				onclick: `r_before_modal('${config.id}')`,
                 modal_id: config.id
             }
         }
