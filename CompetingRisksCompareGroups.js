@@ -43,7 +43,7 @@ BSkyFormat(meanmaxtime, singleTableOutputHeader="Maximum Time")
 
 # median follow-up times and total events
 dataforfup <- {{dataset.name}} %>% 
-	mutate(allevents=ifelse({{selected.eventvar | safe}} != 0, 1, 0))
+	dplyr::mutate(allevents=ifelse({{selected.eventvar | safe}} != 0, 1, 0))
 kmsummary <- tableby({{selected.groupvar | safe}}~Surv({{selected.timevar | safe}},allevents),data=dataforfup,surv.stats=c("N","Nmiss","Nevents","medTime"),test=FALSE)
 BSkyFormat(as.data.frame(summary(kmsummary,text=TRUE)),singleTableOutputHeader="Overall Events and Follow-Up Time by Group={{selected.groupvar | safe}}")
 
@@ -62,14 +62,14 @@ est1 <- est1 %>%
 
 # removing unused factor level for censor, assigning event labels, and a numeric event variable
 est1$event_label <- fct_drop(est1$event_label, only="(s0)")
-est1 <- mutate(est1, {{selected.eventvar | safe}}=as.numeric(event_label))
+est1 <- dplyr::mutate(est1, {{selected.eventvar | safe}}=as.numeric(event_label))
 {{selected.eventlabels | safe}}
 
 # filling in estimates of 0 so curves start at 0
 firstobs_event <- est1 %>% 
 	group_by({{selected.eventvar | safe}}) %>% 
 	slice_head() %>% 
-	mutate(time=0,n.event=0,n.censor=0,estimate=0,std.error=0,conf.low=NA_real_,conf.high=NA_real_)
+	dplyr::mutate(time=0,n.event=0,n.censor=0,estimate=0,std.error=0,conf.low=NA_real_,conf.high=NA_real_)
 
 est1 <- bind_rows(est1,firstobs_event)
 est1 <- arrange(est1,strata,{{selected.eventvar | safe}},time)
@@ -156,7 +156,7 @@ scale_fill <- scale_fill_jco()
 
 
 # grouping strata and event together to create a grouping for plot
-est1 <- est1 %>% mutate(plot.groupvar=paste0(strata,event_label))
+est1 <- est1 %>% dplyr::mutate(plot.groupvar=paste0(strata,event_label))
 
 myplot <- ggplot(est1, aes(x = time, y = estimate, color = strata_label, linetype=event_label)) +
   geom_step(lwd = {{selected.linesize | safe}}) +

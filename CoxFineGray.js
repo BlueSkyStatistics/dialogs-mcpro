@@ -34,7 +34,7 @@ fgdat <- finegray(Surv({{selected.timevar | safe}},factor({{selected.eventvar | 
 {{selected.modelname | safe}} <- coxph(Surv(fgstart, fgstop, fgstatus) ~ {{selected.modelterms | safe}}{{selected.stratavarslist | safe}}, data=fgdat, weights=fgwt, ties="{{selected.tiemethod | safe}}", na.action=na.exclude)
 
 # computing sample size from a standard fit
-data.for.n <- {{dataset.name}} %>% mutate(eventforn=ifelse({{selected.eventvar | safe}}=={{selected.eventcode | safe}},1,0))
+data.for.n <- {{dataset.name}} %>% dplyr::mutate(eventforn=ifelse({{selected.eventvar | safe}}=={{selected.eventcode | safe}},1,0))
 cox.for.n <- coxph(Surv({{selected.timevar | safe}}, eventforn) ~ {{selected.modelterms | safe}}{{selected.stratavarslist | safe}}, data=data.for.n)
 
 cox_summary<-t(glance({{selected.modelname | safe}}))
