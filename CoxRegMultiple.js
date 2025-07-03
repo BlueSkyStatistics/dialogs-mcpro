@@ -36,7 +36,7 @@ coxreg.tab.final <- as.data.frame(summary(coxreg.tab, text=TRUE, term.name="term
 
 {{if (options.selected.parestpvaluechkbox=="'p.value'")}}
 # renaming p-value column so that modelsum p-value formatting is used instead of BlueSky's formatting
-coxreg.tab.final <- rename(coxreg.tab.final, "p value"="p.value")
+coxreg.tab.final <- dplyr::rename(coxreg.tab.final, "p value"="p.value")
 {{/if}}
 
 # adding model number to the final table
