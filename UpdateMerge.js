@@ -57,7 +57,7 @@ class UpdateMerge extends baseModal {
 library(dplyr)
 
 # renaming variables in second dataset to match the join mapping variables in the first dataset
-{{selected.select12 | safe}}.1 <- rename({{selected.select12 | safe}}, {{selected.join | safe}})
+{{selected.select12 | safe}}.1 <- dplyr::rename({{selected.select12 | safe}}, {{selected.join | safe}})
 # keeping only variables in the second dataset that exist in the first dataset
 {{selected.select12 | safe}}.1 <- {{selected.select12 | safe}}.1[names({{selected.select12 | safe}}.1)[names({{selected.select12 | safe}}.1) %in% names({{dataset.name}})]]
 

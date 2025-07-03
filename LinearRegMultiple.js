@@ -143,7 +143,7 @@ linreg.tab.final <- as.data.frame(summary(linreg.tab, text=TRUE, term.name="term
 
 {{if (options.selected.parestpvaluechkbox=="'p.value'")}}
 # renaming p-value column so that modelsum p-value formatting is used instead of BlueSky's formatting
-linreg.tab.final <- rename(linreg.tab.final, "p value"="p.value")
+linreg.tab.final <- dplyr::rename(linreg.tab.final, "p value"="p.value")
 {{/if}}
 
 # adding model number to the final table

@@ -154,7 +154,7 @@ logreg.tab.final <- as.data.frame(summary(logreg.tab, text=TRUE, term.name="term
 
 {{if (options.selected.parestpvaluechkbox=="'p.value'")}}
 # renaming p-value column so that modelsum p-value formatting is used instead of BlueSky's formatting
-logreg.tab.final <- rename(logreg.tab.final, "p value"="p.value")
+logreg.tab.final <- dplyr::rename(logreg.tab.final, "p value"="p.value")
 {{/if}}
 
 # adding model number to the final table
