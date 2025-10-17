@@ -4,7 +4,7 @@
   * allowed without the prior written permission from BlueSky Statistics, LLC.
  */
 
-const {getT} = global.requireFromRoot("localization");
+//const {getT} = global.requireFromRoot("localization");
 let t = getT('menutoolbar')
 const nav = () => ([
     {
@@ -50,8 +50,7 @@ const nav = () => ([
                 "name": t('professional_Survival'),// {ns: 'menutoolbar'}),
                 "icon": "icon-survival",
                 "children": [
-                    "./CompetingRisksCompareGroups",
-                    "./parametricSurvival"
+                    "./CompetingRisksCompareGroups"
 
                 ]
             }, 
