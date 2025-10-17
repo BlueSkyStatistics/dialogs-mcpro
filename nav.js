@@ -50,8 +50,7 @@ const nav = () => ([
                 "name": t('professional_Survival'),// {ns: 'menutoolbar'}),
                 "icon": "icon-survival",
                 "children": [
-                    "./CompetingRisksCompareGroups",
-                    "./parametricSurvival"
+                    "./CompetingRisksCompareGroups"
 
                 ]
             }, 
