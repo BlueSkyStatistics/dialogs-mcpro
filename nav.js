@@ -48,8 +48,7 @@ const nav = [
                 "name": "Survival",
                 "icon": "icon-survival",
                 "children": [
-                    "./CompetingRisksCompareGroups",
-					"./parametricSurvival"
+                    "./CompetingRisksCompareGroups"
 
                 ]
             }, 
