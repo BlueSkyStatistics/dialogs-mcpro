@@ -252,14 +252,14 @@ colnames(bsky_covar_mean_df) = bsky_covar_names
 		# Plot parametric survival curve with Kaplan-Meier overlay
 		ggplot() +
 		  # Plot parametric survival curve with confidence intervals
-		  geom_line(data = bsky_combined_surv_km_df %>% filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, y = survival, color = Type), linewidth = 1) +
+		  geom_line(data = bsky_combined_surv_km_df %>% dplyr::filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, y = survival, color = Type), linewidth = 1) +
 		  {{if(options.selected.survivalPlottypegroup ==="survivalKMCI")}}
-		  geom_ribbon(data = bsky_combined_surv_km_df %>% filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
+		  geom_ribbon(data = bsky_combined_surv_km_df %>% dplyr::filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
 		  {{/if}}
 		  # Plot Kaplan-Meier curve with confidence intervals
-		  geom_step(data = bsky_combined_surv_km_df %>% filter(Type == "Kaplan-Meier"), aes(x = time, y = survival, color = Type),linewidth = 1) +
+		  geom_step(data = bsky_combined_surv_km_df %>% dplyr::filter(Type == "Kaplan-Meier"), aes(x = time, y = survival, color = Type),linewidth = 1) +
 		  {{if(options.selected.survivalPlottypegroup ==="survivalKMCI")}}
-		  geom_ribbon(data = bsky_combined_surv_km_df %>% filter(Type == "Kaplan-Meier"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
+		  geom_ribbon(data = bsky_combined_surv_km_df %>% dplyr::filter(Type == "Kaplan-Meier"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
 		  {{/if}}
 		  
 		  # In-plot caption
@@ -347,14 +347,14 @@ colnames(bsky_covar_mean_df) = bsky_covar_names
 		
 		ggplot() +
 		 # Plot parametric failure curve with confidence intervals
-		  geom_line(data = bsky_combined_fail_km_df %>% filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, y = failure, color = Type), linewidth = 1) +
+		  geom_line(data = bsky_combined_fail_km_df %>% dplyr::filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, y = failure, color = Type), linewidth = 1) +
 		  {{if(options.selected.falurePlottypegroup ==="inciKMCI")}}
-		  geom_ribbon(data = bsky_combined_fail_km_df %>% filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
+		  geom_ribbon(data = bsky_combined_fail_km_df %>% dplyr::filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
 		  {{/if}}
 		  # Plot Kaplan-Meier curve with confidence intervals
-		  geom_step(data = bsky_combined_fail_km_df %>% filter(Type == "Kaplan-Meier"), aes(x = time, y = failure, color = Type),linewidth = 1) +
+		  geom_step(data = bsky_combined_fail_km_df %>% dplyr::filter(Type == "Kaplan-Meier"), aes(x = time, y = failure, color = Type),linewidth = 1) +
 		  {{if(options.selected.falurePlottypegroup ==="inciKMCI")}}
-		  geom_ribbon(data = bsky_combined_fail_km_df %>% filter(Type == "Kaplan-Meier"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
+		  geom_ribbon(data = bsky_combined_fail_km_df %>% dplyr::filter(Type == "Kaplan-Meier"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
 		  {{/if}}
 		   
 		  # Manual color and fill scales
@@ -396,14 +396,14 @@ colnames(bsky_covar_mean_df) = bsky_covar_names
 		
 		ggplot() +
 		 # Plot parametric failure curve with confidence intervals
-		  geom_line(data = bsky_combined_cumhaz_km_df %>% filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, y = cumhaz, color = Type), linewidth = 1) +
+		  geom_line(data = bsky_combined_cumhaz_km_df %>% dplyr::filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, y = cumhaz, color = Type), linewidth = 1) +
 		  {{if(options.selected.falurePlottypegroup ==="inciKMCI")}}
-		  geom_ribbon(data = bsky_combined_cumhaz_km_df %>% filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
+		  geom_ribbon(data = bsky_combined_cumhaz_km_df %>% dplyr::filter(Type == "Parametric ({{selected.gpbox1 | safe}})"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
 		  {{/if}}
 		  # Plot Kaplan-Meier curve with confidence intervals
-		  geom_step(data = bsky_combined_cumhaz_km_df %>% filter(Type == "Kaplan-Meier"), aes(x = time, y = cumhaz, color = Type),linewidth = 1) +
+		  geom_step(data = bsky_combined_cumhaz_km_df %>% dplyr::filter(Type == "Kaplan-Meier"), aes(x = time, y = cumhaz, color = Type),linewidth = 1) +
 		  {{if(options.selected.falurePlottypegroup ==="inciKMCI")}}
-		  geom_ribbon(data = bsky_combined_cumhaz_km_df %>% filter(Type == "Kaplan-Meier"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
+		  geom_ribbon(data = bsky_combined_cumhaz_km_df %>% dplyr::filter(Type == "Kaplan-Meier"), aes(x = time, ymin = lower_ci, ymax = upper_ci, fill = Type), alpha = 0.2) +
 		  {{/if}}
 		   
 		  # Manual color and fill scales

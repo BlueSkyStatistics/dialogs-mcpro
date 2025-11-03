@@ -56,7 +56,7 @@ BSkyFormat(cuminc_tests_table, singleTableOutputHeader="Gray's Test Comparing Gr
 # cumulative incidence estimates
 est1 <- as.data.frame(tidy(fit1))
 est1 <- est1 %>% 
-	filter(state!="(s0)") %>% 
+	dplyr::filter(state!="(s0)") %>% 
 	dplyr::select(strata, state, time, n.event:std.error, conf.low, conf.high) %>% 
 	dplyr::rename(event_label=state)
 
@@ -67,7 +67,7 @@ est1 <- dplyr::dplyr::mutate(est1, {{selected.eventvar | safe}}=as.numeric(event
 
 # filling in estimates of 0 so curves start at 0
 firstobs_event <- est1 %>% 
-	group_by({{selected.eventvar | safe}}) %>% 
+	dplyr::group_by({{selected.eventvar | safe}}) %>% 
 	slice_head() %>% 
 	dplyr::mutate(time=0,n.event=0,n.censor=0,estimate=0,std.error=0,conf.low=NA_real_,conf.high=NA_real_)
 
