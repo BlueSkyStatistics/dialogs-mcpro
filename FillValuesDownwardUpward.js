@@ -29,7 +29,7 @@ class FillValuesDownwardUpward extends baseModal {
 library(tidyverse)
 
 {{dataset.name}} <- {{dataset.name}} %>% 
-	group_by({{selected.groupbyvars | safe}}) %>% 
+	dplyr::group_by({{selected.groupbyvars | safe}}) %>% 
 	fill({{selected.fillinvars | safe}}, .direction="{{selected.directiongrp | safe}}")
 
 BSkyLoadRefreshDataframe("{{dataset.name}}")
