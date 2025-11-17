@@ -15,8 +15,8 @@ const nav = () => ([
                 "name": t('professional_Matching'),// {ns: 'menutoolbar'}),
                 "icon": "icon-paired",
                 "children": [
-                    "./SubjectMatching",
-                    "./RiskSetMatching"
+                    "./RiskSetMatching",
+                    "./SubjectMatching"
                 ]
             },            
             {
