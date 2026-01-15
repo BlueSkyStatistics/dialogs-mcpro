@@ -153,7 +153,7 @@ BSkyFormat(clogit_or, singleTableOutputHeader="Odds Ratios (OR) and 95% Confiden
             nav: {
                 name: ConditionalLogistic.t('navigation'),
                 icon: "icon-logisticconditional",
-				positionInNav: 12,
+				positionInNav: 11,
                 modal: config.id
             }
         }

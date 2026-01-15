@@ -454,7 +454,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
             nav: {
                 name: LinearRegMultiple.t('navigation'),
                 icon: "icon-linear_regression_multiple_models",
-				positionInNav: 9,
+				positionInNav: 8,
                 modal: config.id
             }
         };
