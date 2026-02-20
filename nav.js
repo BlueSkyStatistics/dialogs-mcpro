@@ -101,8 +101,7 @@ const nav = () => ([
                     "./CoxStratified",
 					"./LinearRegMultiple",
                     "./ConditionalLogistic",
-                    "./LogisticRegMultiple",
-                    "./parametricSurvivalRegression"
+                    "./LogisticRegMultiple"
                     
                 ]
             },
@@ -112,14 +111,8 @@ const nav = () => ([
         "name": t('professional_Model_Evaluation_Menu'),// {ns: 'menutoolbar'}),
         "tab": "model_statistics",
         "buttons": [
-                    "./ForestPlot",
-                    {
-                        "name": t('modelevaluation_Predict'),
-                        "icon": "icon-y-hat",
-                        "children": [
-                            "./scoringParametricSurvival"
-                        ]
-                    }                    
+                    "./ForestPlot"
+                   
         ]
     },
 	{
