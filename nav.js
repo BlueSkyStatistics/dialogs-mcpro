@@ -4,15 +4,15 @@
   * allowed without the prior written permission from BlueSky Statistics, LLC.
  */
 
-const {getT} = global.requireFromRoot("localization");
-let t = getT('menutoolbar')
+// const {getT} = global.requireFromRoot("localization");
+// let t = getT('menutoolbar')
 const nav = [
     {
-        "name": t('professional_Datasets_Menu'),// {ns: 'menutoolbar'}),
+        "id": "menu-datasets",// {ns: 'menutoolbar'}),
         "tab": "Datasets",
         "buttons": [
             {
-                "name": t('professional_Matching'),// {ns: 'menutoolbar'}),
+                "id": "menu-datasets-matching",// {ns: 'menutoolbar'}),
                 "icon": "icon-paired",
                 "children": [
                     "./RiskSetMatching",
@@ -20,21 +20,21 @@ const nav = [
                 ]
             },            
             {
-                "name": t('professional_Merge'),// {ns: 'menutoolbar'}),
+                "id": "menu-datasets-merge",// {ns: 'menutoolbar'}),
                 "icon": "icon-merge_right",
                 "children": [
                     "./UpdateMerge"
                 ]
             },
             {
-                "name": t('professional_Sort'),// {ns: 'menutoolbar'}),
+                "id": "menu-datasets-sort",// {ns: 'menutoolbar'}),
                 "icon": "icon-sort_vertical",            
                 "children":[
                     "./movevars"
                 ]
             },
             {
-                "name": t('professional_Subset'),// {ns: 'menutoolbar'}),
+                "id": "menu-datasets-subset",// {ns: 'menutoolbar'}),
                 "icon": "icon-funnel",
                 "children": [
                     "./SubsetByLogic"
@@ -43,11 +43,11 @@ const nav = [
         ]
     },
     {
-        "name": t('professional_Analysis_Menu'),// {ns: 'menutoolbar'}),
+        "id": "menu-analysis",// {ns: 'menutoolbar'}),
         "tab": "analysis",    
         "buttons":[
             {
-                "name": t('professional_Survival'),// {ns: 'menutoolbar'}),
+                "id": "menu-analysis-survival",// {ns: 'menutoolbar'}),
                 "icon": "icon-survival",
                 "children": [
                     "./CompetingRisksCompareGroups"
@@ -55,7 +55,7 @@ const nav = [
                 ]
             }, 
             {
-                "name": t('analysis_Crosstab'),// {ns: 'menutoolbar'}),
+                "id": "menu-analysis-crosstab",// {ns: 'menutoolbar'}),
                 "icon": "icon-crosstab",
                 "children": [
                     "./CrosstabList",
@@ -63,7 +63,7 @@ const nav = [
                 ]
             },  
             {
-                "name": t('professional_Summary'),// {ns: 'menutoolbar'}),
+                "id": "menu-analysis-summary",// {ns: 'menutoolbar'}),
                 "icon": "icon-sigma",
                 "children": [
                     "./ExploreDataset"
@@ -73,12 +73,12 @@ const nav = [
         ]
     },
     {
-        "name": t('professional_Variables_Menu'),// {ns: 'menutoolbar'}),
+        "id": "menu-variables",// {ns: 'menutoolbar'}),
         "tab": "Variables",
         "buttons": [
             "./DateOrderCheck",
             {
-                "name": t('professional_Missing_Values'),// {ns: 'menutoolbar'}),
+                "id": "menu-variables-missingvalues",// {ns: 'menutoolbar'}),
                 "icon": "icon-na",
                 "children": [
                     "./FillValuesDownwardUpward"
@@ -88,11 +88,11 @@ const nav = [
         ]
     },
     {
-        "name": t('professional_Model_Fitting_Menu'),// {ns: 'menutoolbar'}),
+        "id": "menu-modelfitting",// {ns: 'menutoolbar'}),
         "tab": "model_fitting",
         "buttons": [
             {
-                "name": t('professional_Regression'),// {ns: 'menutoolbar'}),
+                "id": "menu-modelfitting-regression",// {ns: 'menutoolbar'}),
                 "icon": "icon-linear_regression_white_comp",
                 "children": [
                     "./CoxTimeDependent",
@@ -109,12 +109,12 @@ const nav = [
         ]
     },
     {
-        "name": t('professional_Model_Evaluation_Menu'),// {ns: 'menutoolbar'}),
+        "id": "menu-modelevaluation",// {ns: 'menutoolbar'}),
         "tab": "model_statistics",
         "buttons": [
                     "./ForestPlot",
                     {
-                        "name": t('modelevaluation_Predict'),
+                        "id": "menu-modelevaluation-predict",
                         "icon": "icon-y-hat",
                         "children": [
                             "./scoringParametricSurvival"
@@ -123,11 +123,11 @@ const nav = [
         ]
     },
 	{
-		"name": t('professional_Agreement_Menu'),// {ns: 'menutoolbar'}),
+		"id": "menu-agreement",// {ns: 'menutoolbar'}),
 		"tab": "agreement",
 		"buttons": [
 			{
-				"name": t('professional_Method'),// {ns: 'menutoolbar'}),
+				"id": "menu-agreement-method",// {ns: 'menutoolbar'}),
 				"icon": "icon-layout",
 				"children": [
 					"./CatAgree",
