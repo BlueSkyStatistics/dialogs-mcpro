@@ -6,7 +6,7 @@
 
 const {getT} = global.requireFromRoot("localization");
 let t = getT('menutoolbar')
-const nav = () => ([
+const nav = [
     {
         "name": t('professional_Datasets_Menu'),// {ns: 'menutoolbar'}),
         "tab": "Datasets",
@@ -137,9 +137,6 @@ const nav = () => ([
 			}
 		]
 	}	
-])
+]
 
-module.exports = {
-    nav: nav(),
-    render: () => nav()
-}
+module.exports.nav = nav
