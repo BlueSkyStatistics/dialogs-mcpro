@@ -92,6 +92,30 @@ const nav = () => ([
         "tab": "model_fitting",
         "buttons": [
             {
+                "name": "Contrasts",
+                "icon": "icon-brightness-and-contrast",
+                "children": [
+                    "./model_contrasts_maineffect"
+                ]
+            },		
+			{
+                "name": "Elastic Net",
+                "icon": "icon-variance",
+                "children": [
+                    "./elastic_net",
+					"./elastic_net_cox"            
+                ]				
+			},		
+			{
+                "name": "GEE",
+                "icon": "icon-link",
+                "children": [
+                    "./gee",
+					"./gee_multinomial",
+					"./gee_ordinal"                    
+                ]				
+			},		
+            {
                 "name": t('professional_Regression'),// {ns: 'menutoolbar'}),
                 "icon": "icon-linear_regression_white_comp",
                 "children": [
