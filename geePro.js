@@ -2,14 +2,14 @@
 
 
 
-class GEE extends baseModal {
-    static dialogId = 'GEE'
-    static t = baseModal.makeT(GEE.dialogId)
+class geePro extends baseModal {
+    static dialogId = 'geePro'
+    static t = baseModal.makeT(geePro.dialogId)
 
     constructor() {
         var config = {
-            id: GEE.dialogId,
-            label: GEE.t('title'),
+            id: geePro.dialogId,
+            label: geePro.t('title'),
 			splitProcessing: true,
             modalType: "two",
             RCode: `
@@ -156,7 +156,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			modelname: {
                 el: new input(config, {
                     no: 'modelname',
-                    label: GEE.t('modellabel'),
+                    label: geePro.t('modellabel'),
                     placeholder: "",
                     value:"GEEModel1",
 					enforceRobjectRules:true,
@@ -173,7 +173,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			},
 			depvar: {
                 el: new dstVariable(config, {
-                    label: GEE.t('depvarlabel'),
+                    label: geePro.t('depvarlabel'),
                     no: "depvar",
                     filter: "Numeric|Scale|Nominal",
                     extraction: "NoPrefix|UseComma",
@@ -184,12 +184,12 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
                 el: new formulaBuilder(config, {
                     no: "formula",
                     required:true,
-                    label: GEE.t('formulalabel')
+                    label: geePro.t('formulalabel')
                 })
             },
 			id: {
                 el: new dstVariable(config, {
-                    label: GEE.t('idlabel'),
+                    label: geePro.t('idlabel'),
                     no: "id",
                     filter: "Numeric|Scale|String|Nominal|Ordinal",
                     extraction: "NoPrefix|UseComma",
@@ -198,7 +198,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
             },
 			waves: {
                 el: new dstVariable(config, {
-                    label: GEE.t('waveslabel'),
+                    label: geePro.t('waveslabel'),
                     no: "waves",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -208,7 +208,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
             },			
             offset: {
                 el: new dstVariable(config, {
-                    label: GEE.t('offsetlabel'),
+                    label: geePro.t('offsetlabel'),
                     no: "offset",
                     filter: "Numeric|Scale",
                     wrapped: ' + offset(%val%)',
@@ -217,7 +217,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
             },
             weights: {
                 el: new dstVariable(config, {
-                    label: GEE.t('weightslabel'),
+                    label: geePro.t('weightslabel'),
                     no: "weights",
                     filter: "Numeric|Scale",
 					wrapped: ', weights=%val%',
@@ -228,7 +228,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
                 el: new comboBoxWithChilderen(config, {
                     no: 'family',
                     nochild: 'combokid',
-                    label: GEE.t('familylabel'),
+                    label: geePro.t('familylabel'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: [
@@ -248,7 +248,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 		    workingcorr: {
                 el: new selectVar(config, {
                     no: 'workingcorr',
-                    label: GEE.t('workingcorrlabel'),
+                    label: geePro.t('workingcorrlabel'),
                     multiple: false,
 					width: "w-50",
                     extraction: "NoPrefix|UseComma",
@@ -260,7 +260,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			mdep: {
 				el: new inputSpinner(config, {
 					no: 'mdep',
-					label: GEE.t('mdeplabel'),
+					label: geePro.t('mdeplabel'),
 					min: 1,
 					max: 100000,
 					step: 1,
@@ -271,7 +271,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 		    varest: {
                 el: new selectVar(config, {
                     no: 'varest',
-                    label: GEE.t('varestlabel'),
+                    label: geePro.t('varestlabel'),
                     multiple: false,
 					width: "w-25",
                     extraction: "NoPrefix|UseComma",
@@ -283,7 +283,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			theta: {
                 el: new input(config, {
                     no: 'theta',
-                    label: GEE.t('thetalabel'),
+                    label: geePro.t('thetalabel'),
                     placeholder: "",
                     type: "numeric",
 					allow_spaces: true,
@@ -296,7 +296,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			varpower: {
                 el: new input(config, {
                     no: 'varpower',
-                    label: GEE.t('varpowerlabel'),
+                    label: geePro.t('varpowerlabel'),
                     type: "numeric",
 					value: "0",
 					allow_spaces: true,
@@ -308,7 +308,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			linkpower: {
                 el: new input(config, {
                     no: 'linkpower',
-                    label: GEE.t('linkpowerlabel'),
+                    label: geePro.t('linkpowerlabel'),
                     type: "numeric",
 					value: "1",
 					allow_spaces: true,
@@ -319,14 +319,14 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
             },				
 			expcoef: {
 				el: new checkbox(config, {
-					label: GEE.t('expcoeflabel'),
+					label: geePro.t('expcoeflabel'),
 					no: "expcoef",
 					extraction: "Boolean"
 				})
 			},
 			seqterm: {
 				el: new checkbox(config, {
-					label: GEE.t('seqtermlabel'),
+					label: geePro.t('seqtermlabel'),
 					no: "seqterm",
 					newline: true,
 					extraction: "Boolean"
@@ -335,7 +335,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 		    seqtesttype: {
                 el: new selectVar(config, {
                     no: 'seqtesttype',
-                    label: GEE.t('seqtesttypelabel'),
+                    label: geePro.t('seqtesttypelabel'),
                     multiple: false,
 					width: "w-25",
 					style: "ml-5",
@@ -347,7 +347,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
             },
 			showworking: {
 				el: new checkbox(config, {
-					label: GEE.t('showworkinglabel'),
+					label: geePro.t('showworkinglabel'),
 					no: "showworking",
 					extraction: "Boolean"
 				})
@@ -360,7 +360,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			},
 			pearsonres: {
 				el: new checkbox(config, {
-					label: GEE.t('pearsonreslabel'),
+					label: geePro.t('pearsonreslabel'),
 					no: "pearsonres",
 					style: "ml-3",
 					extraction: "Boolean"
@@ -368,7 +368,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			},
 			devianceres: {
 				el: new checkbox(config, {
-					label: GEE.t('deviancereslabel'),
+					label: geePro.t('deviancereslabel'),
 					no: "devianceres",
 					newline: true,
 					style: "ml-3",
@@ -377,7 +377,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			},
 			mahalres: {
 				el: new checkbox(config, {
-					label: GEE.t('mahalreslabel'),
+					label: geePro.t('mahalreslabel'),
 					no: "mahalres",
 					newline: true,
 					style: "ml-3",
@@ -394,7 +394,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			},			
 			dfbetacluster: {
 				el: new checkbox(config, {
-					label: GEE.t('clusterlevellabel'),
+					label: geePro.t('clusterlevellabel'),
 					no: "dfbetacluster",
 					style: "ml-3 mt-2",
 					extraction: "Boolean"
@@ -403,7 +403,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 		    dfbetaclustermethod: {
                 el: new selectVar(config, {
                     no: 'dfbetaclustermethod',
-                    label: GEE.t('methodlabel'),
+                    label: geePro.t('methodlabel'),
                     multiple: false,
 					width: "w-25",
 					style: "ml-4",
@@ -416,7 +416,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			dfbetaclustervar: {
                 el: new input(config, {
                     no: 'dfbetaclustervar',
-                    label: GEE.t('speccoeflabel'),
+                    label: geePro.t('speccoeflabel'),
                     placeholder: "",
                     type: "character",
 					allowspacesNew: false,
@@ -429,7 +429,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 
 			dfbetaobs: {
 				el: new checkbox(config, {
-					label: GEE.t('obslevellabel'),
+					label: geePro.t('obslevellabel'),
 					no: "dfbetaobs",
 					style: "ml-3 mt-4",
 					extraction: "Boolean"
@@ -438,7 +438,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			dfbetaobsvar: {
                 el: new input(config, {
                     no: 'dfbetaobsvar',
-                    label: GEE.t('speccoeflabel'),
+                    label: geePro.t('speccoeflabel'),
                     placeholder: "",
                     type: "character",
 					allowspacesNew: false,
@@ -458,7 +458,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			},			
 			cookscluster: {
 				el: new checkbox(config, {
-					label: GEE.t('clusterlevellabel'),
+					label: geePro.t('clusterlevellabel'),
 					no: "cookscluster",
 					style: "ml-3 mt-2",
 					extraction: "Boolean"
@@ -467,7 +467,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 		    cooksclustermethod: {
                 el: new selectVar(config, {
                     no: 'cooksclustermethod',
-                    label: GEE.t('methodlabel'),
+                    label: geePro.t('methodlabel'),
                     multiple: false,
 					width: "w-25",
 					style: "ml-4",
@@ -480,7 +480,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 		    cooksclustercoef: {
                 el: new selectVar(config, {
                     no: 'cooksclustercoef',
-                    label: GEE.t('coeflabel'),
+                    label: geePro.t('coeflabel'),
                     multiple: false,
 					width: "w-25",
 					style: "ml-4",
@@ -493,7 +493,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			cooksclustervar: {
                 el: new input(config, {
                     no: 'cooksclustervar',
-                    label: GEE.t('speccoeflabel'),
+                    label: geePro.t('speccoeflabel'),
                     placeholder: "",
                     type: "character",
 					allowspacesNew: false,
@@ -506,7 +506,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 
 			cooksobs: {
 				el: new checkbox(config, {
-					label: GEE.t('obslevellabel'),
+					label: geePro.t('obslevellabel'),
 					no: "cooksobs",
 					style: "ml-3 mt-4",
 					extraction: "Boolean"
@@ -515,7 +515,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 		    cooksobscoef: {
                 el: new selectVar(config, {
                     no: 'cooksobscoef',
-                    label: GEE.t('coeflabel'),
+                    label: geePro.t('coeflabel'),
                     multiple: false,
 					width: "w-25",
 					style: "ml-4",
@@ -528,7 +528,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			cooksobsvar: {
                 el: new input(config, {
                     no: 'cooksobsvar',
-                    label: GEE.t('speccoeflabel'),
+                    label: geePro.t('speccoeflabel'),
                     placeholder: "",
                     type: "character",
 					allowspacesNew: false,
@@ -547,7 +547,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			},	
 			leveragecluster: {
 				el: new checkbox(config, {
-					label: GEE.t('clusterlevellabel'),
+					label: geePro.t('clusterlevellabel'),
 					no: "leveragecluster",
 					style: "ml-3",
 					extraction: "Boolean"
@@ -555,7 +555,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			},
 			leverageobs: {
 				el: new checkbox(config, {
-					label: GEE.t('obslevellabel'),
+					label: geePro.t('obslevellabel'),
 					no: "leverageobs",
 					newline: true,
 					style: "ml-3",
@@ -573,7 +573,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 		    localinftype: {
                 el: new selectVar(config, {
                     no: 'localinftype',
-                    label: GEE.t('localinftypelabel'),
+                    label: geePro.t('localinftypelabel'),
                     multiple: false,
 					width: "w-25",
 					style: "ml-4 mt-2",
@@ -586,7 +586,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			
 			localinfcluster: {
 				el: new checkbox(config, {
-					label: GEE.t('perturbclusterlabel'),
+					label: geePro.t('perturbclusterlabel'),
 					no: "localinfcluster",
 					style: "ml-3 mt-4",
 					extraction: "Boolean"
@@ -595,7 +595,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 		    localinfclustercoef: {
                 el: new selectVar(config, {
                     no: 'localinfclustercoef',
-                    label: GEE.t('coeflabel'),
+                    label: geePro.t('coeflabel'),
                     multiple: false,
 					width: "w-25",
 					style: "ml-4",
@@ -608,7 +608,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			localinfclustervar: {
                 el: new input(config, {
                     no: 'localinfclustervar',
-                    label: GEE.t('speccoeflabel'),
+                    label: geePro.t('speccoeflabel'),
                     placeholder: "",
                     type: "character",
 					allowspacesNew: false,
@@ -620,7 +620,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 
 			localinfobs: {
 				el: new checkbox(config, {
-					label: GEE.t('perturbobslabel'),
+					label: geePro.t('perturbobslabel'),
 					no: "localinfobs",
 					style: "ml-3 mt-4",
 					extraction: "Boolean"
@@ -629,7 +629,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 		    localinfobscoef: {
                 el: new selectVar(config, {
                     no: 'localinfobscoef',
-                    label: GEE.t('coeflabel'),
+                    label: geePro.t('coeflabel'),
                     multiple: false,
 					width: "w-25",
 					style: "ml-4",
@@ -642,7 +642,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			localinfobsvar: {
                 el: new input(config, {
                     no: 'localinfobsvar',
-                    label: GEE.t('speccoeflabel'),
+                    label: geePro.t('speccoeflabel'),
                     placeholder: "",
                     type: "character",
 					allowspacesNew: false,
@@ -654,7 +654,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 
 			localinfresp: {
 				el: new checkbox(config, {
-					label: GEE.t('perturbresplabel'),
+					label: geePro.t('perturbresplabel'),
 					no: "localinfresp",
 					style: "ml-3 mt-4",
 					extraction: "Boolean"
@@ -663,7 +663,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 		    localinfrespcoef: {
                 el: new selectVar(config, {
                     no: 'localinfrespcoef',
-                    label: GEE.t('coeflabel'),
+                    label: geePro.t('coeflabel'),
                     multiple: false,
 					width: "w-25",
 					style: "ml-4",
@@ -676,7 +676,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			localinfrespvar: {
                 el: new input(config, {
                     no: 'localinfrespvar',
-                    label: GEE.t('speccoeflabel'),
+                    label: geePro.t('speccoeflabel'),
                     placeholder: "",
                     type: "character",
 					allowspacesNew: false,
@@ -754,7 +754,7 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 			bottom: [objects.family.el.content, objects.theta.el.content, objects.varpower.el.content, objects.linkpower.el.content, objects.expcoef.el.content, objects.seqterm.el.content, objects.seqtesttype.el.content, objects.showworking.el.content,
 					resdiagnosticspanel.el.content, dfbetadiagnosticspanel.el.content, cooksdiagnosticspanel.el.content, levdiagnosticspanel.el.content, localinfdiagnosticspanel.el.content],
             nav: {
-                name: GEE.t('navigation'),
+                name: geePro.t('navigation'),
                 icon: "icon-link",
                 modal: config.id
             }
@@ -762,9 +762,9 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
         super(config, objects, content);
         
         this.help = {
-            title: GEE.t('help.title'),
-            r_help: GEE.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
-            body: GEE.t('help.body')
+            title: geePro.t('help.title'),
+            r_help: geePro.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
+            body: geePro.t('help.body')
         }
 ;
     }
@@ -802,5 +802,5 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 }
 
 module.exports = {
-    render: () => new GEE().render()
+    render: () => new geePro().render()
 }

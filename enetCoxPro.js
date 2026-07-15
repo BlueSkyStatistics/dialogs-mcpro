@@ -2,14 +2,14 @@
 
 
 
-class enetcox extends baseModal {
-    static dialogId = 'enetcox'
-    static t = baseModal.makeT(enetcox.dialogId)
+class enetCoxPro extends baseModal {
+    static dialogId = 'enetCoxPro'
+    static t = baseModal.makeT(enetCoxPro.dialogId)
 
     constructor() {
         var config = {
-            id: enetcox.dialogId,
-            label: enetcox.t('title'),
+            id: enetCoxPro.dialogId,
+            label: enetCoxPro.t('title'),
 			splitProcessing: true,
             modalType: "two",
             RCode: `
@@ -124,7 +124,7 @@ plot(cv_fit)
 			modelname: {
                 el: new input(config, {
                     no: 'modelname',
-                    label: enetcox.t('modellabel'),
+                    label: enetCoxPro.t('modellabel'),
                     placeholder: "",
                     value:"EnetModel1",
 					enforceRobjectRules:true,
@@ -141,7 +141,7 @@ plot(cv_fit)
 			},
 			timevar: {
                 el: new dstVariable(config, {
-                    label: enetcox.t('timevarlabel'),
+                    label: enetCoxPro.t('timevarlabel'),
                     no: "timevar",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -150,7 +150,7 @@ plot(cv_fit)
             },
 			eventvar: {
                 el: new dstVariable(config, {
-                    label: enetcox.t('eventvarlabel'),
+                    label: enetCoxPro.t('eventvarlabel'),
                     no: "eventvar",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -159,7 +159,7 @@ plot(cv_fit)
             },			
 			independent: {
 				el: new dstVariableList(config,{
-					label: enetcox.t('independentlabel'),
+					label: enetCoxPro.t('independentlabel'),
 					no: "independent",
 					required: true,
 					filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -168,7 +168,7 @@ plot(cv_fit)
 			},						
             offset: {
                 el: new dstVariable(config, {
-                    label: enetcox.t('offsetlabel'),
+                    label: enetCoxPro.t('offsetlabel'),
                     no: "offset",
                     filter: "Numeric|Scale",
                     wrapped: ', offset=%val%',
@@ -177,7 +177,7 @@ plot(cv_fit)
             },
             weights: {
                 el: new dstVariable(config, {
-                    label: enetcox.t('weightslabel'),
+                    label: enetCoxPro.t('weightslabel'),
                     no: "weights",
                     filter: "Numeric|Scale",
 					wrapped: ', weights=%val%',
@@ -186,7 +186,7 @@ plot(cv_fit)
             },
             strata: {
                 el: new dstVariable(config, {
-                    label: enetcox.t('stratalabel'),
+                    label: enetCoxPro.t('stratalabel'),
                     no: "strata",
                     filter: "Numeric|Scale|Nominal|Character",
 					wrapped: ', strata=data_for_mod$%val%',
@@ -196,7 +196,7 @@ plot(cv_fit)
 			alpha: {
 				el: new advancedSlider(config,{
 					no: 'alpha',
-					label: enetcox.t('alphalabel'),
+					label: enetCoxPro.t('alphalabel'),
 					min: 0,
 					max: 1,
 					step: 0.001,
@@ -209,7 +209,7 @@ plot(cv_fit)
 		    cvmeas: {
                 el: new selectVar(config, {
                     no: 'cvmeas',
-                    label: enetcox.t('cvmeaslabel'),
+                    label: enetCoxPro.t('cvmeaslabel'),
                     multiple: false,
 					width: "w-25",
                     extraction: "NoPrefix|UseComma",
@@ -221,7 +221,7 @@ plot(cv_fit)
 			nfolds: {
 				el: new inputSpinner(config, {
 					no: 'nfolds',
-					label: enetcox.t('nfoldslabel'),
+					label: enetCoxPro.t('nfoldslabel'),
 					min: 3,
 					max: 100000,
 					step: 1,
@@ -233,7 +233,7 @@ plot(cv_fit)
 			seed: {
 				el: new inputSpinner(config, {
 					no: 'seed',
-					label: enetcox.t('seedlabel'),
+					label: enetCoxPro.t('seedlabel'),
 					min: 0,
 					max: 10000000,
 					step: 1,
@@ -245,7 +245,7 @@ plot(cv_fit)
 			},				
 			outputallest: {
 				el: new checkbox(config, {
-					label: enetcox.t('outputallestlabel'),
+					label: enetCoxPro.t('outputallestlabel'),
 					no: "outputallest",
 					style: "mt-4",
 					extraction: "Boolean"
@@ -254,7 +254,7 @@ plot(cv_fit)
 			outputdatasetname: {
                 el: new input(config, {
                     no: 'outputdatasetname',
-                    label: enetcox.t('outputdatasetlabel'),
+                    label: enetCoxPro.t('outputdatasetlabel'),
                     placeholder: "",
                     value:"Allmodels",
 					enforceRobjectRules:true,
@@ -267,7 +267,7 @@ plot(cv_fit)
             },				
 			onesetable: {
 				el: new checkbox(config, {
-					label: enetcox.t('onesetablelabel'),
+					label: enetCoxPro.t('onesetablelabel'),
 					no: "onesetable",
 					newline: true,
 					extraction: "Boolean"
@@ -293,7 +293,7 @@ plot(cv_fit)
 					objects.strata.el.content, objects.alpha.el.content, objects.cvmeas.el.content, objects.nfolds.el.content, objects.seed.el.content],
 			bottom: [outputpanel.el.content],
             nav: {
-                name: enetcox.t('navigation'),
+                name: enetCoxPro.t('navigation'),
                 icon: "icon-variance",
                 modal: config.id
             }
@@ -301,9 +301,9 @@ plot(cv_fit)
         super(config, objects, content);
         
         this.help = {
-            title: enetcox.t('help.title'),
-            r_help: enetcox.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
-            body: enetcox.t('help.body')
+            title: enetCoxPro.t('help.title'),
+            r_help: enetCoxPro.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
+            body: enetCoxPro.t('help.body')
         }
 ;
     }
@@ -369,5 +369,5 @@ plot(cv_fit)
 }
 
 module.exports = {
-    render: () => new enetcox().render()
+    render: () => new enetCoxPro().render()
 }

@@ -95,26 +95,26 @@ const nav = () => ([
                 "name": "Contrasts",
                 "icon": "icon-brightness-and-contrast",
                 "children": [
-                    "./model_contrasts_maineffect"
+                    "./modelContrastsMaineffectPro"
                 ]
             },		
 			{
                 "name": "Elastic Net",
                 "icon": "icon-variance",
                 "children": [
-                    "./elastic_net",
-					"./elastic_net_cox"            
+                    "./enetPro",
+					"./enetCoxPro"            
                 ]				
 			},		
 			{
                 "name": "GEE",
                 "icon": "icon-link",
                 "children": [
-                    "./gee",
-					"./gee_multinomial",
-					"./gee_ordinal"                    
+                    "./geePro",
+					"./geeMultinomialPro",
+					"./geeOrdinalPro"                    
                 ]				
-			},		
+			},	
             {
                 "name": t('professional_Regression'),// {ns: 'menutoolbar'}),
                 "icon": "icon-linear_regression_white_comp",
@@ -148,10 +148,10 @@ const nav = () => ([
 					"name": "ROC Curves?",
 					"icon": "icon-icc",
 					"children": [
-						"./roc_td",
-						"./roc_td_comprisk",
-						"./roc_td_compare",
-						"./roc_td_comprisk_compare"
+						"./rocTdPro",
+						"./rocTdCompriskPro",
+						"./rocTdComparePro",
+						"./rocTdCompriskComparePro"
 					]
 				}						
         ]

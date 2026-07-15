@@ -9,14 +9,14 @@
 
 
 
-class gee_ordinal extends baseModal {
-    static dialogId = 'gee_ordinal'
-    static t = baseModal.makeT(gee_ordinal.dialogId)
+class geeMultinomialPro extends baseModal {
+    static dialogId = 'geeMultinomialPro'
+    static t = baseModal.makeT(geeMultinomialPro.dialogId)
 
     constructor() {
         var config = {
-            id: gee_ordinal.dialogId,
-            label: gee_ordinal.t('title'),
+            id: geeMultinomialPro.dialogId,
+            label: geeMultinomialPro.t('title'),
 			splitProcessing: true,
             modalType: "two",
             RCode: `
@@ -24,14 +24,14 @@ library(multgee)
 library(broom.helpers)
 library(tidyverse)
 
-{{selected.modelname | safe}} <- ordLORgee({{selected.depvar | safe}} ~ {{selected.formula | safe}}{{selected.offset | safe}}, data={{dataset.name}}, id={{selected.id | safe}}{{selected.repeated | safe}},
-											link="{{selected.linkfunc | safe}}", LORstr="{{selected.str | safe}}", LORem="{{selected.esttype | safe}}", add={{selected.addamount | safe}}, homogeneous={{selected.homogen | safe}}, restricted={{selected.restrict | safe}})
+{{selected.modelname | safe}} <- nomLORgee({{selected.depvar | safe}} ~ {{selected.formula | safe}}{{selected.offset | safe}}, data={{dataset.name}}, id={{selected.id | safe}}{{selected.repeated | safe}},
+                LORstr="{{selected.str | safe}}", LORem="{{selected.esttype | safe}}", add={{selected.addamount | safe}}, homogeneous={{selected.homogen | safe}})
 				
 # model information
-mod_info <- data.frame(Link={{selected.modelname | safe}}$link, Structure={{selected.modelname | safe}}$local.odds.ratios$structure,
+mod_info <- data.frame(Link={{selected.modelname | safe}}$link, 
+					  Structure={{selected.modelname | safe}}$local.odds.ratios$structure,
                       Model="{{selected.esttype | safe}}",
-                      Homogeneous_scores={{selected.homogen | safe}},
-					  Monotone_scores={{selected.restrict | safe}},
+                      Homogeneous_scores={{selected.modelname | safe}}$local.odds.ratios$homogeneous,
                       Adding_constant="{{selected.addamount | safe}}",
                       N={{selected.modelname | safe}}$nobs,
                       Number_clusters={{selected.modelname | safe}}$max.id,
@@ -46,21 +46,21 @@ convergence_info <- data.frame(Num_iterations={{selected.modelname | safe}}$conv
 
 # paramester estimates
 param_est <- tidy_multgee({{selected.modelname | safe}}) %>%
-	dplyr::select(-conf.level, -df.error, -original_term)
+	dplyr::select(-conf.level, -df.error, -original_term) %>%
+	relocate(y.level)
 
 # null model p-value
 null_pvalue <- data.frame(p.value={{selected.modelname | safe}}$pvalue)
 
-{{if (options.selected.expparm == "TRUE")}}
 # odds ratio estimates
 or_est <- tidy_multgee({{selected.modelname | safe}}, exponentiate=TRUE) %>%
 	dplyr::select(-conf.level, -df.error, -original_term, -std.error, -statistic) %>%
+	relocate(y.level) %>%
 	filter(term != "(Intercept)")
-{{/if}}
 
 {{if (options.selected.intrinsic == "TRUE")}}
 # intrinsic parameter estimates
-intrinsic_param <- intrinsic.pars(y={{selected.depvar | safe}}, data={{dataset.name}}, id={{selected.id | safe}}{{selected.repeated | safe}}, rscale="ordinal")
+intrinsic_param <- intrinsic.pars(y={{selected.depvar | safe}}, data={{dataset.name}}, id={{selected.id | safe}}{{selected.repeated | safe}}, rscale="nominal")
 {{/if}}
 
 # local odds ratio estimates
@@ -77,9 +77,7 @@ BSkyFormat(convergence_info, singleTableOutputHeader="Convergence Summary")
 {{/if}}
 BSkyFormat(param_est, singleTableOutputHeader="Parameter Estimates and 95% Confidence Intervals")
 BSkyFormat(null_pvalue, singleTableOutputHeader="p-value of Null model")
-{{if (options.selected.expparm == "TRUE")}}
-BSkyFormat(or_est, singleTableOutputHeader="Exponentiated parameter estimates and 95% Confidence Intervals")
-{{/if}}
+BSkyFormat(or_est, singleTableOutputHeader="Odds Ratios and 95% Confidence Intervals")
 {{if (options.selected.localor == "TRUE")}}
 BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
 {{/if}}				
@@ -91,7 +89,7 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
 			modelname: {
                 el: new input(config, {
                     no: 'modelname',
-                    label: gee_ordinal.t('modellabel'),
+                    label: geeMultinomialPro.t('modellabel'),
                     placeholder: "",
                     value:"GEEModel1",
 					enforceRobjectRules:true,
@@ -108,9 +106,9 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
 			},
 			depvar: {
                 el: new dstVariable(config, {
-                    label: gee_ordinal.t('depvarlabel'),
+                    label: geeMultinomialPro.t('depvarlabel'),
                     no: "depvar",
-                    filter: "Numeric|Scale|Nominal|String|Ordinal",
+                    filter: "Numeric|Scale|Nominal|String",
                     extraction: "NoPrefix|UseComma",
 					required: true
                 })
@@ -119,12 +117,12 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
                 el: new formulaBuilder(config, {
                     no: "formula",
                     required:true,
-                    label: gee_ordinal.t('formulalabel')
+                    label: geeMultinomialPro.t('formulalabel')
                 })
             },
 			id: {
                 el: new dstVariable(config, {
-                    label: gee_ordinal.t('idlabel'),
+                    label: geeMultinomialPro.t('idlabel'),
                     no: "id",
                     filter: "Numeric|Scale|String|Nominal|Ordinal",
                     extraction: "NoPrefix|UseComma",
@@ -133,7 +131,7 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
             },
 			repeated: {
                 el: new dstVariable(config, {
-                    label: gee_ordinal.t('repeatedlabel'),
+                    label: geeMultinomialPro.t('repeatedlabel'),
                     no: "repeated",
                     filter: "Numeric|Scale|Nominal|String",
                     extraction: "NoPrefix|UseComma",
@@ -143,42 +141,30 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
             },			
             offset: {
                 el: new dstVariable(config, {
-                    label: gee_ordinal.t('offsetlabel'),
+                    label: geeMultinomialPro.t('offsetlabel'),
                     no: "offset",
                     filter: "Numeric|Scale",
                     wrapped: ' + offset(%val%)',
                     extraction: "NoPrefix|UseComma",
                 })
             },
-		    linkfunc: {
-                el: new selectVar(config, {
-                    no: 'linkfunc',
-                    label: gee_ordinal.t('linkfunclabel'),
-                    multiple: false,
-					width: "w-25",
-					style: "mt-4",					
-                    extraction: "NoPrefix|UseComma",
-                    options: ["logit", "probit","cauchit","cloglog","acl"],
-                    default: "logit",
-					required: true
-                })
-            },				
 		    str: {
                 el: new selectVar(config, {
                     no: 'str',
-                    label: gee_ordinal.t('strlabel'),
+                    label: geeMultinomialPro.t('strlabel'),
                     multiple: false,
 					width: "w-50",
+					style: "mt-4",
                     extraction: "NoPrefix|UseComma",
-                    options: ["category.exch", "time.exch", "uniform", "RC", "independence"],
-                    default: "category.exch",
+                    options: ["time.exch", "RC", "independence"],
+                    default: "time.exch",
 					required: true
                 })
             },			
 		    esttype: {
                 el: new selectVar(config, {
                     no: 'esttype',
-                    label: gee_ordinal.t('esttypelabel'),
+                    label: geeMultinomialPro.t('esttypelabel'),
                     multiple: false,
 					width: "w-25",
                     extraction: "NoPrefix|UseComma",
@@ -189,23 +175,16 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
             },			
 			homogen: {
 				el: new checkbox(config, {
-					label: gee_ordinal.t('homogenlabel'),
+					label: geeMultinomialPro.t('homogenlabel'),
 					no: "homogen",
 					state: "checked",
 					extraction: "Boolean"
 				})
 			},
-			restrict: {
-				el: new checkbox(config, {
-					label: gee_ordinal.t('restrictlabel'),
-					no: "restrict",
-					extraction: "Boolean"
-				})
-			},			
 			addamount: {
                 el: new input(config, {
                     no: 'addamount',
-                    label: gee_ordinal.t('addamountlabel'),
+                    label: geeMultinomialPro.t('addamountlabel'),
                     value: ".0001",
                     type: "numeric",
 					allow_spaces: true,
@@ -215,17 +194,9 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
 					required: true
                 })
             },
-			expparm: {
-				el: new checkbox(config, {
-					label: gee_ordinal.t('expparmlabel'),
-					no: "expparm",
-					newline: true,
-					extraction: "Boolean"
-				})
-			},							
 			intrinsic: {
 				el: new checkbox(config, {
-					label: gee_ordinal.t('intrinsiclabel'),
+					label: geeMultinomialPro.t('intrinsiclabel'),
 					no: "intrinsic",
 					newline: true,
 					extraction: "Boolean"
@@ -233,7 +204,7 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
 			},			
 			converge: {
 				el: new checkbox(config, {
-					label: gee_ordinal.t('convergelabel'),
+					label: geeMultinomialPro.t('convergelabel'),
 					no: "converge",
 					newline: true,
 					extraction: "Boolean"
@@ -241,7 +212,7 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
 			},
 			localor: {
 				el: new checkbox(config, {
-					label: gee_ordinal.t('localorlabel'),
+					label: geeMultinomialPro.t('localorlabel'),
 					no: "localor",
 					extraction: "Boolean"
 				})
@@ -252,10 +223,10 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
         const content = {
             left: [objects.content_var.el.content],
             right: [objects.modelname.el.content, objects.depvar.el.content, objects.formula.el.content, objects.id.el.content, objects.repeated.el.content, objects.offset.el.content,
-					objects.linkfunc.el.content, objects.str.el.content, objects.esttype.el.content, objects.homogen.el.content, objects.restrict.el.content, objects.addamount.el.content,
-					objects.expparm.el.content, objects.intrinsic.el.content, objects.converge.el.content, objects.localor.el.content],					
+					objects.str.el.content, objects.esttype.el.content, objects.homogen.el.content, objects.addamount.el.content,
+					objects.intrinsic.el.content, objects.converge.el.content, objects.localor.el.content],					
             nav: {
-                name: gee_ordinal.t('navigation'),
+                name: geeMultinomialPro.t('navigation'),
                 icon: "icon-link",
                 modal: config.id
             }
@@ -263,9 +234,9 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
         super(config, objects, content);
         
         this.help = {
-            title: gee_ordinal.t('help.title'),
-            r_help: gee_ordinal.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
-            body: gee_ordinal.t('help.body')
+            title: geeMultinomialPro.t('help.title'),
+            r_help: geeMultinomialPro.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
+            body: geeMultinomialPro.t('help.body')
         }
 ;
     }
@@ -274,5 +245,5 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
 }
 
 module.exports = {
-    render: () => new gee_ordinal().render()
+    render: () => new geeMultinomialPro().render()
 }

@@ -2,14 +2,14 @@
 
 
 
-class roctd extends baseModal {
-    static dialogId = 'roctd'
-    static t = baseModal.makeT(roctd.dialogId)
+class rocTdPro extends baseModal {
+    static dialogId = 'rocTdPro'
+    static t = baseModal.makeT(rocTdPro.dialogId)
 
     constructor() {
         var config = {
-            id: roctd.dialogId,
-            label: roctd.t('title'),
+            id: rocTdPro.dialogId,
+            label: rocTdPro.t('title'),
 			splitProcessing: true,
             modalType: "two",
             RCode: `
@@ -152,7 +152,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 			},
 			timevar: {
                 el: new dstVariable(config, {
-                    label: roctd.t('timevarlabel'),
+                    label: rocTdPro.t('timevarlabel'),
                     no: "timevar",
                     filter: "Numeric|Scale",
                     extraction: "Prefix|UseComma",
@@ -161,7 +161,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
             },
 			eventvar: {
                 el: new dstVariable(config, {
-                    label: roctd.t('eventvarlabel'),
+                    label: rocTdPro.t('eventvarlabel'),
                     no: "eventvar",
                     filter: "Numeric|Scale",
                     extraction: "Prefix|UseComma",
@@ -170,7 +170,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
             },
 			markervar: {
                 el: new dstVariable(config, {
-                    label: roctd.t('markerlabel'),
+                    label: rocTdPro.t('markerlabel'),
                     no: "markervar",
                     filter: "Numeric|Scale",
                     extraction: "Prefix|UseComma",
@@ -180,7 +180,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 			times: {
                 el: new input(config, {
                     no: 'times',
-                    label: roctd.t('timeslabel'),
+                    label: rocTdPro.t('timeslabel'),
                     placeholder: "",
                     required: true,
                     type: "character",
@@ -191,7 +191,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
             },										
 			outputallest: {
 				el: new checkbox(config, {
-					label: roctd.t('outputallestlabel'),
+					label: rocTdPro.t('outputallestlabel'),
 					no: "outputallest",
 					style: "mt-4",
 					extraction: "Boolean"
@@ -200,7 +200,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 			outputdatasetname: {
                 el: new input(config, {
                     no: 'outputdatasetname',
-                    label: roctd.t('outputdatasetlabel'),
+                    label: rocTdPro.t('outputdatasetlabel'),
                     value: "sens_spec_data",
 					enforceRobjectRules:true,
 					style: "ml-5 mb-5",
@@ -212,7 +212,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
             themedropdown: {
                 el: new selectVar(config, {
                     no: 'themedropdown',
-                    label: roctd.t('themedropdownlabel'),
+                    label: rocTdPro.t('themedropdownlabel'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
 					width: "w-25",
@@ -230,7 +230,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 			plottitle: {
                 el: new input(config, {
                     no: 'plottitle',
-                    label: roctd.t('plottitlelabel'),
+                    label: rocTdPro.t('plottitlelabel'),
                     value: "Time-dependent ROC Curve",
                     required: false,
                     type: "character",
@@ -243,7 +243,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 			linewidth: {
 				el: new inputSpinner(config, {
 					no: 'linewidth',
-					label: roctd.t('linewidthlabel'),
+					label: rocTdPro.t('linewidthlabel'),
 					min: .25,
 					max: 10,
 					step: 0.25,
@@ -253,7 +253,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 			},
 			reflinechkbox: {
 				el: new checkbox(config, {
-					label: roctd.t('reflinelabel'),
+					label: rocTdPro.t('reflinelabel'),
 					no: "reflinechkbox",
 					state: "checked",
 					style: "mt-4",
@@ -262,7 +262,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 			},			
 			aucchkbox: {
 				el: new checkbox(config, {
-					label: roctd.t('aucchkboxlabel'),
+					label: rocTdPro.t('aucchkboxlabel'),
 					no: "aucchkbox",
 					state: "checked",
 					style: "mt-4",
@@ -273,7 +273,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 			aucx: {
                 el: new input(config, {
                     no: 'aucx',
-                    label: roctd.t('aucxlabel'),
+                    label: rocTdPro.t('aucxlabel'),
                     placeholder: ".75",
                     type: "numeric",
 					allow_spaces: true,
@@ -286,7 +286,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 			aucy: {
                 el: new input(config, {
                     no: 'aucy',
-                    label: roctd.t('aucylabel'),
+                    label: rocTdPro.t('aucylabel'),
                     placeholder: ".1",
                     type: "numeric",
 					allow_spaces: true,
@@ -299,7 +299,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 			aucround: {
 				el: new inputSpinner(config, {
 					no: 'aucround',
-					label: roctd.t('aucroundlabel'),
+					label: rocTdPro.t('aucroundlabel'),
 					min: 1,
 					max: 10,
 					step: 1,
@@ -311,7 +311,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 			aucsize: {
 				el: new inputSpinner(config, {
 					no: 'aucsize',
-					label: roctd.t('aucsizelabel'),
+					label: rocTdPro.t('aucsizelabel'),
 					min: 1,
 					max: 10,
 					step: .5,
@@ -339,7 +339,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
             right: [objects.timevar.el.content, objects.eventvar.el.content, objects.markervar.el.content, objects.times.el.content, objects.outputallest.el.content, objects.outputdatasetname.el.content],
 			bottom: [plotpanel.el.content],
             nav: {
-                name: roctd.t('navigation'),
+                name: rocTdPro.t('navigation'),
                 icon: "icon-icc",
                 modal: config.id
             }
@@ -347,9 +347,9 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
         super(config, objects, content);
         
         this.help = {
-            title: roctd.t('help.title'),
-            r_help: roctd.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
-            body: roctd.t('help.body')
+            title: rocTdPro.t('help.title'),
+            r_help: rocTdPro.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
+            body: rocTdPro.t('help.body')
         }
 ;
     }
@@ -394,5 +394,5 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 }
 
 module.exports = {
-    render: () => new roctd().render()
+    render: () => new rocTdPro().render()
 }

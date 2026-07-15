@@ -2,14 +2,14 @@
 
 
 
-class roctdcompriskcompare extends baseModal {
-    static dialogId = 'roctdcompriskcompare'
-    static t = baseModal.makeT(roctdcompriskcompare.dialogId)
+class rocTdComparePro extends baseModal {
+    static dialogId = 'rocTdComparePro'
+    static t = baseModal.makeT(rocTdComparePro.dialogId)
 
     constructor() {
         var config = {
-            id: roctdcompriskcompare.dialogId,
-            label: roctdcompriskcompare.t('title'),
+            id: rocTdComparePro.dialogId,
+            label: rocTdComparePro.t('title'),
 			splitProcessing: true,
             modalType: "two",
             RCode: `
@@ -37,7 +37,7 @@ for (i in 1:num_vars) {
   roc_list[[i]] <- timeROC(T=dataset_nomiss[, c({{selected.timevar | safe}})],
                  delta=dataset_nomiss[, c({{selected.eventvar | safe}})],
                  marker=dataset_nomiss[, c(pred_vars[i])],
-                 cause={{selected.eventcode | safe}},
+                 cause=1,
                  weighting="marginal",
                  times={{selected.time | safe}},
                  iid=TRUE) 
@@ -47,67 +47,41 @@ for (i in 1:num_vars) {
 
 rocname1_vec <- c()
 rocname2_vec <- c()
-auc1_vec_def1 <- c()
-auc2_vec_def1 <- c()
-auc1_vec_def2 <- c()
-auc2_vec_def2 <- c()
-zpvalue_vec_def1 <- c()
-zpvalue_vec_def2 <- c()
-aucdiff_vec_def1 <- c()
-aucdiff_vec_def2 <- c()
+auc1_vec <- c()
+auc2_vec <- c()
+zpvalue_vec <- c()
+aucdiff_vec <- c()
 
 for (i in 1:(num_vars-1)) {
  for (j in (i+1):num_vars) {
     roc_pair <- compare(roc_list[[i]], roc_list[[j]])
     rocname1_vec <- c(rocname1_vec, pred_vars[i])
     rocname2_vec <- c(rocname2_vec, pred_vars[j])
-    auc1_vec_def1 <- c(auc1_vec_def1, roc_list[[i]]$AUC_1[[2]])
-    auc2_vec_def1 <- c(auc2_vec_def1, roc_list[[j]]$AUC_1[[2]])
-    auc1_vec_def2 <- c(auc1_vec_def2, roc_list[[i]]$AUC_2[[2]])
-    auc2_vec_def2 <- c(auc2_vec_def2, roc_list[[j]]$AUC_2[[2]])
-    zpvalue_vec_def1 <- c(zpvalue_vec_def1, roc_pair$p_values_AUC_1[[2]])
-    zpvalue_vec_def2 <- c(zpvalue_vec_def2, roc_pair$p_values_AUC_2[[2]])
-    aucdiff_vec_def1 <- c(aucdiff_vec_def1, roc_list[[i]]$AUC_1[[2]]-roc_list[[j]]$AUC_1[[2]])
-    aucdiff_vec_def2 <- c(aucdiff_vec_def2, roc_list[[i]]$AUC_2[[2]]-roc_list[[j]]$AUC_2[[2]])
+    auc1_vec <- c(auc1_vec, roc_list[[i]]$AUC[[2]])
+    auc2_vec <- c(auc2_vec, roc_list[[j]]$AUC[[2]])
+    zpvalue_vec <- c(zpvalue_vec, roc_pair$p_values_AUC[[2]])
+    aucdiff_vec <- c(aucdiff_vec, roc_list[[i]]$AUC[[2]]-roc_list[[j]]$AUC[[2]])
  }
 }
 
 # sample size and variable output
 
-ROC_summary <- data.frame(N=num_nonmiss, event={{selected.eventvar | safe}}, event_code={{selected.eventcode | safe}}, 
-	time={{selected.timevar | safe}}, followup_time={{selected.time | safe}}, control="{{selected.controldef | safe}}")
+ROC_summary <- data.frame(N=num_nonmiss, event={{selected.eventvar | safe}}, time={{selected.timevar | safe}}, followup_time={{selected.time | safe}})
 BSkyFormat(ROC_summary, singleTableOutputHeader="Sample size and variables")
 
 # pairwise AUC test output
 
-{{if (options.selected.controldef=="free of any event")}}
-rocpairs_table_def1 <- data.frame(Variable1=rocname1_vec, AUC1=auc1_vec_def1, Variable2=rocname2_vec,
-                             AUC2=auc2_vec_def1, AUC_diff=aucdiff_vec_def1, p.value=zpvalue_vec_def1)
-BSkyFormat(rocpairs_table_def1, singleTableOutputHeader="Pairwise Comparisons of ROC Curve Areas, control=free of any event")
-{{#else}}
-rocpairs_table_def2 <- data.frame(Variable1=rocname1_vec, AUC1=auc1_vec_def2, Variable2=rocname2_vec,
-                             AUC2=auc2_vec_def2, AUC_diff=aucdiff_vec_def2, p.value=zpvalue_vec_def2)
-BSkyFormat(rocpairs_table_def2, singleTableOutputHeader="Pairwise Comparisons of ROC Curve Areas, control=not a case")
-{{/if}}
+rocpairs_table <- data.frame(Variable1=rocname1_vec, AUC1=auc1_vec, Variable2=rocname2_vec,
+                             AUC2=auc2_vec, AUC_diff=aucdiff_vec, p.value=zpvalue_vec)
+BSkyFormat(rocpairs_table, singleTableOutputHeader="Pairwise Comparisons of ROC Curve Areas")
 
-{{if (options.selected.multcompopt=="TRUE" & options.selected.controldef=="free of any event")}}
+{{if (options.selected.multcompopt=="TRUE")}}
 # multiple comparison adjustments
 
-rocpairs_adjtable_def1 <- data.frame(Variable1=rocname1_vec, AUC1=auc1_vec_def1, Variable2=rocname2_vec,
-                                AUC2=auc2_vec_def1, AUC_diff=aucdiff_vec_def1,
-                                p.value=p.adjust(zpvalue_vec_def1,method="{{selected.multcompmethod | safe}}"))
-
-BSkyFormat(rocpairs_adjtable_def1, singleTableOutputHeader="Multiple Comparison Adjusted Pairwise Comparisons of ROC Curve Areas, control=free of any event")
-{{/if}}
-
-{{if (options.selected.multcompopt=="TRUE" & options.selected.controldef=="not a case")}}
-# multiple comparison adjustments
-
-rocpairs_adjtable_def2 <- data.frame(Variable1=rocname1_vec, AUC1=auc1_vec_def2, Variable2=rocname2_vec,
-                                AUC2=auc2_vec_def2, AUC_diff=aucdiff_vec_def2,
-                                p.value=p.adjust(zpvalue_vec_def2,method="{{selected.multcompmethod | safe}}"))
-
-BSkyFormat(rocpairs_adjtable_def2, singleTableOutputHeader="Multiple Comparison Adjusted Pairwise Comparisons of ROC Curve Areas, control=not a case")
+rocpairs_adjtable <- data.frame(Variable1=rocname1_vec, AUC1=auc1_vec, Variable2=rocname2_vec,
+                                AUC2=auc2_vec, AUC_diff=aucdiff_vec,
+                                p.value=p.adjust(zpvalue_vec,method="{{selected.multcompmethod | safe}}"))
+BSkyFormat(rocpairs_adjtable, singleTableOutputHeader="Multiple Comparison Adjusted Pairwise Comparisons of ROC Curve Areas")
 {{/if}}
 
 # overlaid ROC curves
@@ -146,9 +120,9 @@ scale_color <- scale_color_jco(name="{{selected.legendtitle | safe}}", labels={{
 FP_TP_data <- data.frame()
 
 for (i in 1:num_vars) {
-  FP_TP_data_temp <- cbind(as.data.frame(roc_list[[i]]$FP_1), as.data.frame(roc_list[[i]]$FP_2), as.data.frame(roc_list[[i]]$TP))
-	FP_TP_data_temp <- FP_TP_data_temp[, c(2,4,6)]
-	names(FP_TP_data_temp) <- c("FP_1", "FP_2", "TP")
+  FP_TP_data_temp <- cbind(as.data.frame(roc_list[[i]]$FP), as.data.frame(roc_list[[i]]$TP))
+	FP_TP_data_temp <- FP_TP_data_temp[, c(2,4)]
+	names(FP_TP_data_temp) <- c("FP", "TP")
 	FP_TP_data_temp <- mutate(FP_TP_data_temp, marker=pred_vars[i])
   FP_TP_data <- rbind(FP_TP_data, FP_TP_data_temp)
 }
@@ -160,9 +134,7 @@ FP_TP_data <- mutate(FP_TP_data,
 
 # plot
 
-{{if (options.selected.controldef=="free of any event")}}
-# control definition free of any event
-ggplot(FP_TP_data, aes(x=FP_1, y=TP, color=marker)) +
+ggplot(FP_TP_data, aes(x=FP, y=TP, color=marker)) +
 	geom_step(linewidth={{selected.linewidth | safe}}) +
 	{{if (options.selected.reflinechkbox=="TRUE")}}
 	geom_segment(x=0, y=0, xend=1, yend=1, linetype=3, color="black") + 
@@ -173,18 +145,6 @@ ggplot(FP_TP_data, aes(x=FP_1, y=TP, color=marker)) +
         axis.text=element_text(size={{selected.ticklabelsize | safe}}), legend.position="{{selected.legendpos | safe}}", 
         legend.title=element_text(size={{selected.legendfontsize | safe}}), legend.text=element_text(size={{selected.legendfontsize | safe}})) +
 	scale_color
-{{#else}}
-# control definition not a case
-ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
-	geom_step(linewidth=1) +
-	geom_segment(x=0, y=0, xend=1, yend=1, linetype=3, color="black") +
-	labs(x="1-Specificity", y="Sensitivity", title="ROC Curve Comparison") +
-	theme_classic() +
-	theme(plot.title=element_text(size=20), axis.title=element_text(size=16),
-        axis.text=element_text(size=12), legend.position="right", 
-        legend.title=element_text(size=12), legend.text=element_text(size=12)) +
-	scale_color
-{{/if}}
 `
         };
         var objects = {	
@@ -195,7 +155,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 			},
 			timevar: {
                 el: new dstVariable(config, {
-                    label: roctdcompriskcompare.t('timevarlabel'),
+                    label: rocTdComparePro.t('timevarlabel'),
                     no: "timevar",
                     filter: "Numeric|Scale",
                     extraction: "UseComma|Enclosed",
@@ -204,28 +164,16 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
             },
 			eventvar: {
                 el: new dstVariable(config, {
-                    label: roctdcompriskcompare.t('eventvarlabel'),
+                    label: rocTdComparePro.t('eventvarlabel'),
                     no: "eventvar",
                     filter: "Numeric|Scale",
                     extraction: "UseComma|Enclosed",
 					required: true
                 })
             },
-			eventcode: {
-				el: new inputSpinner(config, {
-					no: 'eventcode',
-					label: roctdcompriskcompare.t('eventcodelabel'),
-					min: 1,
-					max: 1000,
-					step: 1,
-					value: 1,
-					style: "ml-5 mb-3",
-					extraction: "NoPrefix|UseComma"
-				})
-			},			
 			markervars: {
                 el: new dstVariableList(config, {
-                    label: roctdcompriskcompare.t('markerslabel'),
+                    label: rocTdComparePro.t('markerslabel'),
                     no: "markervars",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma|Enclosed",
@@ -235,7 +183,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 			time: {
                 el: new input(config, {
                     no: 'time',
-                    label: roctdcompriskcompare.t('timelabel'),
+                    label: rocTdComparePro.t('timelabel'),
                     placeholder: "",
                     required: true,
                     type: "numeric",
@@ -243,22 +191,10 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 					width: "w-25",
                     extraction: "TextAsIs"
                 })
-            },
-			controldef: {
-                el: new selectVar(config, {
-                    no: 'controldef',
-                    label: roctdcompriskcompare.t('controldeflabel'),
-                    multiple: false,
-					width: "w-50",
-					style: "mt-3",
-                    extraction: "NoPrefix|UseComma",
-                    options: ["free of any event", "not a case"],
-                    default: "free of any event"
-                })
-            },			
+            },										
 			multcompopt: {
 				el: new checkbox(config, {
-				label: roctdcompriskcompare.t('multcompopt'),
+				label: rocTdComparePro.t('multcompopt'),
 				no: "multcompopt",
 				style: "mt-3",
 				extraction: "Boolean"
@@ -267,7 +203,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
             multcompmethod: {
                 el: new comboBox(config, {
                     no: 'multcompmethod',
-                    label: roctdcompriskcompare.t('multcompmethod'),
+                    label: rocTdComparePro.t('multcompmethod'),
 					style: "ml-3",
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
@@ -278,7 +214,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
             themedropdown: {
                 el: new selectVar(config, {
                     no: 'themedropdown',
-                    label: roctdcompriskcompare.t('themedropdownlabel'),
+                    label: rocTdComparePro.t('themedropdownlabel'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
 					width: "w-25",
@@ -296,7 +232,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 			plottitle: {
                 el: new input(config, {
                     no: 'plottitle',
-                    label: roctdcompriskcompare.t('plottitlelabel'),
+                    label: rocTdComparePro.t('plottitlelabel'),
                     value: "ROC Curve Comparison",
                     required: false,
                     type: "character",
@@ -308,7 +244,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 			plottitlesize: {
 				el: new inputSpinner(config,{
 				no: 'plottitlesize',
-				label: roctdcompriskcompare.t('plottitlesize'),
+				label: rocTdComparePro.t('plottitlesize'),
 				style: "mt-3",
 				min: 5,
 				max: 50,
@@ -317,11 +253,11 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 				extraction: "NoPrefix|UseComma"
 				})
 			},
-			lineoptionslabel: { el: new labelVar(config, { label: roctdcompriskcompare.t('lineoptionslabel'), h: 5, style: "mt-4" }) },			
+			lineoptionslabel: { el: new labelVar(config, { label: rocTdComparePro.t('lineoptionslabel'), h: 5, style: "mt-4" }) },			
 			linewidth: {
 				el: new inputSpinner(config, {
 					no: 'linewidth',
-					label: roctdcompriskcompare.t('linewidthlabel'),
+					label: rocTdComparePro.t('linewidthlabel'),
 					min: .25,
 					max: 10,
 					step: 0.25,
@@ -332,7 +268,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 			},
 			reflinechkbox: {
 				el: new checkbox(config, {
-					label: roctdcompriskcompare.t('reflinelabel'),
+					label: rocTdComparePro.t('reflinelabel'),
 					no: "reflinechkbox",
 					state: "checked",
 					style: "mt-2 ml-3 mb-3",
@@ -343,7 +279,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
             colorpalette: {
                 el: new comboBox(config, {
                     no: 'colorpalette',
-                    label: roctdcompriskcompare.t('colorpalette'),
+                    label: rocTdComparePro.t('colorpalette'),
 					style: "ml-3",
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
@@ -351,11 +287,11 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
                     default: "hue"
                 })
             },
-			axisoptionslabel: { el: new labelVar(config, { label: roctdcompriskcompare.t('axisoptionslabel'), h: 5, style: "mt-4" }) },
+			axisoptionslabel: { el: new labelVar(config, { label: rocTdComparePro.t('axisoptionslabel'), h: 5, style: "mt-4" }) },
 			axislabelsize: {
 				el: new inputSpinner(config,{
 				no: 'axislabelsize',
-				label: roctdcompriskcompare.t('axislabelsize'),
+				label: rocTdComparePro.t('axislabelsize'),
 				style: "ml-1",
 				min: 5,
 				max: 50,
@@ -367,7 +303,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 			ticklabelsize: {
 				el: new inputSpinner(config,{
 				no: 'ticklabelsize',
-				label: roctdcompriskcompare.t('ticklabelsize'),
+				label: rocTdComparePro.t('ticklabelsize'),
 				style: "ml-1",
 				min: 5,
 				max: 50,
@@ -376,11 +312,11 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 				extraction: "NoPrefix|UseComma"
 				})
 			},
-			legendoptionslabel: { el: new labelVar(config, { label: roctdcompriskcompare.t('legendoptionslabel'), h: 5, style: "mt-4" }) },
+			legendoptionslabel: { el: new labelVar(config, { label: rocTdComparePro.t('legendoptionslabel'), h: 5, style: "mt-4" }) },
             legendpos: {
                 el: new comboBox(config, {
                     no: 'legendpos',
-                    label: roctdcompriskcompare.t('legendpos'),
+                    label: rocTdComparePro.t('legendpos'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: ["top", "bottom", "left", "right"],
@@ -391,7 +327,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
             legendtitle: {
                 el: new input(config, {
                     no: 'legendtitle',
-                    label: roctdcompriskcompare.t('legendtitle'),
+                    label: rocTdComparePro.t('legendtitle'),
                     placeholder: "Marker",
                     ml: 3,
                     extraction: "TextAsIs",
@@ -403,7 +339,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
             curvelabels: {
                 el: new input(config, {
                     no: 'curvelabels',
-                    label: roctdcompriskcompare.t('curvelabels'),
+                    label: rocTdComparePro.t('curvelabels'),
                     placeholder: "",
                     ml: 3,
                     extraction: "TextAsIs",
@@ -417,7 +353,7 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 			legendfontsize: {
 				el: new inputSpinner(config,{
 				no: 'legendfontsize',
-				label: roctdcompriskcompare.t('legendfontsize'),
+				label: rocTdComparePro.t('legendfontsize'),
 				style: "ml-1",
 				min: 5,
 				max: 50,
@@ -443,11 +379,10 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 			
         const content = {
             left: [objects.content_var.el.content],
-            right: [objects.timevar.el.content, objects.eventvar.el.content, objects.eventcode.el.content, objects.markervars.el.content, 
-					objects.time.el.content, objects.controldef.el.content, objects.multcompopt.el.content, objects.multcompmethod.el.content],
+            right: [objects.timevar.el.content, objects.eventvar.el.content, objects.markervars.el.content, objects.time.el.content, objects.multcompopt.el.content, objects.multcompmethod.el.content],
 			bottom: [plotpanel.el.content],
             nav: {
-                name: roctdcompriskcompare.t('navigation'),
+                name: rocTdComparePro.t('navigation'),
                 icon: "icon-icc",
                 modal: config.id
             }
@@ -455,9 +390,9 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
         super(config, objects, content);
         
         this.help = {
-            title: roctdcompriskcompare.t('help.title'),
-            r_help: roctdcompriskcompare.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
-            body: roctdcompriskcompare.t('help.body')
+            title: rocTdComparePro.t('help.title'),
+            r_help: rocTdComparePro.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
+            body: rocTdComparePro.t('help.body')
         }
 ;
     }
@@ -467,5 +402,5 @@ ggplot(FP_TP_data, aes(x=FP_2, y=TP, color=marker)) +
 }
 
 module.exports = {
-    render: () => new roctdcompriskcompare().render()
+    render: () => new rocTdComparePro().render()
 }

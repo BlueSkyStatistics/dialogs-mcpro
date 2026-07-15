@@ -2,14 +2,14 @@
 
 
 
-class enet extends baseModal {
-    static dialogId = 'enet'
-    static t = baseModal.makeT(enet.dialogId)
+class enetPro extends baseModal {
+    static dialogId = 'enetPro'
+    static t = baseModal.makeT(enetPro.dialogId)
 
     constructor() {
         var config = {
-            id: enet.dialogId,
-            label: enet.t('title'),
+            id: enetPro.dialogId,
+            label: enetPro.t('title'),
 			splitProcessing: true,
             modalType: "two",
             RCode: `
@@ -218,7 +218,7 @@ plot(cv_fit)
 			modelname: {
                 el: new input(config, {
                     no: 'modelname',
-                    label: enet.t('modellabel'),
+                    label: enetPro.t('modellabel'),
                     placeholder: "",
                     value:"EnetModel1",
 					enforceRobjectRules:true,
@@ -235,7 +235,7 @@ plot(cv_fit)
 			},
 			depvar: {
                 el: new dstVariable(config, {
-                    label: enet.t('depvarlabel'),
+                    label: enetPro.t('depvarlabel'),
                     no: "depvar",
                     filter: "Numeric|Scale|Nominal",
                     extraction: "NoPrefix|UseComma",
@@ -244,7 +244,7 @@ plot(cv_fit)
             },
 			independent: {
 				el: new dstVariableList(config,{
-					label: enet.t('independentlabel'),
+					label: enetPro.t('independentlabel'),
 					no: "independent",
 					required: true,
 					filter:"String|Numeric|Ordinal|Nominal|Scale",
@@ -253,7 +253,7 @@ plot(cv_fit)
 			},						
             offset: {
                 el: new dstVariable(config, {
-                    label: enet.t('offsetlabel'),
+                    label: enetPro.t('offsetlabel'),
                     no: "offset",
                     filter: "Numeric|Scale",
                     wrapped: ', offset=%val%',
@@ -262,7 +262,7 @@ plot(cv_fit)
             },
             weights: {
                 el: new dstVariable(config, {
-                    label: enet.t('weightslabel'),
+                    label: enetPro.t('weightslabel'),
                     no: "weights",
                     filter: "Numeric|Scale",
 					wrapped: ', weights=%val%',
@@ -272,7 +272,7 @@ plot(cv_fit)
 			alpha: {
 				el: new advancedSlider(config,{
 					no: 'alpha',
-					label: enet.t('alphalabel'),
+					label: enetPro.t('alphalabel'),
 					min: 0,
 					max: 1,
 					step: 0.001,
@@ -285,7 +285,7 @@ plot(cv_fit)
 		    cvmeas: {
                 el: new selectVar(config, {
                     no: 'cvmeas',
-                    label: enet.t('cvmeaslabel'),
+                    label: enetPro.t('cvmeaslabel'),
                     multiple: false,
 					width: "w-25",
                     extraction: "NoPrefix|UseComma",
@@ -297,7 +297,7 @@ plot(cv_fit)
 			nfolds: {
 				el: new inputSpinner(config, {
 					no: 'nfolds',
-					label: enet.t('nfoldslabel'),
+					label: enetPro.t('nfoldslabel'),
 					min: 3,
 					max: 100000,
 					step: 1,
@@ -309,7 +309,7 @@ plot(cv_fit)
 			seed: {
 				el: new inputSpinner(config, {
 					no: 'seed',
-					label: enet.t('seedlabel'),
+					label: enetPro.t('seedlabel'),
 					min: 0,
 					max: 10000000,
 					step: 1,
@@ -320,7 +320,7 @@ plot(cv_fit)
 			},				
 			outputallest: {
 				el: new checkbox(config, {
-					label: enet.t('outputallestlabel'),
+					label: enetPro.t('outputallestlabel'),
 					no: "outputallest",
 					style: "mt-4",
 					extraction: "Boolean"
@@ -329,7 +329,7 @@ plot(cv_fit)
 			outputdatasetname: {
                 el: new input(config, {
                     no: 'outputdatasetname',
-                    label: enet.t('outputdatasetlabel'),
+                    label: enetPro.t('outputdatasetlabel'),
                     placeholder: "",
                     value:"Allmodels",
 					enforceRobjectRules:true,
@@ -345,7 +345,7 @@ plot(cv_fit)
                 el: new comboBoxWithChilderen(config, {
                     no: 'family',
                     nochild: 'combokid',
-                    label: enet.t('familylabel'),
+                    label: enetPro.t('familylabel'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: [
@@ -366,7 +366,7 @@ plot(cv_fit)
 			theta: {
                 el: new input(config, {
                     no: 'theta',
-                    label: enet.t('thetalabel'),
+                    label: enetPro.t('thetalabel'),
                     placeholder: "",
                     type: "numeric",
 					allow_spaces: true,
@@ -379,7 +379,7 @@ plot(cv_fit)
 			varpower: {
                 el: new input(config, {
                     no: 'varpower',
-                    label: enet.t('varpowerlabel'),
+                    label: enetPro.t('varpowerlabel'),
                     type: "numeric",
 					value: "0",
 					allow_spaces: true,
@@ -391,7 +391,7 @@ plot(cv_fit)
 			linkpower: {
                 el: new input(config, {
                     no: 'linkpower',
-                    label: enet.t('linkpowerlabel'),
+                    label: enetPro.t('linkpowerlabel'),
                     type: "numeric",
 					value: "1",
 					allow_spaces: true,
@@ -402,7 +402,7 @@ plot(cv_fit)
             },
 			expcoef: {
 				el: new checkbox(config, {
-					label: enet.t('expcoeflabel'),
+					label: enetPro.t('expcoeflabel'),
 					no: "expcoef",
 					style: "mt-3",
 					extraction: "Boolean"
@@ -410,7 +410,7 @@ plot(cv_fit)
 			},				
 			onesetable: {
 				el: new checkbox(config, {
-					label: enet.t('onesetablelabel'),
+					label: enetPro.t('onesetablelabel'),
 					no: "onesetable",
 					newline: true,
 					extraction: "Boolean"
@@ -437,7 +437,7 @@ plot(cv_fit)
 			bottom: [objects.family.el.content, objects.theta.el.content, objects.varpower.el.content, objects.linkpower.el.content, objects.expcoef.el.content,
 					outputpanel.el.content],
             nav: {
-                name: enet.t('navigation'),
+                name: enetPro.t('navigation'),
                 icon: "icon-variance",
                 modal: config.id
             }
@@ -445,9 +445,9 @@ plot(cv_fit)
         super(config, objects, content);
         
         this.help = {
-            title: enet.t('help.title'),
-            r_help: enet.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
-            body: enet.t('help.body')
+            title: enetPro.t('help.title'),
+            r_help: enetPro.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
+            body: enetPro.t('help.body')
         }
 ;
     }
@@ -500,5 +500,5 @@ plot(cv_fit)
 }
 
 module.exports = {
-    render: () => new enet().render()
+    render: () => new enetPro().render()
 }

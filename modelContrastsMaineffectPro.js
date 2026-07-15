@@ -1,14 +1,14 @@
 
 
 
-class ContrastPair extends baseModal {
-    static dialogId = 'ContrastPair'
-    static t = baseModal.makeT(ContrastPair.dialogId)
+class modelContrastsMaineffectPro extends baseModal {
+    static dialogId = 'modelContrastsMaineffectPro'
+    static t = baseModal.makeT(modelContrastsMaineffectPro.dialogId)
 
     constructor() {
         var config = {
-            id: ContrastPair.dialogId,
-            label: ContrastPair.t('title'),
+            id: modelContrastsMaineffectPro.dialogId,
+            label: modelContrastsMaineffectPro.t('title'),
 			splitprocessing: false,
             modalType: "two",
             RCode: `
@@ -31,14 +31,14 @@ for (i in {{selected.pairvars | safe}}) {
         var objects = {
             label1: {
 				el: new labelVar(config, {
-					label: ContrastPair.t('notelabel1'),
+					label: modelContrastsMaineffectPro.t('notelabel1'),
 					style: "mt-3",
 					h:5
 				})
 			},
 			label2: {
 				el: new labelVar(config, {
-					label: ContrastPair.t('notelabel2'),
+					label: modelContrastsMaineffectPro.t('notelabel2'),
 					style: "mb-5",
 					h:6
 				})
@@ -51,7 +51,7 @@ for (i in {{selected.pairvars | safe}}) {
             modelselector: {
                 el: new comboBox(config, {
                     no: 'modelselector',
-                    label: ContrastPair.t('modelselectorlabel'),
+                    label: modelContrastsMaineffectPro.t('modelselectorlabel'),
                     multiple: false,
                     required: true,
                     extraction: "NoPrefix|UseComma",
@@ -61,7 +61,7 @@ for (i in {{selected.pairvars | safe}}) {
             },			
 			pairvars: {
 				el: new dstVariableList(config,{
-					label: ContrastPair.t('plotvarslabel'),
+					label: modelContrastsMaineffectPro.t('plotvarslabel'),
 					no: "pairvars",
 					required: true,
 					filter:"String|Numeric|Logical|Ordinal|Nominal|Scale",
@@ -72,7 +72,7 @@ for (i in {{selected.pairvars | safe}}) {
 			multadj: {
                 el: new selectVar(config, {
                     no: 'multadj',
-                    label: ContrastPair.t('multadjlabel'),
+                    label: modelContrastsMaineffectPro.t('multadjlabel'),
                     multiple: false,
 					width: "w-25",
 					style: "mt-3",
@@ -94,7 +94,7 @@ for (i in {{selected.pairvars | safe}}) {
 				objects.modelselector.el.content, objects.pairvars.el.content, objects.multadj.el.content
             ],
             nav: {
-                name: ContrastPair.t('navigation'),
+                name: modelContrastsMaineffectPro.t('navigation'),
                 icon: "icon-brightness-and-contrast",
 				onclick: `r_before_modal("${config.id}")`,
                 modal_id: config.id
@@ -103,14 +103,14 @@ for (i in {{selected.pairvars | safe}}) {
         super(config, objects, content);
         
         this.help = {
-            title: ContrastPair.t('help.title'),
-            r_help: ContrastPair.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
-            body: ContrastPair.t('help.body')
+            title: modelContrastsMaineffectPro.t('help.title'),
+            r_help: modelContrastsMaineffectPro.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
+            body: modelContrastsMaineffectPro.t('help.body')
         }
 ;
     }
 }
 
 module.exports = {
-    render: () => new ContrastPair().render()
+    render: () => new modelContrastsMaineffectPro().render()
 }

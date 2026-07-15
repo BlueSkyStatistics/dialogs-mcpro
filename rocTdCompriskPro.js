@@ -2,14 +2,14 @@
 
 
 
-class roctdcomprisk extends baseModal {
-    static dialogId = 'roctdcomprisk'
-    static t = baseModal.makeT(roctdcomprisk.dialogId)
+class rocTdCompriskPro extends baseModal {
+    static dialogId = 'rocTdCompriskPro'
+    static t = baseModal.makeT(rocTdCompriskPro.dialogId)
 
     constructor() {
         var config = {
-            id: roctdcomprisk.dialogId,
-            label: roctdcomprisk.t('title'),
+            id: rocTdCompriskPro.dialogId,
+            label: rocTdCompriskPro.t('title'),
 			splitProcessing: true,
             modalType: "two",
             RCode: `
@@ -176,7 +176,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			},
 			timevar: {
                 el: new dstVariable(config, {
-                    label: roctdcomprisk.t('timevarlabel'),
+                    label: rocTdCompriskPro.t('timevarlabel'),
                     no: "timevar",
                     filter: "Numeric|Scale",
                     extraction: "Prefix|UseComma",
@@ -185,7 +185,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
             },
 			eventvar: {
                 el: new dstVariable(config, {
-                    label: roctdcomprisk.t('eventvarlabel'),
+                    label: rocTdCompriskPro.t('eventvarlabel'),
                     no: "eventvar",
                     filter: "Numeric|Scale",
                     extraction: "Prefix|UseComma",
@@ -195,7 +195,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			eventcode: {
 				el: new inputSpinner(config, {
 					no: 'eventcode',
-					label: roctdcomprisk.t('eventcodelabel'),
+					label: rocTdCompriskPro.t('eventcodelabel'),
 					min: 1,
 					max: 100,
 					step: 1,
@@ -206,7 +206,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			},			
 			markervar: {
                 el: new dstVariable(config, {
-                    label: roctdcomprisk.t('markerlabel'),
+                    label: rocTdCompriskPro.t('markerlabel'),
                     no: "markervar",
                     filter: "Numeric|Scale",
                     extraction: "Prefix|UseComma",
@@ -216,7 +216,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			times: {
                 el: new input(config, {
                     no: 'times',
-                    label: roctdcomprisk.t('timeslabel'),
+                    label: rocTdCompriskPro.t('timeslabel'),
                     placeholder: "",
                     required: true,
                     type: "character",
@@ -228,7 +228,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			controldef: {
                 el: new selectVar(config, {
                     no: 'controldef',
-                    label: roctdcomprisk.t('controldeflabel'),
+                    label: rocTdCompriskPro.t('controldeflabel'),
                     multiple: false,
 					width: "w-50",
 					style: "mt-3",
@@ -239,7 +239,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
             },
 			outputallest: {
 				el: new checkbox(config, {
-					label: roctdcomprisk.t('outputallestlabel'),
+					label: rocTdCompriskPro.t('outputallestlabel'),
 					no: "outputallest",
 					style: "mt-4",
 					extraction: "Boolean"
@@ -248,7 +248,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			outputdatasetname: {
                 el: new input(config, {
                     no: 'outputdatasetname',
-                    label: roctdcomprisk.t('outputdatasetlabel'),
+                    label: rocTdCompriskPro.t('outputdatasetlabel'),
                     value: "sens_spec_data",
 					enforceRobjectRules:true,
 					style: "ml-5 mb-5",
@@ -260,7 +260,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
             themedropdown: {
                 el: new selectVar(config, {
                     no: 'themedropdown',
-                    label: roctdcomprisk.t('themedropdownlabel'),
+                    label: rocTdCompriskPro.t('themedropdownlabel'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
 					width: "w-25",
@@ -278,7 +278,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			plottitle: {
                 el: new input(config, {
                     no: 'plottitle',
-                    label: roctdcomprisk.t('plottitlelabel'),
+                    label: rocTdCompriskPro.t('plottitlelabel'),
                     value: "Time-dependent ROC Curve",
                     required: false,
                     type: "character",
@@ -291,7 +291,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			linewidth: {
 				el: new inputSpinner(config, {
 					no: 'linewidth',
-					label: roctdcomprisk.t('linewidthlabel'),
+					label: rocTdCompriskPro.t('linewidthlabel'),
 					min: .25,
 					max: 10,
 					step: 0.25,
@@ -301,7 +301,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			},
 			reflinechkbox: {
 				el: new checkbox(config, {
-					label: roctdcomprisk.t('reflinelabel'),
+					label: rocTdCompriskPro.t('reflinelabel'),
 					no: "reflinechkbox",
 					state: "checked",
 					style: "mt-4",
@@ -310,7 +310,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			},			
 			aucchkbox: {
 				el: new checkbox(config, {
-					label: roctdcomprisk.t('aucchkboxlabel'),
+					label: rocTdCompriskPro.t('aucchkboxlabel'),
 					no: "aucchkbox",
 					state: "checked",
 					style: "mt-4",
@@ -321,7 +321,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			aucx: {
                 el: new input(config, {
                     no: 'aucx',
-                    label: roctdcomprisk.t('aucxlabel'),
+                    label: rocTdCompriskPro.t('aucxlabel'),
                     placeholder: ".75",
                     type: "numeric",
 					allow_spaces: true,
@@ -334,7 +334,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			aucy: {
                 el: new input(config, {
                     no: 'aucy',
-                    label: roctdcomprisk.t('aucylabel'),
+                    label: rocTdCompriskPro.t('aucylabel'),
                     placeholder: ".1",
                     type: "numeric",
 					allow_spaces: true,
@@ -347,7 +347,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			aucround: {
 				el: new inputSpinner(config, {
 					no: 'aucround',
-					label: roctdcomprisk.t('aucroundlabel'),
+					label: rocTdCompriskPro.t('aucroundlabel'),
 					min: 1,
 					max: 10,
 					step: 1,
@@ -359,7 +359,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 			aucsize: {
 				el: new inputSpinner(config, {
 					no: 'aucsize',
-					label: roctdcomprisk.t('aucsizelabel'),
+					label: rocTdCompriskPro.t('aucsizelabel'),
 					min: 1,
 					max: 10,
 					step: .5,
@@ -388,7 +388,7 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 					objects.controldef.el.content, objects.outputallest.el.content, objects.outputdatasetname.el.content],
 			bottom: [plotpanel.el.content],
             nav: {
-                name: roctdcomprisk.t('navigation'),
+                name: rocTdCompriskPro.t('navigation'),
                 icon: "icon-icc",
                 modal: config.id
             }
@@ -396,9 +396,9 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
         super(config, objects, content);
         
         this.help = {
-            title: roctdcomprisk.t('help.title'),
-            r_help: roctdcomprisk.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
-            body: roctdcomprisk.t('help.body')
+            title: rocTdCompriskPro.t('help.title'),
+            r_help: rocTdCompriskPro.t('help.r_help'), //Fix by Anil //r_help: "help(data,package='utils')",
+            body: rocTdCompriskPro.t('help.body')
         }
 ;
     }
@@ -443,5 +443,5 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 }
 
 module.exports = {
-    render: () => new roctdcomprisk().render()
+    render: () => new rocTdCompriskPro().render()
 }
