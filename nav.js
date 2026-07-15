@@ -93,24 +93,24 @@ const nav = [
                 "name": "Contrasts",
                 "icon": "icon-brightness-and-contrast",
                 "children": [
-                    "./model_contrasts_maineffect"
+                    "./modelContrastsMaineffectPro"
                 ]
             },		
 			{
                 "name": "Elastic Net",
                 "icon": "icon-variance",
                 "children": [
-                    "./elastic_net",
-					"./elastic_net_cox"            
+                    "./enetPro",
+					"./enetCoxPro"            
                 ]				
 			},		
 			{
                 "name": "GEE",
                 "icon": "icon-link",
                 "children": [
-                    "./gee",
-					"./gee_multinomial",
-					"./gee_ordinal"                    
+                    "./geePro",
+					"./geeMultinomialPro",
+					"./geeOrdinalPro"                    
                 ]				
 			},
             {

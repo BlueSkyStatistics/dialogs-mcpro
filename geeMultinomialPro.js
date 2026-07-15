@@ -95,10 +95,10 @@ Touloumis A. R Package multgee: A Generalized Estimating Equations Solver for Mu
 
 
 
-class gee_multinomial extends baseModal {
+class geeMultinomialPro extends baseModal {
     constructor() {
         var config = {
-            id: "gee_multnomial",
+            id: "geeMultinomialPro",
             label: localization.en.title,
 			splitProcessing: true,
             modalType: "two",
@@ -320,4 +320,4 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
 		
 	
 }
-module.exports.item = new gee_multinomial().render()
+module.exports.item = new geeMultinomialPro().render()

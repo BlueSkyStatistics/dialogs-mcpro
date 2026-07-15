@@ -111,10 +111,10 @@ Touloumis A. R Package multgee: A Generalized Estimating Equations Solver for Mu
 
 
 
-class gee_ordinal extends baseModal {
+class geeOrdinalPro extends baseModal {
     constructor() {
         var config = {
-            id: "gee_ordinal",
+            id: "geeOrdinalPro",
             label: localization.en.title,
 			splitProcessing: true,
             modalType: "two",
@@ -365,4 +365,4 @@ BSkyFormat(local_ors, singleTableOutputHeader="Local Odds Ratio Estimates")
 		
 	
 }
-module.exports.item = new gee_ordinal().render()
+module.exports.item = new geeOrdinalPro().render()

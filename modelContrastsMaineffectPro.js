@@ -31,10 +31,10 @@ BH (Benjamini-Hochberg), and BY (Benjamini-Yekutieli).  Notes are provided in th
     }
 }
 
-class ContrastPair extends baseModal {
+class modelContrastsMaineffectPro extends baseModal {
     constructor() {
         var config = {
-            id: "ContrastPair",
+            id: "modelContrastsMaineffectPro",
             label: localization.en.title,
 			splitprocessing: false,
             modalType: "two",
@@ -131,4 +131,4 @@ for (i in {{selected.pairvars | safe}}) {
         this.help = localization.en.help;
     }
 }
-module.exports.item = new ContrastPair().render()
+module.exports.item = new modelContrastsMaineffectPro().render()

@@ -163,10 +163,10 @@ See <a href="https://journal.r-project.org/articles/RJ-2023-056/">Vanegas, et al
 
 
 
-class GEE extends baseModal {
+class geePro extends baseModal {
     constructor() {
         var config = {
-            id: "GEE",
+            id: "geePro",
             label: localization.en.title,
 			splitProcessing: true,
             modalType: "two",
@@ -952,4 +952,4 @@ localinf_plot <- localInfluence({{selected.modelname | safe}}, type="{{selected.
 	
 	
 }
-module.exports.item = new GEE().render()
+module.exports.item = new geePro().render()
