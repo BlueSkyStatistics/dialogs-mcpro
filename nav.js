@@ -146,10 +146,10 @@ const nav = [
 					"name": "ROC Curves?",
 					"icon": "icon-icc",
 					"children": [
-						"./roc_td",
-						"./roc_td_comprisk",
-						"./roc_td_compare",
-						"./roc_td_comprisk_compare"
+						"./rocTdPro",
+						"./rocTdCompriskPro",
+						"./rocTdComparePro",
+						"./rocTdCompriskComparePro"
 					]
 				}				
         ]

@@ -90,10 +90,10 @@ Specify the size for the AUC values on the plot. Default is 4. </br></br>
 
 
 
-class roctd extends baseModal {
+class rocTdPro extends baseModal {
     constructor() {
         var config = {
-            id: "roctd",
+            id: "rocTdPro",
             label: localization.en.title,
 			splitProcessing: true,
             modalType: "two",
@@ -471,4 +471,4 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat", "AUC_se_mat", "AUC_t
 	
 	
 }
-module.exports.item = new roctd().render()
+module.exports.item = new rocTdPro().render()

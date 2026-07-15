@@ -103,10 +103,10 @@ Specify the size for the AUC values on the plot. Default is 4. </br></br>
 
 
 
-class roctdcomprisk extends baseModal {
+class rocTdCompriskPro extends baseModal {
     constructor() {
         var config = {
-            id: "roctdcomprisk",
+            id: "rocTdCompriskPro",
             label: localization.en.title,
 			splitProcessing: true,
             modalType: "two",
@@ -533,4 +533,4 @@ suppressWarnings(rm("ROC_output", "ROC_summary", "AUC_mat1", "AUC_mat2", "AUC_se
 	
 	
 }
-module.exports.item = new roctdcomprisk().render()
+module.exports.item = new rocTdCompriskPro().render()
