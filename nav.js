@@ -92,6 +92,30 @@ const nav = () => ([
         "tab": "model_fitting",
         "buttons": [
             {
+                "name": "Contrasts",
+                "icon": "icon-brightness-and-contrast",
+                "children": [
+                    "./modelContrastsMaineffectPro"
+                ]
+            },		
+			{
+                "name": "Elastic Net",
+                "icon": "icon-variance",
+                "children": [
+                    "./enetPro",
+					"./enetCoxPro"            
+                ]				
+			},		
+			{
+                "name": "GEE",
+                "icon": "icon-link",
+                "children": [
+                    "./geePro",
+					"./geeMultinomialPro",
+					"./geeOrdinalPro"                    
+                ]				
+			},	
+            {
                 "name": t('professional_Regression'),// {ns: 'menutoolbar'}),
                 "icon": "icon-linear_regression_white_comp",
                 "children": [
@@ -119,7 +143,17 @@ const nav = () => ([
                         "children": [
                             "./scoringParametricSurvival"
                         ]
-                    }                    
+                    },
+				{
+					"name": "ROC Curves?",
+					"icon": "icon-icc",
+					"children": [
+						"./rocTdPro",
+						"./rocTdCompriskPro",
+						"./rocTdComparePro",
+						"./rocTdCompriskComparePro"
+					]
+				}						
         ]
     },
 	{
