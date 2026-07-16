@@ -92,14 +92,14 @@ const nav = () => ([
         "tab": "model_fitting",
         "buttons": [
             {
-                "name": "Contrasts",
+                "name": t('modelfitting_Contrasts'),
                 "icon": "icon-brightness-and-contrast",
                 "children": [
                     "./modelContrastsMaineffectPro"
                 ]
             },		
 			{
-                "name": "Elastic Net",
+                "name": t('menu-modelfitting-elasticnet'),
                 "icon": "icon-variance",
                 "children": [
                     "./enetPro",
@@ -107,7 +107,7 @@ const nav = () => ([
                 ]				
 			},		
 			{
-                "name": "GEE",
+                "name": t('menu-modelfitting-gee'),
                 "icon": "icon-link",
                 "children": [
                     "./geePro",
@@ -145,7 +145,7 @@ const nav = () => ([
                         ]
                     },
 				{
-					"name": "ROC Curves?",
+					"name": t('menu-modelevaluation-ROC-Curves'),
 					"icon": "icon-icc",
 					"children": [
 						"./rocTdPro",
