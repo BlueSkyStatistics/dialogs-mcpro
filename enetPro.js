@@ -438,7 +438,7 @@ plot(cv_fit)
 					outputpanel.el.content],
             nav: {
                 name: enetPro.t('navigation'),
-                icon: "icon-variance",
+                icon: "icon-elastic_net",
                 modal: config.id
             }
         };

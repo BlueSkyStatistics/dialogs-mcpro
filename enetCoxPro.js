@@ -294,7 +294,7 @@ plot(cv_fit)
 			bottom: [outputpanel.el.content],
             nav: {
                 name: enetCoxPro.t('navigation'),
-                icon: "icon-variance",
+                icon: "icon-elastic_net",
                 modal: config.id
             }
         };

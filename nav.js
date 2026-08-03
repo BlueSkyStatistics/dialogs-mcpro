@@ -88,6 +88,13 @@ const nav = [
         ]
     },
     {
+		"id": "menu-graphics",// {ns: 'menutoolbar'}),
+		"tab": "graphics",
+        "buttons": [
+            "./GraphExplorerPro"
+        ]
+    },	
+    {
         "id": "menu-modelfitting",// {ns: 'menutoolbar'}),
         "tab": "model_fitting",
         "buttons": [
@@ -100,7 +107,7 @@ const nav = [
             },		
 			{
                 "id": "menu-modelfitting-elasticnet",
-                "icon": "icon-variance",
+                "icon": "icon-elastic_net",
                 "children": [
                     "./enetPro",
 					"./enetCoxPro"            
