@@ -257,7 +257,7 @@ ggforest({{selected.modelname | safe}},data={{selected.startstopname | safe}})
             nav: {
                 name: CoxTimeDependent.t('navigation'),
                 icon: "icon-cox-timedependent",
-				positionInNav: 2,
+				positionInNav: 3,
                 modal: config.id
             }
         }

@@ -155,10 +155,10 @@ const nav = [
                     "id": "menu-modelevaluation-ROC-Curves",
 					"icon": "icon-icc",
 					"children": [
-						"./rocTdPro",
-						"./rocTdCompriskPro",
 						"./rocTdComparePro",
-						"./rocTdCompriskComparePro"
+						"./rocTdCompriskComparePro",					
+						"./rocTdPro",
+						"./rocTdCompriskPro"
 					]
 				}						
         ]

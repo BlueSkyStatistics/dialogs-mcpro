@@ -147,7 +147,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             nav: {
                 name: CoxStratified.t('navigation'),
                 icon: "icon-survival-stratified",
-				positionInNav: 5,
+				positionInNav: 7,
                 modal: config.id
             }
         }

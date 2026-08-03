@@ -1341,6 +1341,7 @@ colnames(bsky_covar_mean_df) = bsky_covar_names
             nav: {
                 name: parametricSurvivalRegression.t('navigation'),
                 icon: "icon-kaplan1",
+				positionInNav: 20,
                 modal: config.id
             }
         }

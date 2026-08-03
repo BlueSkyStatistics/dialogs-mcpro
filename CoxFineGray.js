@@ -207,7 +207,7 @@ ggcoxdiagnostics({{selected.modelname | safe}})
             nav: {
                 name: CoxFineGray.t('navigation'),
                 icon: "icon-cox-finegray",
-				positionInNav: 3,
+				positionInNav: 4,
                 modal: config.id
             }
         }

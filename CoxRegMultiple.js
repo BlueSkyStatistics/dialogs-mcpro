@@ -553,7 +553,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
             nav: {
                 name: CoxRegMultiple.t('navigation'),
                 icon: "icon-survival-multiplemodels",
-				positionInNav: 4,
+				positionInNav: 6,
                 modal: config.id
             }
         };

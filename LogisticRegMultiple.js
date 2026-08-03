@@ -509,7 +509,7 @@ BSkyFormat(data.frame(Set1=c({{selected.set1stringfinal | safe}}),
             nav: {
                 name: LogisticRegMultiple.t('navigation'),
                 icon: "icon-logistic_multiple",
-				positionInNav: 12,
+				positionInNav: 15,
                 modal: config.id
             }
         };
