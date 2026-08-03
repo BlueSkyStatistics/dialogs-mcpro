@@ -86,6 +86,13 @@ const nav = [
         ]
     },
     {
+		"name": "Graphics",
+		"tab": "graphics",
+        "buttons": [
+            "./GraphExplorerPro"
+        ]
+    },	
+    {
         "name": "Model Fitting",
         "tab": "model_fitting",
         "buttons": [
