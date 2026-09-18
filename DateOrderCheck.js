@@ -172,7 +172,7 @@ BSkyLoadRefresh("{{selected.dateerrordataname | safe}}",load.dataframe={{selecte
             nav: {
                 name: DateOrderCheck.t('navigation'),
                 icon: "icon-calendar-1",
-				positionInNav: 6,
+				positionInNav: 7,
                 modal: config.id
             }
         }

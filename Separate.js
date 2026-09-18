@@ -74,7 +74,7 @@ BSkyLoadRefresh("{{dataset.name}}")
             nav: {
                 name: Separate.t('navigation'),
                 icon: "icon-wider",
-				positionInNav: 12,
+				positionInNav: 15,
                 modal: config.id
             }
         }
