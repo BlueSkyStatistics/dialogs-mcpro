@@ -62,7 +62,7 @@ est1 <- est1 %>%
 
 # removing unused factor level for censor, assigning event labels, and a numeric event variable
 est1$event_label <- fct_drop(est1$event_label, only="(s0)")
-est1 <- dplyr::dplyr::mutate(est1, {{selected.eventvar | safe}}=as.numeric(event_label))
+est1 <- dplyr::mutate(est1, {{selected.eventvar | safe}}=as.numeric(event_label))
 {{selected.eventlabels | safe}}
 
 # filling in estimates of 0 so curves start at 0
