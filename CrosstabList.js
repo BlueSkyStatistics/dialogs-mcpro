@@ -123,7 +123,8 @@ BSkyFormat(toplisttab$object[[1]], singleTableOutputHeader="{{selected.topnum | 
             nav: {
                 name: CrosstabList.t('navigation'),
                 icon: "icon-th-list",
-                modal: config.id
+                modal: config.id,
+				datasetRequired: true
             }
         };
         super(config, objects, content);
