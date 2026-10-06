@@ -74,7 +74,7 @@ esquisser({{selected.destdata | safe}})
             nav: {
                 name: GraphExplorerPro.t('navigation'),
                 icon: "icon-switch_off",
-				positionInNav: 6,
+				//positionInNav: 6,
                 modal: config.id
             }
         };
