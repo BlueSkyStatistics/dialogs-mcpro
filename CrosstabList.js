@@ -161,7 +161,8 @@ BSkyFormat(toplisttab$object[[1]], singleTableOutputHeader="{{selected.topnum | 
             nav: {
                 name: localization.en.navigation,
                 icon: "icon-th-list",
-                modal: config.id
+                modal: config.id,
+				datasetRequired: true
             }
         };
         super(config, objects, content);
