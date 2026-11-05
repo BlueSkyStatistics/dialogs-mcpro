@@ -47,14 +47,6 @@ const nav = [
         "tab": "analysis",    
         "buttons":[
             {
-                "id": "menu-analysis-survival",// {ns: 'menutoolbar'}),
-                "icon": "icon-survival",
-                "children": [
-                    "./CompetingRisksCompareGroups"
-
-                ]
-            }, 
-            {
                 "id": "menu-analysis-crosstab",// {ns: 'menutoolbar'}),
                 "icon": "icon-crosstab",
                 "children": [
